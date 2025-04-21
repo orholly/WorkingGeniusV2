@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="light"> <head>
+<html lang="en" class="light">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Genius Pairings Viewer</title>
+    <title>Working Genius Pairings Viewer - Grid</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,58 +17,57 @@
         }
 
         /* Custom scrollbar for webkit browsers */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; } /* gray-100 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; } /* gray-100 */
         html.dark ::-webkit-scrollbar-track { background: #1f2937; } /* gray-800 */
         ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; } /* slate-400 */
         html.dark ::-webkit-scrollbar-thumb { background: #475569; } /* slate-600 */
         ::-webkit-scrollbar-thumb:hover { background: #64748b; } /* slate-500 */
         html.dark ::-webkit-scrollbar-thumb:hover { background: #334155; } /* slate-700 */
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Modal Transition Styles */
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
         }
-        .fade-in-section { animation: fadeIn 0.5s ease-out forwards; }
+        .modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .modal-hidden {
+             pointer-events: none; /* Prevent interaction when hidden */
+             opacity: 0;
+        }
+        .modal-hidden .modal-backdrop {
+            opacity: 0;
+        }
+        .modal-hidden .modal-content {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        .modal-visible {
+            pointer-events: auto; /* Allow interaction when visible */
+            opacity: 1;
+        }
+        .modal-visible .modal-backdrop {
+            opacity: 1;
+        }
+        .modal-visible .modal-content {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 
-        /* Accordion Styles */
-        .accordion-item {
-            border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
+        /* Grid Card Hover Effect */
+        .pairing-card {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            /* Removed min-height */
         }
-        .light .accordion-item { border-color: #e5e7eb; } /* gray-200 */
-        .dark .accordion-item { border-color: #374151; } /* gray-700 */
-        .accordion-header {
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            position: relative;
+        .pairing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
-        .accordion-header .arrow-icon { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-        .accordion-header.active .arrow-icon { transform: rotate(180deg); }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0; padding-bottom: 0;
+        html.dark .pairing-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
         }
-        .accordion-content.active { max-height: 5000px; padding-top: 1.5rem; padding-bottom: 1.5rem; }
 
-        /* Content section styling within accordion */
-        .accordion-content .content-section {
-            border-radius: 0.5rem; /* rounded-lg */
-            margin-bottom: 1.25rem; /* mb-5 */
-            padding: 1.25rem; /* p-5 */
-            opacity: 0; /* Start hidden for animation */
-            transform: translateY(10px); /* Start slightly lower for animation */
-            transition: background-color 0.3s ease;
-        }
-        .accordion-content.active .content-section {
-             animation: fadeIn 0.5s ease-out 0.2s forwards; /* Staggered fade-in */
-        }
-        .accordion-content .content-section:last-child { margin-bottom: 0; }
-        .light .accordion-content .content-section { background-color: #f9fafb; border: 1px solid #f3f4f6; } /* gray-50 / gray-100 */
-        .dark .accordion-content .content-section { background-color: #1f2937; border: 1px solid #374151; } /* gray-800 / gray-700 */
 
         /* Theme Toggle Styles */
         .toggle-checkbox:checked + .toggle-label { background-color: #3b82f6; } /* blue-500 */
@@ -86,68 +86,108 @@
         .type-mixed { color: #9d174d; background-color: #fce7f3; border: 1px solid #fbcfe8; }
         html.dark .type-mixed { color: #f9a8d4; background-color: #831843; border: 1px solid #be185d; }
         .value-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; cursor: default; border: 1px solid transparent; }
-        .value-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        html.dark .value-badge:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.15); }
-        .value-badge.courageous { background-color: #FEE2E2; color: #991B1B; border-color: #FECACA; }
         html.dark .value-badge.courageous { background-color: #7f1d1d; color: #fecaca; border-color: #b91c1c; }
-        .value-badge.humble { background-color: #FEF9C3; color: #854D0E; border-color: #FEF08A; }
         html.dark .value-badge.humble { background-color: #713f12; color: #fef08a; border-color: #a16207; }
-        .value-badge.empowering { background-color: #DCFCE7; color: #166534; border-color: #BBF7D0; }
         html.dark .value-badge.empowering { background-color: #14532d; color: #bbf7d0; border-color: #16a34a; }
-        .value-badge.connected { background-color: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
         html.dark .value-badge.connected { background-color: #1e3a8a; color: #bfdbfe; border-color: #1d4ed8; }
-        .value-badge.kind { background-color: #FAE8FF; color: #86198F; border-color: #F5D0FE; }
         html.dark .value-badge.kind { background-color: #701a75; color: #f5d0fe; border-color: #c026d3; }
 
+
         /* Genius Name Highlighting */
-        .interaction-text strong { font-weight: 600; padding: 0.1em 0.3em; margin: -0.1em -0.3em; border-radius: 0.25em; transition: background-color 0.2s ease, color 0.2s ease; }
-        .interaction-text strong.wonder { color: #0f766e; background-color: #ccfbf1;} html.dark .interaction-text strong.wonder { color: #99f6e4; background-color: #115e59;}
-        .interaction-text strong.invention { color: #6d28d9; background-color: #ede9fe;} html.dark .interaction-text strong.invention { color: #c4b5fd; background-color: #4c1d95;}
-        .interaction-text strong.discernment { color: #1d4ed8; background-color: #dbeafe;} html.dark .interaction-text strong.discernment { color: #93c5fd; background-color: #1e3a8a;}
-        .interaction-text strong.galvanizing { color: #c2410c; background-color: #ffedd5;} html.dark .interaction-text strong.galvanizing { color: #fdba74; background-color: #7c2d12;}
-        .interaction-text strong.enablement { color: #15803d; background-color: #dcfce7;} html.dark .interaction-text strong.enablement { color: #86efac; background-color: #14532d;}
-        .interaction-text strong.tenacity { color: #b91c1c; background-color: #fee2e2;} html.dark .interaction-text strong.tenacity { color: #fca5a5; background-color: #7f1d1d;}
+        .interaction-text strong, .modal-interaction-text strong { font-weight: 600; padding: 0.1em 0.3em; margin: -0.1em -0.3em; border-radius: 0.25em; transition: background-color 0.2s ease, color 0.2s ease; }
+        .interaction-text strong.wonder, .modal-interaction-text strong.wonder { color: #0f766e; background-color: #ccfbf1;} html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #99f6e4; background-color: #115e59;}
+        .interaction-text strong.invention, .modal-interaction-text strong.invention { color: #6d28d9; background-color: #ede9fe;} html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #c4b5fd; background-color: #4c1d95;}
+        .interaction-text strong.discernment, .modal-interaction-text strong.discernment { color: #1d4ed8; background-color: #dbeafe;} html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #93c5fd; background-color: #1e3a8a;}
+        .interaction-text strong.galvanizing, .modal-interaction-text strong.galvanizing { color: #c2410c; background-color: #ffedd5;} html.dark .interaction-text strong.galvanizing, html.dark .modal-interaction-text strong.galvanizing { color: #fdba74; background-color: #7c2d12;}
+        .interaction-text strong.enablement, .modal-interaction-text strong.enablement { color: #15803d; background-color: #dcfce7;} html.dark .interaction-text strong.enablement, html.dark .modal-interaction-text strong.enablement { color: #86efac; background-color: #14532d;}
+        .interaction-text strong.tenacity, .modal-interaction-text strong.tenacity { color: #b91c1c; background-color: #fee2e2;} html.dark .interaction-text strong.tenacity, html.dark .modal-interaction-text strong.tenacity { color: #fca5a5; background-color: #7f1d1d;}
 
-        /* Section Headers */
-        .section-header { display: flex; align-items: center; gap: 0.5rem; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; }
+        /* Modal Section Headers */
+        .modal-section-header { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
 
-        /* Overview Section Grid */
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .detail-item { background-color: #ffffff; padding: 0.75rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; border: 1px solid #e5e7eb; transition: background-color 0.3s ease, border-color 0.3s ease; }
-        html.dark .detail-item { background-color: #374151; border-color: #4b5563; }
-        .detail-item strong { display: block; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        html.dark .detail-item strong { color: #d1d5db; }
-
-        /* Dialogue Section Styling */
-        .dialogue-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; }
-        .dialogue-item svg { flex-shrink: 0; margin-top: 0.2em; }
-        .dialogue-item strong { font-weight: 600; display: block; margin-bottom: 0.1rem; }
+        /* Modal Dialogue Section Styling */
+        .modal-dialogue-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; }
+        .modal-dialogue-item svg { flex-shrink: 0; margin-top: 0.2em; }
+        .modal-dialogue-item strong { font-weight: 600; display: block; margin-bottom: 0.1rem; }
 
         /* Utility for focus rings */
-        .focus-ring:focus { outline: 2px solid transparent; outline-offset: 2px; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); } /* ring-blue-500 */
-        html.dark .focus-ring:focus { box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.6); } /* Lighter blue for dark mode */
+        .focus-ring:focus { outline: 2px solid transparent; outline-offset: 2px; }
+        .focus-ring:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        html.dark .focus-ring:focus-visible {
+             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.6);
+        }
+
+        /* Styling for the section containers inside the modal */
+        .modal-section-container {
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+        }
+        html.dark .modal-section-container {
+             background-color: #1f2937; /* slate-800 */
+             border-color: #374151; /* slate-700 */
+        }
+
+        /* Overview section specific label styling */
+        .overview-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        html.dark .overview-label {
+            color: #9ca3af;
+        }
+
+        /* Styling for the inner cards within the Overview section */
+        .overview-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #f3f4f6; /* gray-100 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.75rem; /* p-3 */
+        }
+        html.dark .overview-card {
+             background-color: #374151; /* slate-700 */
+             border-color: #4b5563; /* slate-600 */
+        }
+
+        /* Utility to extract emoji/icon from name */
+        .pairing-icon {
+            font-size: 1em; /* Match title font size */
+            line-height: 1;
+        }
+        .pairing-name-text {
+             /* Styles for the text part of the name if needed */
+        }
 
     </style>
     <script>
-        // Set theme ASAP to avoid FOUC (Flash Of Unstyled Content)
-        const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
-        document.documentElement.className = savedTheme; // Apply theme class to HTML tag
+        // Set theme ASAP to avoid FOUC
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.className = savedTheme;
 
-        // Tailwind config (can be extended)
+        // Tailwind config
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], }, animation: { fadeIn: 'fadeIn 0.5s ease-out forwards', }, keyframes: { fadeIn: { '0%': { opacity: 0, transform: 'translateY(10px)' }, '100%': { opacity: 1, transform: 'translateY(0)' }, } } } }
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], }, } }
         }
     </script>
 </head>
 <body class="bg-slate-100 dark:bg-gray-900 flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 lg:p-8 transition-colors duration-300">
 
-    <header class="w-full max-w-5xl mx-auto mb-6 md:mb-8 text-center">
+    <header class="w-full max-w-6xl mx-auto mb-6 md:mb-10 text-center">
         <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
             Working Genius Pairings
         </h1>
         <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400">
-            Explore the dynamics of different Working Genius combinations.
+            Explore the dynamics of different Working Genius combinations. Click a card for details.
         </p>
     </header>
 
@@ -162,19 +202,118 @@
         </div>
     </div>
 
-    <main class="w-full max-w-4xl mx-auto px-2">
-        <div id="accordion-container" class="space-y-4">
-            <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10">Loading pairings...</p>
-            </div>
+    <main class="w-full max-w-5xl mx-auto px-2"> <div id="pairings-grid" class="grid grid-cols-3 gap-4 md:gap-5"> <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
+        </div>
     </main>
 
-    <footer class="w-full max-w-5xl mx-auto mt-8 md:mt-12 text-center text-sm text-slate-500 dark:text-slate-400 pb-4">
+    <div id="pairing-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-70 dark:bg-opacity-80" aria-hidden="true"></div>
+
+        <div class="modal-content relative bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto flex flex-col">
+            <div class="flex items-start justify-between p-4 sticky top-0 bg-white dark:bg-gray-900 z-10">
+                <div>
+                    <h2 id="modal-title" class="text-xl font-semibold text-slate-900 dark:text-white">Pairing Name</h2>
+                     <p id="modal-subtitle" class="text-sm text-slate-500 dark:text-slate-400">Rank X/15 (Y.Y%)</p>
+                </div>
+                <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-500 bg-transparent hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
+                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+
+            <div class="p-4 md:p-6 space-y-4 flex-grow">
+                <div class="modal-section-container">
+                     <h3 class="modal-section-header text-blue-600 dark:text-blue-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                         <span>Overview</span>
+                     </h3>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700 dark:text-slate-300">
+                         <div class="overview-card">
+                             <strong class="overview-label">Core Strength</strong>
+                             <p id="modal-core-strength" class="leading-relaxed"></p>
+                         </div>
+                         <div class="overview-card">
+                             <strong class="overview-label">Pairing Type</strong>
+                             <p><span id="modal-pairing-type-badge" class="type-badge">Type</span></p>
+                             <p id="modal-pairing-type-tooltip" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tooltip</p>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-teal-600 dark:text-teal-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                         <span>CHECK Value Alignment</span>
+                     </h3>
+                     <div id="modal-value-badges" class="mb-3 flex flex-wrap">
+                         </div>
+                     <p id="modal-value-rationale" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-indigo-600 dark:text-indigo-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                         <span>Inspirational Quote</span>
+                     </h3>
+                     <blockquote id="modal-quote" class="border-l-4 border-indigo-500 dark:border-indigo-500 pl-4 italic text-slate-700 dark:text-slate-300 text-sm"></blockquote>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-sky-600 dark:text-sky-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+                         <span>Genius Interaction</span>
+                     </h3>
+                     <div id="modal-interaction" class="modal-interaction-text text-sm text-slate-700 dark:text-slate-300 space-y-3 leading-relaxed">
+                         </div>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-amber-600 dark:text-amber-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                         <span>Common Challenges</span>
+                     </h3>
+                     <p id="modal-challenges" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-rose-600 dark:text-rose-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+                         <span>Unhealthy Tendencies</span>
+                     </h3>
+                     <p id="modal-tendencies" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                 </div>
+
+                 <div class="modal-section-container">
+                     <h3 class="modal-section-header text-violet-600 dark:text-violet-400">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                         <span>Inner Dialogue</span>
+                     </h3>
+                     <div class="space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                         <div class="modal-dialogue-item">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-600 dark:text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                             <div><strong class="text-green-700 dark:text-green-400">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
+                         </div>
+                         <div class="modal-dialogue-item">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600 dark:text-yellow-500"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                             <div><strong class="text-yellow-700 dark:text-yellow-400">Challenged:</strong> <span id="modal-dialogue-challenged"></span></div>
+                         </div>
+                         <div class="modal-dialogue-item">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-500"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                             <div><strong class="text-blue-700 dark:text-blue-400">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="w-full max-w-6xl mx-auto mt-8 md:mt-12 text-center text-sm text-slate-500 dark:text-slate-400 pb-4">
         Working Genius concepts &copy; The Table Group. Viewer created for illustrative purposes.
     </footer>
 
 
     <script>
-        // Data for all 15 pairings - Full Content Verified & Types based on WDE/IGT rule
+        // --- Data (Keep the original pairingsData and inspirationQuotes) ---
         const pairingsData = [ /* ... Full pairingsData array ... */
              // Rank 1
              { name: "✅ The Loyal Finisher", letters: "ET / TE", coreStrength: "Being dependable, low-maintenance contributors who hold themselves accountable for delivering on promises.", rank: 1, frequency: 15.95, type: "Mixed", interaction: ["<strong class='tenacity'>Tenacity</strong> makes sure <strong class='enablement'>Enablement</strong>'s desire to help leads to completed actions and reliable follow-through.", "<strong class='enablement'>Enablement</strong> provides the practical support and assistance that helps <strong class='tenacity'>Tenacity</strong> push through and complete tasks effectively."], challenges: "Having a hard time saying 'no' to requests, leading to over-commitment, burnout, and lack of appreciation.", tendencies: "Taking on too many tasks without prioritizing or becoming resentful due to feeling overloaded and unacknowledged.", dialogue: { productive: "I'll make sure this gets done and will help out wherever needed.", challenged: "Why am I always the one who has to pick up the slack and finish everything?", growth: "Am I being helpful and reliable, or just spreading myself too thin?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their reliability and responsiveness to needs show dependability and relational focus." },
@@ -206,7 +345,7 @@
              { name: "🧘 The Contemplative Counselor", letters: "WD / DW", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["<strong class='discernment'>Discernment</strong> helps <strong class='wonder'>Wonder</strong> sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "<strong class='wonder'>Wonder</strong> gives <strong class='discernment'>Discernment</strong> new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That's a fascinating question; let's consider the implications from a few different angles.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
              // Rank 15
              { name: "🌍 The Philosophical Motivator", letters: "WG / GW", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["<strong class='wonder'>Wonder</strong> comes up with the inspiring possibilities and big questions that <strong class='galvanizing'>Galvanizing</strong> can rally people around.", "<strong class='galvanizing'>Galvanizing</strong> turns <strong class='wonder'>Wonder</strong>'s deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't everyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
-        ];
+         ];
         const inspirationQuotes = { /* ... Full inspirationQuotes object ... */
             "ET / TE": `"Success is not in what you accomplish, but in the lasting impact of your results."`,
             "GE / EG": `"Encouragement transforms potential into action."`,
@@ -225,141 +364,157 @@
             "WG / GW": `"Inspiration is the first step toward transformation."`
          };
 
-        // --- Helper Functions (Keep existing helpers: getTypeClass, getTypeText, getTypeTooltip, getValueIcon) ---
-        function getTypeClass(type) { /* ... */ if (type === 'Responsive') return 'type-resp'; if (type === 'Disruptive') return 'type-disrupt'; if (type === 'Mixed') return 'type-mixed'; return ''; }
-        function getTypeText(type) { /* ... */ if (type === 'Responsive') return "Double Responsive"; if (type === 'Disruptive') return "Double Disruptive"; if (type === 'Mixed') return "Mixed Pairing"; return type; }
-        function getTypeTooltip(type) { /* ... */ if (type === 'Responsive') return "Combines two Responsive Geniuses (W, D, E)."; if (type === 'Disruptive') return "Combines two Disruptive Geniuses (I, G, T)."; if (type === 'Mixed') return "Combines one Responsive (W, D, E) and one Disruptive (I, G, T) Genius."; return ''; }
-        function getValueIcon(value) { /* ... */ const icons = { courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`, humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6"/></svg>`, empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11l4.08 9.17a2 2 0 0 1-3.17 2.33l-4.45-2.81a2 2 0 0 0-2.43-.04l-4.45 2.81a2 2 0 0 1-3.17-2.33L7 11"/><path d="M12 2v9"/></svg>`, connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`, kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>` }; return icons[value.toLowerCase()] || ''; }
+        // --- Helper Functions ---
+        function getTypeClass(type) { if (type === 'Responsive') return 'type-resp'; if (type === 'Disruptive') return 'type-disrupt'; if (type === 'Mixed') return 'type-mixed'; return ''; }
+        function getTypeText(type) { if (type === 'Responsive') return "Double Responsive"; if (type === 'Disruptive') return "Double Disruptive"; if (type === 'Mixed') return "Mixed Pairing"; return type; }
+        function getTypeTooltip(type) { if (type === 'Responsive') return "Combines two Responsive Geniuses (W, D, E)."; if (type === 'Disruptive') return "Combines two Disruptive Geniuses (I, G, T)."; if (type === 'Mixed') return "Combines one Responsive (W, D, E) and one Disruptive (I, G, T) Genius."; return ''; }
+        function getValueIcon(value) { const icons = { courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`, humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6"/></svg>`, empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11l4.08 9.17a2 2 0 0 1-3.17 2.33l-4.45-2.81a2 2 0 0 0-2.43-.04l-4.45 2.81a2 2 0 0 1-3.17-2.33L7 11"/><path d="M12 2v9"/></svg>`, connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`, kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>` }; return icons[value.toLowerCase()] || ''; }
 
-        // --- Accordion Item Creation ---
-        function createAccordionItem(data) {
+        // --- Grid Item Creation ---
+        function createGridItem(data, index) {
             const itemDiv = document.createElement('div');
-            itemDiv.className = 'accordion-item bg-white dark:bg-slate-800 rounded-lg shadow-sm transition-colors duration-300';
+            // Added dark:bg-slate-800 for consistency with image
+            itemDiv.className = 'pairing-card bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
+            itemDiv.setAttribute('data-index', index);
 
-            const headerDiv = document.createElement('div');
-            headerDiv.className = 'accordion-header flex items-center justify-between p-5 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 focus-ring rounded-t-lg';
-            headerDiv.setAttribute('role', 'button');
-            headerDiv.setAttribute('aria-expanded', 'false');
-            headerDiv.setAttribute('tabindex', '0');
+            // Extract icon/emoji from the start of the name
+            const nameParts = data.name.match(/^(\W+)\s*(.*)$/) || [null, '', data.name];
+            const icon = nameParts[1].trim();
+            const nameText = nameParts[2].trim();
 
-            headerDiv.innerHTML = `
-                <div class="flex-grow mr-4">
-                     <h2 class="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100 inline">${data.name} <span class="ml-1">(${data.letters})</span></h2>
-                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
-                </div>
-                <svg class="arrow-icon text-slate-500 dark:text-slate-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            `;
-
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'accordion-content bg-white dark:bg-slate-800 rounded-b-lg';
-            contentDiv.setAttribute('role', 'region');
-
-            // --- Content Sections ---
-            const pairingOverviewSection = document.createElement('section');
-            pairingOverviewSection.className = 'content-section';
-            // --- MODIFIED Pairing Type Display ---
-            pairingOverviewSection.innerHTML = `
-                <h3 class="section-header text-blue-600 dark:text-blue-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                    Overview
+            // *** MODIFICATION START: Reordered and restyled content ***
+            itemDiv.innerHTML = `
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank} (${data.frequency.toFixed(1)}%)</p>
+                <h3 class="text-base font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2 whitespace-nowrap">
+                    <span class="pairing-icon">${icon}</span>
+                    <span class="pairing-name-text">${nameText}</span>
                 </h3>
-                <div class="details-grid text-slate-700 dark:text-slate-300">
-                    <div class="detail-item">
-                        <strong>Core Strength</strong>
-                        <p>${data.coreStrength}</p>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Pairing Type</strong>
-                        <p class="mt-1">
-                           <span class="type-badge ${getTypeClass(data.type)}">
-                                ${getTypeText(data.type)}
-                           </span>
-                        </p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            ${getTypeTooltip(data.type)}
-                        </p>
-                    </div>
-                </div>`;
-             // --- END MODIFICATION ---
-
-            const valueAlignmentSection = document.createElement('section');
-            valueAlignmentSection.className = 'content-section';
-            valueAlignmentSection.innerHTML = `<h3 class="section-header text-teal-600 dark:text-teal-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>CHECK Value Alignment</h3><div class="mb-2 flex flex-wrap">${(data.valueAlignments || []).sort().map(value => `<span class="value-badge ${value.toLowerCase()}">${getValueIcon(value)}${value}</span>`).join('')}</div><p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">${data.valueRationale ? data.valueRationale : `<span class="italic">No strong primary value alignment identified based on Genius alone.</span>`}</p>`;
-
-            const inspirationSection = document.createElement('section');
-            inspirationSection.className = 'content-section';
-            inspirationSection.innerHTML = `
-                <h3 class="section-header text-indigo-600 dark:text-indigo-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-indigo-600 dark:text-indigo-400 transition-colors duration-300" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    Inspirational Quote
-                </h3>
-                <blockquote class="border-l-4 border-indigo-300 dark:border-indigo-600 pl-4 italic text-slate-700 dark:text-slate-300">${inspirationQuotes[data.letters] || 'No quote available.'}</blockquote>
+                <p class="text-xs text-slate-500 dark:text-slate-400">${data.letters}</p>
             `;
+            // *** MODIFICATION END ***
 
-            const interactionSection = document.createElement('section');
-            interactionSection.className = 'content-section';
-            interactionSection.innerHTML = `<h3 class="section-header text-sky-600 dark:text-sky-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>Genius Interaction</h3><div class="interaction-text text-slate-700 dark:text-slate-300 space-y-3 leading-relaxed">${data.interaction.map(point => `<p>${point}</p>`).join('')}</div>`;
-
-            const challengesSection = document.createElement('section');
-            challengesSection.className = 'content-section';
-            challengesSection.innerHTML = `<h3 class="section-header text-amber-600 dark:text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Common Challenges</h3><p class="challenges-text text-slate-700 dark:text-slate-300 leading-relaxed">${data.challenges}</p>`;
-
-            const tendenciesSection = document.createElement('section');
-            tendenciesSection.className = 'content-section';
-            tendenciesSection.innerHTML = `<h3 class="section-header text-rose-600 dark:text-rose-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>Unhealthy Tendencies</h3><p class="tendencies-text text-slate-700 dark:text-slate-300 leading-relaxed">${data.tendencies}</p>`;
-
-            const dialogueSection = document.createElement('section');
-            dialogueSection.className = 'content-section';
-            dialogueSection.innerHTML = `<h3 class="section-header text-violet-600 dark:text-violet-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>Inner Dialogue</h3><div class="space-y-3 text-slate-700 dark:text-slate-300"><div class="dialogue-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-600 dark:text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div><strong class="text-green-700 dark:text-green-400">Productive:</strong> ${data.dialogue.productive}</div></div><div class="dialogue-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600 dark:text-yellow-500"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg><div><strong class="text-yellow-700 dark:text-yellow-400">Challenged:</strong> ${data.dialogue.challenged}</div></div><div class="dialogue-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-500"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><div><strong class="text-blue-700 dark:text-blue-400">Growth Check:</strong> ${data.dialogue.growth}</div></div></div>`;
-
-            contentDiv.appendChild(pairingOverviewSection);
-            contentDiv.appendChild(valueAlignmentSection);
-            contentDiv.appendChild(inspirationSection);
-            contentDiv.appendChild(interactionSection);
-            contentDiv.appendChild(challengesSection);
-            contentDiv.appendChild(tendenciesSection);
-            contentDiv.appendChild(dialogueSection);
-
-            itemDiv.appendChild(headerDiv);
-            itemDiv.appendChild(contentDiv);
-
-            const toggleAccordion = () => { /* ... Keep existing toggle logic ... */
-                 const isActive = headerDiv.classList.toggle('active');
-                contentDiv.classList.toggle('active', isActive);
-                headerDiv.setAttribute('aria-expanded', isActive);
-            };
-            headerDiv.addEventListener('click', toggleAccordion);
-            headerDiv.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleAccordion(); } });
+            itemDiv.addEventListener('click', () => openModal(index));
+            itemDiv.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openModal(index);
+                }
+            });
+            itemDiv.setAttribute('tabindex', '0');
+            itemDiv.setAttribute('role', 'button');
+            itemDiv.setAttribute('aria-haspopup', 'dialog');
+            itemDiv.setAttribute('aria-label', `View details for ${nameText}`); // Use name without icon for label
             return itemDiv;
         }
 
-        // Optional: Function to close other open accordions
-        function closeOtherAccordions(currentItemDiv) { /* ... Keep existing logic ... */
-            const allItems = document.querySelectorAll('#accordion-container .accordion-item');
-            allItems.forEach(item => { if (item !== currentItemDiv) { const header = item.querySelector('.accordion-header'); const content = item.querySelector('.accordion-content'); if (header.classList.contains('active')) { header.classList.remove('active'); content.classList.remove('active'); header.setAttribute('aria-expanded', 'false'); } } });
+        // --- Modal Functions ---
+        const modal = document.getElementById('pairing-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
+        const modalCloseButton = document.getElementById('modal-close-button');
+        const modalBackdrop = modal.querySelector('.modal-backdrop');
+        const modalCoreStrength = document.getElementById('modal-core-strength');
+        const modalPairingTypeBadge = document.getElementById('modal-pairing-type-badge');
+        const modalPairingTypeTooltip = document.getElementById('modal-pairing-type-tooltip');
+        const modalValueBadges = document.getElementById('modal-value-badges');
+        const modalValueRationale = document.getElementById('modal-value-rationale');
+        const modalQuote = document.getElementById('modal-quote');
+        const modalInteraction = document.getElementById('modal-interaction');
+        const modalChallenges = document.getElementById('modal-challenges');
+        const modalTendencies = document.getElementById('modal-tendencies');
+        const modalDialogueProductive = document.getElementById('modal-dialogue-productive');
+        const modalDialogueChallenged = document.getElementById('modal-dialogue-challenged');
+        const modalDialogueGrowth = document.getElementById('modal-dialogue-growth');
+        const modalContent = modal.querySelector('.modal-content');
+        let previouslyFocusedElement = null;
+
+        function openModal(index) {
+            const data = pairingsData[index];
+            if (!data) return;
+            previouslyFocusedElement = document.activeElement;
+            modalTitle.textContent = data.name; // Keep full name with icon in modal title
+            modalSubtitle.textContent = `Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%) - ${data.letters}`;
+            modalCoreStrength.textContent = data.coreStrength;
+            modalPairingTypeBadge.textContent = getTypeText(data.type);
+            modalPairingTypeBadge.className = `type-badge ${getTypeClass(data.type)}`;
+            modalPairingTypeTooltip.textContent = getTypeTooltip(data.type);
+            modalValueBadges.innerHTML = (data.valueAlignments || []).sort().map(value =>
+                `<span class="value-badge ${value.toLowerCase()}">${getValueIcon(value)}${value}</span>`
+            ).join('');
+            modalValueRationale.innerHTML = data.valueRationale
+                ? data.valueRationale
+                : `<span class="italic">No strong primary value alignment identified based on Genius alone.</span>`;
+            modalQuote.textContent = inspirationQuotes[data.letters] || 'No quote available.';
+            modalInteraction.innerHTML = data.interaction.map(point => `<p>${point}</p>`).join('');
+            modalChallenges.textContent = data.challenges;
+            modalTendencies.textContent = data.tendencies;
+            modalDialogueProductive.textContent = data.dialogue.productive;
+            modalDialogueChallenged.textContent = data.dialogue.challenged;
+            modalDialogueGrowth.textContent = data.dialogue.growth;
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+            document.body.style.overflow = 'hidden';
+            modalContent.scrollTop = 0;
+            modalCloseButton.focus();
         }
+
+        function closeModal() {
+            modal.classList.add('modal-hidden');
+            modal.classList.remove('modal-visible');
+            document.body.style.overflow = '';
+             if (previouslyFocusedElement) {
+                previouslyFocusedElement.focus();
+                previouslyFocusedElement = null;
+            }
+        }
+
+        // Event Listeners for Modal
+        modalCloseButton.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+        modal.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+            if (event.key === 'Tab') {
+                 const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                 const firstElement = focusableElements[0];
+                 const lastElement = focusableElements[focusableElements.length - 1];
+                 if (!focusableElements.length) return;
+                 if (event.shiftKey) {
+                     if (document.activeElement === firstElement) {
+                         lastElement.focus();
+                         event.preventDefault();
+                     }
+                 } else {
+                     if (document.activeElement === lastElement) {
+                         firstElement.focus();
+                         event.preventDefault();
+                     }
+                 }
+            }
+        });
 
         // --- Initialization ---
         window.addEventListener('load', () => {
-            const accordionContainer = document.getElementById('accordion-container');
-            accordionContainer.innerHTML = ''; // Clear loading message
-
+            const gridContainer = document.getElementById('pairings-grid');
+            gridContainer.innerHTML = ''; // Clear loading message
             const sortedData = [...pairingsData].sort((a, b) => a.rank - b.rank);
-
-            sortedData.forEach(pairing => {
-                const item = createAccordionItem(pairing);
-                accordionContainer.appendChild(item);
+            sortedData.forEach((pairing, index) => {
+                const item = createGridItem(pairing, index);
+                gridContainer.appendChild(item);
             });
 
+            // Theme Toggle Logic
             const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.addEventListener('change', function(e) { /* ... Keep existing logic ... */
+            themeToggle.addEventListener('change', function(e) {
                 const isDark = e.target.checked;
                 document.documentElement.className = isDark ? 'dark' : 'light';
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
             });
-            themeToggle.checked = document.documentElement.classList.contains('dark');
+             const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+             document.documentElement.className = currentTheme;
+             themeToggle.checked = currentTheme === 'dark';
         });
-
     </script>
 
 </body>
