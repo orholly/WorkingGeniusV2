@@ -87,24 +87,24 @@
         html.dark .type-disrupt { color: #fca5a5; background-color: #7f1d1d; border: 1px solid #b91c1c; }
         .type-mixed { color: #9d174d; background-color: #fce7f3; border: 1px solid #fbcfe8; }
         html.dark .type-mixed { color: #f9a8d4; background-color: #831843; border: 1px solid #be185d; }
+
         .value-badge {
             display: inline-flex; align-items: center; gap: 0.3rem;
             padding: 0.3rem 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem;
             border-radius: 0.375rem;
-            /* *** MODIFICATION: Font size sm -> base *** */
             font-size: 1rem; /* text-base */
             font-weight: 500;
-            border: 1px solid transparent;
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, opacity 0.3s ease-in-out; /* Added opacity transition */
+            border: 1px solid; /* Make border always visible */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             cursor: default;
          }
-        /* Dimming style for inactive badges */
-        .value-badge-dimmed {
-            opacity: 0.5;
-        }
-        html.dark .value-badge-dimmed {
-             opacity: 0.4;
-        }
+
+        /* Specific badge colors (active state) */
+        .value-badge.courageous { background-color: #FEE2E2; color: #991B1B; border-color: #FECACA; }
+        .value-badge.humble { background-color: #FEF9C3; color: #854D0E; border-color: #FEF08A; }
+        .value-badge.empowering { background-color: #DCFCE7; color: #166534; border-color: #BBF7D0; }
+        .value-badge.connected { background-color: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
+        .value-badge.kind { background-color: #FAE8FF; color: #86198F; border-color: #F5D0FE; }
 
         html.dark .value-badge.courageous { background-color: #7f1d1d; color: #fecaca; border-color: #b91c1c; }
         html.dark .value-badge.humble { background-color: #713f12; color: #fef08a; border-color: #a16207; }
@@ -112,9 +112,36 @@
         html.dark .value-badge.connected { background-color: #1e3a8a; color: #bfdbfe; border-color: #1d4ed8; }
         html.dark .value-badge.kind { background-color: #701a75; color: #f5d0fe; border-color: #c026d3; }
 
+        /* Grayed-out badge style (applied via JS) */
+        .value-badge-gray {
+            background-color: #f3f4f6; /* gray-100 */
+            color: #9ca3af; /* gray-400 */
+            border-color: #e5e7eb; /* gray-200 */
+        }
+        html.dark .value-badge-gray {
+            background-color: #374151; /* gray-700 */
+            color: #6b7280; /* gray-500 */
+            border-color: #4b5563; /* gray-600 */
+        }
+         /* Ensure icon color matches text color for gray badges */
+        .value-badge-gray svg {
+            stroke: #9ca3af; /* gray-400 */
+        }
+        html.dark .value-badge-gray svg {
+             stroke: #6b7280; /* gray-500 */
+        }
+
 
         /* Genius Name Highlighting */
-        .interaction-text strong, .modal-interaction-text strong { font-weight: 600; padding: 0.1em 0.3em; margin: -0.1em -0.3em; border-radius: 0.25em; transition: background-color 0.2s ease, color 0.2s ease; }
+        /* *** MODIFICATION: Removed padding and margin *** */
+        .interaction-text strong, .modal-interaction-text strong {
+            font-weight: 600;
+            /* padding: 0.1em 0.3em; */ /* Removed */
+            /* margin: -0.1em -0.3em; */ /* Removed */
+            border-radius: 0.25em;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        /* *** MODIFICATION END *** */
         .interaction-text strong.wonder, .modal-interaction-text strong.wonder { color: #0f766e; background-color: #ccfbf1;} html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #99f6e4; background-color: #115e59;}
         .interaction-text strong.invention, .modal-interaction-text strong.invention { color: #6d28d9; background-color: #ede9fe;} html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #c4b5fd; background-color: #4c1d95;}
         .interaction-text strong.discernment, .modal-interaction-text strong.discernment { color: #1d4ed8; background-color: #dbeafe;} html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #93c5fd; background-color: #1e3a8a;}
@@ -125,7 +152,6 @@
         /* Modal Section Headers */
         .modal-section-header {
             display: flex; align-items: center; gap: 0.5rem;
-             /* *** MODIFICATION: Font size base -> lg *** */
             font-size: 1.125rem; /* text-lg */
             font-weight: 600; margin-bottom: 1rem;
         }
@@ -160,9 +186,7 @@
 
         /* Overview section specific label styling */
         .overview-label {
-            /* *** MODIFICATION: Font size xs -> sm *** */
             font-size: 0.875rem; /* text-sm */
-            /* font-weight: 500; /* Removed font-medium */
             color: #6b7280;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -418,7 +442,7 @@
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
-            // *** MODIFICATION: Removed whitespace-nowrap from h3 ***
+            // Allow title wrapping by removing whitespace-nowrap
             itemDiv.innerHTML = `
                 <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
                 <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2">
@@ -479,9 +503,12 @@
             const currentValues = data.valueAlignments || [];
             modalValueBadges.innerHTML = ALL_VALUES_ORDERED.map(value => {
                 const isPresent = currentValues.includes(value);
-                const dimClass = isPresent ? '' : 'value-badge-dimmed'; // Apply dimming class if not present
                 const valueLower = value.toLowerCase();
-                return `<span class="value-badge ${valueLower} ${dimClass}">
+                // Choose classes based on presence
+                const badgeClasses = isPresent
+                    ? `value-badge ${valueLower}` // Active state: specific color class
+                    : `value-badge value-badge-gray`; // Inactive state: gray class
+                return `<span class="${badgeClasses}">
                            ${getValueIcon(value)}
                            ${value}
                         </span>`;
