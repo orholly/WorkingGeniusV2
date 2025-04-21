@@ -13,18 +13,8 @@
         }
 
         /* Layout and Structure */
-        .title-container {
-            flex: 1 1 auto;
-            min-width: 0;
-            max-width: 80%;
-            padding-right: 1.5rem;
-        }
-
-        .header-flex {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
+        /* Removed .title-container as flex-col handles this better */
+        /* Removed .header-flex as Tailwind flex classes are used */
 
         /* Animations */
         @keyframes fadeIn {
@@ -50,7 +40,7 @@
         }
 
         /* CHECK Values Section */
-        .value-alignment-section { /* Updated class name */
+        .value-alignment-section {
             opacity: 1;
             transform: translateY(0);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,15 +48,6 @@
             margin-bottom: 1.5rem;
             overflow: hidden;
         }
-
-        /* The .hidden class is no longer needed for the value section */
-        /* .value-alignment-section.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
-            height: 0;
-            margin: 0;
-            pointer-events: none;
-        } */
 
         /* Interactive Elements */
         .interactive-element {
@@ -78,7 +59,7 @@
         }
 
         /* Inspiration Quote */
-        .inspiration-quote { /* Updated class name */
+        .inspiration-quote {
             position: relative;
             padding: 0;
             margin: 0;
@@ -87,13 +68,13 @@
         }
 
         /* Remove pseudo-element quotes */
-        .inspiration-quote::before, /* Updated class name */
-        .inspiration-quote::after { /* Updated class name */
+        .inspiration-quote::before,
+        .inspiration-quote::after {
             content: none;
         }
 
         /* Dark Mode Styles */
-        html.dark .inspiration-quote { /* Updated class name */
+        html.dark .inspiration-quote {
             color: rgb(209 213 219 / var(--tw-text-opacity));
         }
 
@@ -101,18 +82,24 @@
         .pairing-name {
             font-size: 1.5rem;
             line-height: 1.2;
-            margin-right: 1rem;
-            padding-right: 1rem;
+            /* Adjusted margin/padding for responsive header */
+            margin-right: 0;
+            padding-right: 0;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
+            width: 100%; /* Ensure title takes full width in column layout */
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) { /* md breakpoint */
             .pairing-name {
-                font-size: 1.75rem;
+                 font-size: 1.75rem;
+                 margin-right: 1rem;
+                 padding-right: 1rem;
+                 width: auto; /* Allow flex-grow in row layout */
             }
         }
+
 
         /* Toggle Styles */
         .toggle-container {
@@ -350,11 +337,20 @@
             padding: 1.5rem;
             cursor: pointer;
             display: flex;
-            align-items: center;
+            flex-direction: column; /* Stack elements on mobile */
+            align-items: flex-start; /* Align items to the start in column layout */
             justify-content: space-between;
             border-bottom: 2px solid #2563eb; /* Blue-600 */
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+
+        @media (min-width: 768px) { /* md breakpoint */
+             .accordion-header {
+                flex-direction: row; /* Row layout on desktop */
+                align-items: center; /* Center items in row layout */
+             }
+        }
+
 
         html.dark .accordion-header {
              background-color: #1e40af; /* Blue-800 */
@@ -378,13 +374,30 @@
             font-weight: bold;
             flex-grow: 1;
             word-break: break-word;
+            margin-bottom: 0.5rem; /* Add space below title in column layout */
         }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .accordion-header h2 {
+                margin-bottom: 0; /* Remove space below title in row layout */
+            }
+        }
+
 
         .accordion-header .arrow-icon {
             width: 1.5rem;
             height: 1.5rem;
             transition: transform 0.3s ease;
+             margin-top: 0.5rem; /* Add space above arrow in column layout */
         }
+
+         @media (min-width: 768px) { /* md breakpoint */
+            .accordion-header .arrow-icon {
+                margin-top: 0; /* Remove space above arrow in row layout */
+                margin-left: 1rem; /* Add space to the left of arrow in row layout */
+            }
+         }
+
 
         .accordion-header.active .arrow-icon {
             transform: rotate(180deg);
@@ -425,14 +438,39 @@
          }
 
          .value-alignment-badges {
-            margin-left: 1rem;
+            margin-left: 0; /* Adjust margin for column layout */
             flex-shrink: 0;
+            margin-top: 0.5rem; /* Add space above badges in column layout */
          }
+
+         @media (min-width: 768px) { /* md breakpoint */
+            .value-alignment-badges {
+                margin-left: 1rem; /* Revert margin for row layout */
+                margin-top: 0; /* Remove space above badges in row layout */
+            }
+         }
+
          .value-alignment-badges .value-badge {
             font-size: 0.9rem; /* Smaller badge font in header */
             padding: 0.2rem 0.5rem;
             min-width: auto;
          }
+
+         /* Adjust value badges in content for mobile */
+         .accordion-content .value-badge {
+             font-size: 1rem; /* Slightly smaller font size on mobile */
+             padding: 0.3rem 0.7rem; /* Adjusted padding on mobile */
+             min-width: 80px; /* Slightly smaller min width on mobile */
+         }
+
+         @media (min-width: 768px) { /* md breakpoint */
+            .accordion-content .value-badge {
+                font-size: 1.25rem; /* Original font size on desktop */
+                padding: 0.5rem 1rem; /* Original padding on desktop */
+                min-width: 100px; /* Original min width on desktop */
+            }
+         }
+
 
     </style>
     <script>
@@ -466,8 +504,7 @@
         </div>
          </div>
 
-    <main class="w-full max-w-4xl mx-auto">
-        <div id="accordion-container" class="space-y-6">
+    <main class="w-full max-w-4xl mx-auto px-2"> <div id="accordion-container" class="space-y-6">
             <p class="text-center text-gray-500 dark:text-gray-400">Loading pairings...</p>
         </div>
     </main>
@@ -491,7 +528,7 @@
             { name: "🛠️ The Judicious Accomplisher", letters: "DT / TD", coreStrength: "Prudent, focused, and diligent completion of high-priority tasks.", rank: 5, frequency: 7.07, type: "Mixed", interaction: ["Tenacity ensures Discernment's thoughtful judgments result in finished tasks, done with focus and high quality.", "Discernment helps Tenacity focus on the right tasks – the ones that truly matter – avoiding wasted effort."], challenges: "Feeling unnecessary angst about potential failure and frustration when working with others who don't share their high standards for closure.", tendencies: "Being overly critical of others' work or becoming fixated on efficiency at the expense of collaboration or flexibility.", dialogue: { productive: "We need to prioritize this and ensure it's done to a high standard.", challenged: "Why don't others have the same sense of urgency and commitment to quality?", growth: "Am I being appropriately focused on results, or too rigid in my expectations?" }, valueAlignments: ["Courageous", "Humble"], valueRationale: "Their drive to complete high-standard tasks reflects boldness and diligence." },
 
             // Rank 6
-            { name: "🚀 The Assertive Driver", letters: "GT / TG", coreStrength: "Being highly driven individuals with high conviction and standards who get things done.", rank: 6, frequency: 6.00, type: "Disruptive", interaction: ["Tenacity provides the focused drive and follow-through needed to make sure Galvanizing's initiatives actually get completed successfully.", "Galvanizing inspires and motivates people to join Tenacity's focused efforts, helping overcome obstacles and build momentum."], challenges: "Sometimes being seen as pushy and being impatient with too much planning and brainstorming, preferring to get right to work.", tendencies: "Being overly directive and dismissive of others' input or prioritizing speed and completion over thoroughness and collaboration.", dialogue: { productive: "We need to move quickly and get this across the finish line!", challenged: "Why is everyone so hesitant and unwilling to take decisive action?", growth: "Am I being effectively assertive in driving results, or just being impatient and controlling?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "Their assertive drive helps them overcome obstacles and rally others." },
+            { name: "🚀 The Assertive Driver", letters: "GT / TG", coreStrength: "Being highly driven individuals with high conviction and standards who get things done.", rank: 6, frequency: 6.00, type: "Disruptive", interaction: ["Tenacity provides the focused drive and follow-through needed to make sure Galvanizing's initiatives actually get completed successfully.", "Galvanizing inspires and motivates people to join Tenacity's focused efforts, helping overcome obstacles and build momentum."], challenges: "Sometimes being seen as pushy and being impatient with too much planning and brainstorming, preferring to get right to work.", tendencies: "Being overly directive and dismissive of others' input or prioritizing speed and completion over thoroughness and collaboration.", dialogue: { productive: "We need to move quickly and get this across the finish line!", challenged: "Why is everyone so hesitant and unwilling to take decisive action?", growth: "Am I being effectively assertive in driving results, or just being impatient and controlling?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire action in others." },
 
             // Rank 7
             { name: "🎨 The Adaptable Designer", letters: "IE / EI", coreStrength: "Being creative, flexible, open to feedback, and easy to work with in developing solutions for others.", rank: 7, frequency: 5.93, type: "Mixed", interaction: ["Invention creates new solutions specifically tailored to what Enablement knows others need or want.", "Enablement gives Invention real-world feedback on what people actually need, making sure the creative ideas are truly useful."], challenges: "Being too quick to accommodate and avoid advocating for their own ideas, potentially leaving them feeling undervalued.", tendencies: "Suppressing their own creative insights to please others or over-committing to implement others' ideas without fully considering their own.", dialogue: { productive: "Let's brainstorm some new ways to support what you need.", challenged: "Why does everyone else's vision always take priority over my creative ideas?", growth: "Am I being adaptable and helpful, or just letting others' needs overshadow my own?" }, valueAlignments: ["Empowering", "Connected"], valueRationale: "They create flexible solutions while collaborating and serving the needs of others." },
@@ -518,7 +555,7 @@
             { name: "🧘 The Contemplative Counselor", letters: "WD / DW", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["Discernment helps Wonder sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "Wonder gives Discernment new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That's a fascinating question; let's consider the implications from a few different angles.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
 
             // Rank 15
-            { name: "🌍 The Philosophical Motivator", letters: "WG / GW", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["Wonder comes up with the inspiring possibilities and big questions that Galvanizing can rally people around.", "Galvanizing turns Wonder's deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't anyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
+            { name: "🌍 The Philosophical Motivator", letters: "WG / GW", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["Wonder comes up with the inspiring possibilities and big questions that Galvanizing can rally people around.", "Galvanizing turns Wonder's deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't everyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
         ];
 
         // List of Genius names to bold
@@ -550,21 +587,22 @@
             itemDiv.className = 'accordion-item bg-white dark:bg-gray-800 transition-colors duration-300';
 
             const headerDiv = document.createElement('div');
-            headerDiv.className = 'accordion-header';
+            // Added responsive flex classes: flex-col on mobile, md:flex-row on medium+
+            headerDiv.className = 'accordion-header flex flex-col md:flex-row items-start md:items-center';
             headerDiv.setAttribute('role', 'button');
             headerDiv.setAttribute('aria-expanded', 'false'); // ARIA attribute for accessibility
             headerDiv.setAttribute('tabindex', '0'); // Make header focusable
 
             const headerContent = `
-                <div class="flex-grow mr-4">
+                <div class="flex-grow w-full md:w-auto mr-0 md:mr-4 mb-2 md:mb-0">
                     <h2 class="pairing-name text-white">${data.rank}. ${data.name} (${data.letters})</h2>
                     <p class="text-blue-200 text-sm lg:text-base italic mt-1">${data.coreStrength}</p>
                 </div>
-                <div class="flex-shrink-0 bg-blue-900 bg-opacity-75 p-2 rounded-md text-sm text-blue-100 text-center">
+                <div class="flex-shrink-0 bg-blue-900 bg-opacity-75 p-2 rounded-md text-sm text-blue-100 text-center self-end md:self-auto">
                     <span class="font-semibold block">Rank ${data.rank}/15 (${data.frequency.toFixed(2)}%)</span>
                     <span class="mt-1 type-badge inline-block ${getTypeClass(data.type)}" title="${getTypeTooltip(data.type)}">${getTypeText(data.type)}</span>
                 </div>
-                 <svg class="arrow-icon ml-4 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                 <svg class="arrow-icon ml-0 md:ml-4 mt-2 md:mt-0 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             `;
             headerDiv.innerHTML = headerContent;
 
@@ -575,7 +613,7 @@
 
             // CHECK Value Alignment Section (now always visible when the accordion is open)
             const valueAlignmentSection = document.createElement('div');
-            valueAlignmentSection.className = `value-alignment-section w-full mb-6`; // Removed 'hidden' class logic
+            valueAlignmentSection.className = `value-alignment-section w-full mb-6`;
 
             const valueAlignmentContent = `
                 <section class="bg-white dark:bg-black p-4 rounded-lg shadow-lg transition-colors duration-300">
@@ -764,26 +802,6 @@
 
             // Set initial theme toggle state
             document.getElementById('theme-toggle').checked = document.documentElement.classList.contains('dark');
-
-            // Removed the Values toggle functionality
-            // document.getElementById('values-toggle').addEventListener('change', function(e) {
-            //     const sections = document.querySelectorAll('.value-alignment-section');
-            //     if (e.target.checked) {
-            //         sections.forEach(section => section.classList.remove('hidden'));
-            //     } else {
-            //         sections.forEach(section => section.classList.add('hidden'));
-            //     }
-            // });
-
-            // Removed the initial values toggle state logic
-            // const initialValuesToggleState = document.getElementById('values-toggle').checked;
-            // document.querySelectorAll('.value-alignment-section').forEach(section => {
-            //     if (initialValuesToggleState) {
-            //         section.classList.remove('hidden');
-            //     } else {
-            //         section.classList.add('hidden');
-            //     }
-            // });
 
         };
 
