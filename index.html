@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Genius Pairings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles */
+        .dialogue-item .icon-svg {
+            margin-top: 0.1em;
+            flex-shrink: 0;
+        }
+
+        /* Layout and Structure */
+        .title-container {
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 80%;
+            padding-right: 1.5rem;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Content Sections */
+        .content-section {
+            animation: fadeIn 0.3s ease-out;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* CHECK Values Section */
+        .value-alignment-section { /* Updated class name */
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: auto;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        /* The .hidden class is no longer needed for the value section */
+        /* .value-alignment-section.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            height: 0;
+            margin: 0;
+            pointer-events: none;
+        } */
+
+        /* Interactive Elements */
+        .interactive-element {
+            transition: transform 0.2s ease-out;
+        }
+
+        .interactive-element:hover {
+            transform: scale(1.02);
+        }
+
+        /* Inspiration Quote */
+        .inspiration-quote { /* Updated class name */
+            position: relative;
+            padding: 0;
+            margin: 0;
+            line-height: 1.625;
+            transition: color 0.3s ease;
+        }
+
+        /* Remove pseudo-element quotes */
+        .inspiration-quote::before, /* Updated class name */
+        .inspiration-quote::after { /* Updated class name */
+            content: none;
+        }
+
+        /* Dark Mode Styles */
+        html.dark .inspiration-quote { /* Updated class name */
+            color: rgb(209 213 219 / var(--tw-text-opacity));
+        }
+
+        /* Pairing Title */
+        .pairing-name {
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin-right: 1rem;
+            padding-right: 1rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        @media (min-width: 1024px) {
+            .pairing-name {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Toggle Styles */
+        .toggle-container {
+            display: flex;
+            justify-content: center; /* Horizontally center the toggle */
+        }
+        .toggle-label {
+            display: block;
+            overflow: hidden;
+            height: 1.25rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 2.5rem;
+        }
+        .toggle-checkbox {
+            position: absolute;
+            display: block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            border-width: 2px;
+            appearance: none;
+            cursor: pointer;
+            left: 0;
+            transition: all 0.2s ease;
+        }
+        .toggle-checkbox:checked {
+            transform: translateX(100%);
+        }
+        .toggle-label {
+            background-color: #d1d5db;
+        }
+        .toggle-checkbox {
+            background-color: #e5e7eb;
+            border-color: #9ca3af;
+        }
+        .toggle-checkbox:checked {
+            background-color: #4ade80;
+            border-color: #22c55e;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #22c55e;
+        }
+        html.dark .toggle-label {
+            background-color: #4b5563;
+        }
+        html.dark .toggle-checkbox {
+            background-color: #4b5563;
+            border-color: #6b7280;
+        }
+        html.dark .toggle-checkbox:checked {
+            background-color: #4ade80;
+            border-color: #22c55e;
+        }
+        html.dark .toggle-checkbox:checked + .toggle-label {
+            background-color: #166534;
+        }
+
+        /* Type and Value Badge Styles */
+        .type-badge {
+            font-weight: 600;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .type-resp {
+            color: #1e40af;
+            background-color: #bfdbfe;
+        }
+
+        html.dark .type-resp {
+            color: #bfdbfe;
+            background-color: #1e40af;
+        }
+
+        .type-disrupt {
+            color: #3730a3;
+            background-color: #e0e7ff;
+        }
+
+        html.dark .type-disrupt {
+            color: #a5b4fc;
+            background-color: #3730a3;
+        }
+
+        .type-mixed {
+            color: #86198f;
+            background-color: #f5d0fe;
+        }
+
+        html.dark .type-mixed {
+            color: #f5d0fe;
+            background-color: #701a75;
+        }
+
+        .value-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem; /* Increased padding */
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 1.25rem; /* Increased font size */
+            font-weight: 600; /* Increased font weight */
+            min-width: 100px; /* Add min width to make badges more substantial */
+            text-align: center; /* Center text within badges */
+            background-color: #E5E7EB;
+            color: #374151;
+            transition: transform 0.2s ease-out;
+        }
+
+        html.dark .value-badge {
+            background-color: #374151;
+            color: #d1d5db;
+        }
+
+        .value-badge.courageous {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+
+        html.dark .value-badge.courageous {
+            background-color: #7f1d1d;
+            color: #fecaca;
+        }
+
+        .value-badge.humble {
+            background-color: #FEF9C3;
+            color: #854D0E;
+        }
+
+        html.dark .value-badge.humble {
+            background-color: #854d0e;
+            color: #fef08a;
+        }
+
+        .value-badge.empowering {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+
+        html.dark .value-badge.empowering {
+            background-color: #166534;
+            color: #bbf7d0;
+        }
+
+        .value-badge.connected {
+            background-color: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        html.dark .value-badge.connected {
+            background-color: #1e40af;
+            color: #bfdbfe;
+        }
+
+        .value-badge.kind {
+            background-color: #FAE8FF;
+            color: #86198F;
+        }
+
+        html.dark .value-badge.kind {
+            background-color: #86198f;
+            color: #f5d0fe;
+        }
+
+        /* Genius Name Highlighting */
+        .interaction-text strong {
+            font-weight: 600;
+        }
+
+        /* Wonder - Teal */
+        .interaction-text strong.wonder {
+            color: #0d9488; /* Teal-600 */
+        }
+        html.dark .interaction-text strong.wonder {
+            color: #5eead4; /* Teal-300 */
+        }
+
+        /* Invention - Purple */
+        .interaction-text strong.invention {
+            color: #7c3aed; /* Violet-600 */
+        }
+        html.dark .interaction-text strong.invention {
+            color: #c4b5fd; /* Violet-300 */
+        }
+
+        /* Discernment - Blue */
+        .interaction-text strong.discernment {
+            color: #2563eb; /* Blue-600 */
+        }
+        html.dark .interaction-text strong.discernment {
+            color: #93c5fd; /* Blue-300 */
+        }
+
+        /* Galvanizing - Orange */
+        .interaction-text strong.galvanizing {
+            color: #ea580c; /* Orange-600 */
+        }
+        html.dark .interaction-text strong.galvanizing {
+            color: #fdba74; /* Orange-300 */
+        }
+
+        /* Enablement - Green */
+        .interaction-text strong.enablement {
+            color: #16a34a; /* Green-600 */
+        }
+        html.dark .interaction-text strong.enablement {
+            color: #86efac; /* Green-300 */
+        }
+
+        /* Tenacity - Red */
+        .interaction-text strong.tenacity {
+            color: #dc2626; /* Red-600 */
+        }
+        html.dark .interaction-text strong.tenacity {
+            color: #fca5a5; /* Red-300 */
+        }
+
+        /* Accordion Styles */
+        .accordion-item {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            background-color: #3b82f6; /* Blue-500 */
+            background-image: linear-gradient(to right, #3b82f6, #1d4ed8); /* Blue-500 to Blue-700 */
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #2563eb; /* Blue-600 */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html.dark .accordion-header {
+             background-color: #1e40af; /* Blue-800 */
+             background-image: linear-gradient(to right, #1e40af, #172554); /* Blue-800 to Blue-950 */
+             border-bottom: 2px solid #1d4ed8; /* Blue-700 */
+        }
+
+
+        .accordion-header:hover {
+            background-color: #2563eb; /* Blue-600 */
+        }
+
+        html.dark .accordion-header:hover {
+            background-color: #1d4ed8; /* Blue-700 */
+        }
+
+
+        .accordion-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-grow: 1;
+            word-break: break-word;
+        }
+
+        .accordion-header .arrow-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            background-color: #ffffff;
+            color: #374151; /* Gray-700 */
+            padding: 0 1.5rem;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+
+        html.dark .accordion-content {
+            background-color: #1f2937; /* Gray-800 */
+            color: #d1d5db; /* Gray-300 */
+        }
+
+
+        .accordion-content.active {
+            max-height: 2000px; /* Large enough to accommodate content */
+            padding: 1.5rem;
+        }
+
+         .accordion-content .content-section {
+            margin-bottom: 1.5rem; /* Space between sections inside accordion */
+         }
+
+         .accordion-content .content-section:last-child {
+            margin-bottom: 0; /* No bottom margin for the last section */
+         }
+
+         /* Adjust padding for sections within accordion */
+         .accordion-content .bg-gray-100,
+         .accordion-content .bg-gray-900 {
+             padding: 1rem; /* Slightly less padding inside accordion sections */
+         }
+
+         .value-alignment-badges {
+            margin-left: 1rem;
+            flex-shrink: 0;
+         }
+         .value-alignment-badges .value-badge {
+            font-size: 0.9rem; /* Smaller badge font in header */
+            padding: 0.2rem 0.5rem;
+            min-width: auto;
+         }
+
+    </style>
+    <script>
+        // Set default theme based on localStorage or preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = savedTheme ? (savedTheme === 'dark') : false; // Default light
+        if (prefersDark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], }, } } }
+    </script>
+</head>
+<body class="bg-gray-200 dark:bg-gray-900 flex flex-col items-center justify-start min-h-screen p-4 font-sans transition-colors duration-300">
+
+    <h1 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+        Working Genius Pairing Viewer
+    </h1>
+
+    <div class="flex flex-col justify-center gap-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex items-center gap-2">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Light</span> <div class="flex justify-center">
+            <div class="relative inline-block w-10 align-middle mx-1 toggle-container">
+                <input type="checkbox" id="theme-toggle" class="toggle-checkbox absolute w-5 h-5" />
+                <label for="theme-toggle" class="toggle-label"></label>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Dark</span>
+        </div>
+        </div>
+         </div>
+
+    <main class="w-full max-w-4xl mx-auto">
+        <div id="accordion-container" class="space-y-6">
+            <p class="text-center text-gray-500 dark:text-gray-400">Loading pairings...</p>
+        </div>
+    </main>
+
+    <script>
+        // Data for all 15 pairings - Full Content Verified & Types based on WDE/IGT rule
+        const pairingsData = [
+            // Rank 1
+            { name: "✅ The Loyal Finisher", letters: "ET / TE", coreStrength: "Being dependable, low-maintenance contributors who hold themselves accountable for delivering on promises.", rank: 1, frequency: 15.95, type: "Mixed", interaction: ["Tenacity makes sure Enablement's desire to help leads to completed actions and reliable follow-through.", "Enablement provides the practical support and assistance that helps Tenacity push through and complete tasks effectively."], challenges: "Having a hard time saying 'no' to requests, leading to over-commitment, burnout, and lack of appreciation.", tendencies: "Taking on too many tasks without prioritizing or becoming resentful due to feeling overloaded and unacknowledged.", dialogue: { productive: "I'll make sure this gets done and will help out wherever needed.", challenged: "Why am I always the one who has to pick up the slack and finish everything?", growth: "Am I being helpful and reliable, or just spreading myself too thin?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their reliability and responsiveness to needs show dependability and relational focus." },
+
+            // Rank 2
+            { name: "🎉 The Enthusiastic Encourager", letters: "GE / EG", coreStrength: "Being positive, exuberant, and optimistic cheerleaders for others.", rank: 2, frequency: 9.29, type: "Mixed", interaction: ["Galvanizing identifies opportunities for Enablement to step in and help, giving their support a clear target.", "Enablement provides the hands-on help and encouragement that makes Galvanizing's enthusiastic calls to action successful."], challenges: "Being too quick to affirm others or provide unwarranted praise, potentially leading to being dismissed as naïve or insincere.", tendencies: "Avoiding necessary critical feedback or over-promising support they cannot deliver in their enthusiasm.", dialogue: { productive: "That's fantastic! I'm excited to support you in achieving this!", challenged: "Why isn't everyone else as positive and encouraging as I am?", growth: "Am I genuinely lifting others up, or just avoiding difficult truths?" }, valueAlignments: ["Empowering", "Kind"], valueRationale: "They enthusiastically encourage and support the growth of others." },
+
+            // Rank 3
+            { name: "🤝 The Insightful Collaborator", letters: "DE / ED", coreStrength: "Offering exceptional, timely, and shrewd support in a selfless manner.", rank: 3, frequency: 8.87, type: "Responsive", interaction: ["Enablement turns Discernment's gut feelings and insights into real, practical help for others through supportive action.", "Discernment guides Enablement by intuitively sensing what help is needed and when, making their support truly effective."], challenges: "Hesitating to push people to heed their advice and being deferential when they sense resistance, often leading to feeling underappreciated.", tendencies: "Over-accommodating others' needs at the expense of their own judgment or becoming passive in offering their valuable insights.", dialogue: { productive: "I have a sense of how I can best support you with this; what do you need?", challenged: "Why doesn't anyone realize how much I'm doing and the good advice I have?", growth: "Am I genuinely helping, or just enabling others to avoid responsibility?" }, valueAlignments: ["Humble", "Empowering"], valueRationale: "They provide empathetic and selfless support to others." },
+
+            // Rank 4
+            { name: "🌟 The Idealistic Supporter", letters: "WE / EW", coreStrength: "Being valuable, low-maintenance team members with deep care for the bigger picture.", rank: 4, frequency: 7.55, type: "Responsive", interaction: ["Wonder keeps Enablement focused on the bigger picture and the 'why' behind their efforts, making their support more meaningful.", "Enablement puts Wonder's idealistic thoughts into action by finding practical ways to support the causes and ideas they care about."], challenges: "Being overly deferential and hesitating to initiate change, preferring to let others make the first move, and disliking being overlooked.", tendencies: "Silently contributing without voicing their own ideas or feeling resentful when their efforts are taken for granted.", dialogue: { productive: "I wonder how I can best support this important cause.", challenged: "Why doesn't anyone notice how much I'm contributing?", growth: "Am I being helpful, or just avoiding taking a stand?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their selfless support for meaningful causes and idealism highlight modesty and relational care." },
+
+            // Rank 5
+            { name: "🛠️ The Judicious Accomplisher", letters: "DT / TD", coreStrength: "Prudent, focused, and diligent completion of high-priority tasks.", rank: 5, frequency: 7.07, type: "Mixed", interaction: ["Tenacity ensures Discernment's thoughtful judgments result in finished tasks, done with focus and high quality.", "Discernment helps Tenacity focus on the right tasks – the ones that truly matter – avoiding wasted effort."], challenges: "Feeling unnecessary angst about potential failure and frustration when working with others who don't share their high standards for closure.", tendencies: "Being overly critical of others' work or becoming fixated on efficiency at the expense of collaboration or flexibility.", dialogue: { productive: "We need to prioritize this and ensure it's done to a high standard.", challenged: "Why don't others have the same sense of urgency and commitment to quality?", growth: "Am I being appropriately focused on results, or too rigid in my expectations?" }, valueAlignments: ["Courageous", "Humble"], valueRationale: "Their drive to complete high-standard tasks reflects boldness and diligence." },
+
+            // Rank 6
+            { name: "🚀 The Assertive Driver", letters: "GT / TG", coreStrength: "Being highly driven individuals with high conviction and standards who get things done.", rank: 6, frequency: 6.00, type: "Disruptive", interaction: ["Tenacity provides the focused drive and follow-through needed to make sure Galvanizing's initiatives actually get completed successfully.", "Galvanizing inspires and motivates people to join Tenacity's focused efforts, helping overcome obstacles and build momentum."], challenges: "Sometimes being seen as pushy and being impatient with too much planning and brainstorming, preferring to get right to work.", tendencies: "Being overly directive and dismissive of others' input or prioritizing speed and completion over thoroughness and collaboration.", dialogue: { productive: "We need to move quickly and get this across the finish line!", challenged: "Why is everyone so hesitant and unwilling to take decisive action?", growth: "Am I being effectively assertive in driving results, or just being impatient and controlling?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "Their assertive drive helps them overcome obstacles and rally others." },
+
+            // Rank 7
+            { name: "🎨 The Adaptable Designer", letters: "IE / EI", coreStrength: "Being creative, flexible, open to feedback, and easy to work with in developing solutions for others.", rank: 7, frequency: 5.93, type: "Mixed", interaction: ["Invention creates new solutions specifically tailored to what Enablement knows others need or want.", "Enablement gives Invention real-world feedback on what people actually need, making sure the creative ideas are truly useful."], challenges: "Being too quick to accommodate and avoid advocating for their own ideas, potentially leaving them feeling undervalued.", tendencies: "Suppressing their own creative insights to please others or over-committing to implement others' ideas without fully considering their own.", dialogue: { productive: "Let's brainstorm some new ways to support what you need.", challenged: "Why does everyone else's vision always take priority over my creative ideas?", growth: "Am I being adaptable and helpful, or just letting others' needs overshadow my own?" }, valueAlignments: ["Empowering", "Connected"], valueRationale: "They create flexible solutions while collaborating and serving the needs of others." },
+
+            // Rank 8
+            { name: "🔥 The Intuitive Activator", letters: "DG / GD", coreStrength: "Making rapid, surprisingly accurate assessments and inspiring action.", rank: 8, frequency: 5.70, type: "Mixed", interaction: ["Galvanizing turns Discernment's quick judgments and insights into action by rallying people behind them.", "Discernment gives Galvanizing a gut feeling for which ideas are truly worth pushing, focusing their energy effectively."], challenges: "Sometimes being cavalier in their declarations and appearing impatient or dismissive when made to consider critical details for implementation.", tendencies: "Pushing forward with gut feelings without sufficient consideration or dismissing others' concerns as slowing progress.", dialogue: { productive: "I have a strong feeling about this direction; let's get moving on it!", challenged: "Why is everyone so hesitant when the path forward is clear?", growth: "Am I being decisive and action-oriented, or just rushing to judgment?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They make bold decisions and inspire action in others." },
+
+            // Rank 9
+            { name: "🏗️ The Methodical Architect", letters: "IT / TI", coreStrength: "Being precise, reliable, and planful solvers of problems with a unique blend of innovative thinking and practical implementation.", rank: 9, frequency: 5.38, type: "Disruptive", interaction: ["Tenacity brings the focus and discipline needed to turn Invention's creative concepts into real, workable solutions.", "Invention provides Tenacity with fresh, innovative approaches, preventing them from getting stuck in routine and encouraging creative problem-solving."], challenges: "Sometimes missing the nuance of a situation or overlooking human needs in their dogged pursuit of a workable solution.", tendencies: "Becoming overly focused on the details of the plan and losing sight of the bigger picture or the impact on people.", dialogue: { productive: "I've designed an innovative yet practical solution that we can implement systematically.", challenged: "Everyone's too caught up in emotions and politics to see how elegant this solution is.", growth: "Am I balancing creative problem-solving with practical implementation needs?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They combine methodical execution with practical problem-solving." },
+
+            // Rank 10
+            { name: "🧠 The Discriminating Ideator", letters: "ID / DI", coreStrength: "Creative problem-solving with a strong sense of what will actually work.", rank: 10, frequency: 5.20, type: "Mixed", interaction: ["Discernment helps Invention quickly spot which of their new ideas are most likely to work, acting like a reality check.", "Invention keeps Discernment supplied with fresh, original ideas to evaluate, ensuring they don't get stuck on old ways."], challenges: "Appearing impatient and over-confident when their ideas face pushback, and losing interest after the initial inventive phase.", tendencies: "Dismissing others' ideas prematurely or becoming disengaged once the problem-solving sparks fade.", dialogue: { productive: "Here's a new way to approach this; I have a strong feeling it will work well.", challenged: "Why can't people see that my idea is the best solution?", growth: "Am I being genuinely confident in my ideas, or just dismissive of alternatives?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They confidently generate new ideas and practical solutions." },
+
+            // Rank 11
+            { name: "📝 The Careful Implementer", letters: "WT / TW", coreStrength: "Being thorough, practical, and careful contributors with a blend of steady reliability and quiet depth.", rank: 11, frequency: 5.11, type: "Mixed", interaction: ["Wonder pushes Tenacity to understand the 'why' behind tasks, leading to more thoughtful and thorough work.", "Tenacity gives Wonder's curiosity a practical focus, ensuring their questions lead to carefully completed tasks and real improvements."], challenges: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", tendencies: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", dialogue: { productive: "To do this well, I need to understand why it's important and the best way to approach it.", challenged: "Why am I being asked to do this without a clear explanation or purpose?", growth: "Am I being thoughtfully diligent, or just overanalyzing and procrastinating?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their thoughtful and practical implementation stems from understanding purpose and showing diligence." },
+
+            // Rank 12
+            { name: "📣 The Evangelizing Innovator", letters: "IG / GI", coreStrength: "Being excitable and convincing promoters of new ideas with infectious enthusiasm.", rank: 12, frequency: 5.07, type: "Disruptive", interaction: ["Invention generates the exciting, new ideas that Galvanizing loves to get people fired up about.", "Galvanizing takes Invention's original ideas and spreads the word, inspiring others to get involved and make them happen."], challenges: "Being hasty to start selling ideas before fully considering their prudence and potentially being perceived as slightly over-the-top in their approach.", tendencies: "Aggressively pushing forward with underdeveloped ideas or becoming overly invested in the initial excitement without considering long-term viability.", dialogue: { productive: "I've got a breakthrough idea, and I know you'll be as excited about it as I am!", challenged: "Why isn't everyone else seeing the potential of this amazing innovation?", growth: "Am I genuinely passionate about this idea, or just enjoying the thrill of persuading others?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire others to act on them." },
+
+            // Rank 13
+            { name: "🌈 The Creative Dreamer", letters: "WI / IW", coreStrength: "Being passionate idealists with an endless stream of big questions and ideas, comfortable with abstract thinking.", rank: 13, frequency: 4.98, type: "Mixed", interaction: ["Wonder explores possibilities and identifies needs, creating the perfect launching pad for Invention's ideas.", "Invention takes Wonder's big questions and 'what ifs' and turns them into specific, new ideas and potential solutions."], challenges: "Not valuing practicality, focus, or implementation as much as idealism and ingenuity, sometimes leading to stress for those seeking realism and action.", tendencies: "Generating endless ideas without considering their feasibility or becoming dismissive of practical constraints.", dialogue: { productive: "I have so many questions and ideas about how things could be different!", challenged: "Why does everyone want to stick to the same old solutions when there are so many better possibilities?", growth: "Am I being imaginative and forward-thinking, or just living in a world of hypotheticals?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "Their future-oriented thinking and generation of possibilities drive innovation." },
+
+            // Rank 14
+            { name: "🧘 The Contemplative Counselor", letters: "WD / DW", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["Discernment helps Wonder sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "Wonder gives Discernment new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That's a fascinating question; let's consider the implications from a few different angles.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
+
+            // Rank 15
+            { name: "🌍 The Philosophical Motivator", letters: "WG / GW", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["Wonder comes up with the inspiring possibilities and big questions that Galvanizing can rally people around.", "Galvanizing turns Wonder's deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't anyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
+        ];
+
+        // List of Genius names to bold
+        const geniusNames = ['Wonder', 'Invention', 'Discernment', 'Galvanizing', 'Enablement', 'Tenacity'];
+
+        // Inspiration Quotes mapping
+        const inspirationQuotes = {
+            "✅ The Loyal Finisher": `"Success is not in what you accomplish, but in the lasting impact of your results."`,
+            "🎉 The Enthusiastic Encourager": `"Encouragement transforms potential into action."`,
+            "🤝 The Insightful Collaborator": `"Insight is the bridge between vision and action."`,
+            "🌟 The Idealistic Supporter": `"Seeing the bigger picture inspires us to make a real difference."`,
+            "🛠️ The Judicious Accomplisher": `"A focused mind turns vision into achievement."`,
+            "🚀 The Assertive Driver": `"Bold actions inspire progress, even in the face of adversity."`,
+            "🎨 The Adaptable Designer": `"Creativity flourishes when feedback meets responsive design."`,
+            "🔥 The Intuitive Activator": `"Action guided by intuition sparks great change."`,
+            "🏗️ The Methodical Architect": `"A well-planned strategy turns ideas into reality."`,
+            "🧠 The Discriminating Ideator": `"Innovation is nurtured by thoughtful experimentation."`,
+            "📝 The Careful Implementer": `"Thoughtful action is the cornerstone of progress."`,
+            "📣 The Evangelizing Innovator": `"Innovation thrives on passion—and a shared vision."`,
+            "🌈 The Creative Dreamer": `"Imagination is the seed; action is the fruit."`,
+            "🧘 The Contemplative Counselor": `"Wisdom is understanding the power of perspective."`,
+            "🌍 The Philosophical Motivator": `"Inspiration is the first step toward transformation."`
+        };
+
+
+        // Function to create and populate an accordion item
+        function createAccordionItem(data) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'accordion-item bg-white dark:bg-gray-800 transition-colors duration-300';
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'accordion-header';
+            headerDiv.setAttribute('role', 'button');
+            headerDiv.setAttribute('aria-expanded', 'false'); // ARIA attribute for accessibility
+            headerDiv.setAttribute('tabindex', '0'); // Make header focusable
+
+            const headerContent = `
+                <div class="flex-grow mr-4">
+                    <h2 class="pairing-name text-white">${data.rank}. ${data.name} (${data.letters})</h2>
+                    <p class="text-blue-200 text-sm lg:text-base italic mt-1">${data.coreStrength}</p>
+                </div>
+                <div class="flex-shrink-0 bg-blue-900 bg-opacity-75 p-2 rounded-md text-sm text-blue-100 text-center">
+                    <span class="font-semibold block">Rank ${data.rank}/15 (${data.frequency.toFixed(2)}%)</span>
+                    <span class="mt-1 type-badge inline-block ${getTypeClass(data.type)}" title="${getTypeTooltip(data.type)}">${getTypeText(data.type)}</span>
+                </div>
+                 <svg class="arrow-icon ml-4 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            `;
+            headerDiv.innerHTML = headerContent;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'accordion-content';
+            contentDiv.setAttribute('role', 'region'); // ARIA attribute for accessibility
+
+
+            // CHECK Value Alignment Section (now always visible when the accordion is open)
+            const valueAlignmentSection = document.createElement('div');
+            valueAlignmentSection.className = `value-alignment-section w-full mb-6`; // Removed 'hidden' class logic
+
+            const valueAlignmentContent = `
+                <section class="bg-white dark:bg-black p-4 rounded-lg shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-3">
+                        <h2 class="text-xl lg:text-2xl font-bold text-teal-600 dark:text-teal-400 flex items-center transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-teal-600 dark:text-teal-400 transition-colors duration-300" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            CHECK Value Alignment
+                        </h2>
+                        <div class="value-alignment-badges ml-4 flex flex-wrap">
+                            ${(data.valueAlignments || []).sort().map(value => `<span class="value-badge text-sm font-medium ${value.toLowerCase()}">${value}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="value-alignment-list text-gray-800 dark:text-gray-300 transition-colors duration-300">
+                        ${data.valueRationale ? `<p class="text-gray-800 dark:text-gray-300 leading-relaxed">${data.valueRationale}</p>` : `<p class="text-sm italic text-gray-500 dark:text-gray-400">No strong primary value alignment identified based on Genius alone.</p>`}
+                    </div>
+                </section>
+            `;
+             valueAlignmentSection.innerHTML = valueAlignmentContent;
+
+
+            // Inspiration Section
+            const inspirationSection = document.createElement('section');
+            inspirationSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4 transition-colors duration-300';
+            inspirationSection.innerHTML = `
+                <h2 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-2 flex items-center transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-indigo-600 dark:text-indigo-400 transition-colors duration-300" aria-hidden="true">
+                        <line x1="9" y1="18" x2="15" y2="18"></line>
+                        <line x1="10" y1="22" x2="14" y2="22"></line>
+                        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+                    </svg>
+                    Inspirational Quote
+                </h2>
+                <p class="inspiration-quote text-gray-800 dark:text-gray-300 leading-relaxed transition-colors duration-300">${inspirationQuotes[data.name] || '[Inspiration quote]'}</p>
+            `;
+
+             // Interaction Section
+            const interactionSection = document.createElement('section');
+            interactionSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg flex-grow flex flex-col transition-colors duration-300';
+            const interactionHTML = data.interaction.map(point => {
+                let processedPoint = point;
+                geniusNames.forEach(name => {
+                    const regex = new RegExp(`\\b(${name})\\b`, 'g');
+                    const geniusClass = name.toLowerCase();
+                    processedPoint = processedPoint.replace(regex, `<strong class="${geniusClass}">$1</strong>`);
+                });
+                return `<p>${processedPoint}</p>`;
+            }).join('');
+            interactionSection.innerHTML = `
+                <h2 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2 flex items-center transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-blue-600 dark:text-blue-400 transition-colors duration-300" aria-hidden="true"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+                    Genius Interaction
+                </h2>
+                <div class="interaction-text text-gray-800 dark:text-gray-300 space-y-2 leading-relaxed transition-colors duration-300">${interactionHTML}</div>
+            `;
+
+
+            // Challenges Section
+            const challengesSection = document.createElement('section');
+            challengesSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg transition-colors duration-300';
+            challengesSection.innerHTML = `
+                <h2 class="text-xl font-semibold text-amber-600 dark:text-amber-400 mb-2 flex items-center transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-amber-600 dark:text-amber-400 transition-colors duration-300" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    Common Challenges
+                </h2>
+                <p class="challenges-text text-gray-800 dark:text-gray-300 leading-relaxed transition-colors duration-300">${data.challenges}</p>
+            `;
+
+            // Tendencies Section
+            const tendenciesSection = document.createElement('section');
+            tendenciesSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg transition-colors duration-300';
+            tendenciesSection.innerHTML = `
+                <h2 class="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-2 flex items-center transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-rose-600 dark:text-rose-400 transition-colors duration-300" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+                    Unhealthy Tendencies
+                </h2>
+                <p class="tendencies-text text-gray-800 dark:text-gray-300 leading-relaxed transition-colors duration-300">${data.tendencies}</p>
+            `;
+
+            // Inner Dialogue Section
+            const dialogueSection = document.createElement('section');
+            dialogueSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg transition-colors duration-300';
+            dialogueSection.innerHTML = `
+                <h2 class="text-xl font-semibold text-violet-600 dark:text-violet-400 mb-3 flex items-center transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-violet-600 dark:text-violet-400 transition-colors duration-300" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    Inner Dialogue
+                </h2>
+                <div class="space-y-2">
+                    <p class="text-gray-800 dark:text-gray-300 flex items-start dialogue-item transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg inline-block mr-2 text-green-600 dark:text-green-500 transition-colors duration-300 mt-1" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <strong class="font-semibold text-green-700 dark:text-green-400 w-24 shrink-0 transition-colors duration-300">Productive:</strong> <span class="dialogue-healthy">${data.dialogue.productive}</span>
+                    </p>
+                    <p class="text-gray-800 dark:text-gray-300 flex items-start dialogue-item transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg inline-block mr-2 text-yellow-600 dark:text-yellow-500 transition-colors duration-300 mt-1" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                        <strong class="font-semibold text-yellow-700 dark:text-yellow-400 w-24 shrink-0 transition-colors duration-300">Challenged:</strong> <span class="dialogue-frustrated">${data.dialogue.challenged}</span>
+                    </p>
+                    <p class="text-gray-800 dark:text-gray-300 flex items-start dialogue-item transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg inline-block mr-2 text-blue-600 dark:text-blue-500 transition-colors duration-300 mt-1" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <strong class="font-semibold text-blue-700 dark:text-blue-400 mr-2 transition-colors duration-300">Growth Check:</strong>
+                        <span class="dialogue-aware">${data.dialogue.growth}</span>
+                    </p>
+                </div>
+            `;
+
+            // Append sections to contentDiv
+            contentDiv.appendChild(valueAlignmentSection);
+            contentDiv.appendChild(inspirationSection);
+            contentDiv.appendChild(interactionSection);
+            contentDiv.appendChild(challengesSection);
+            contentDiv.appendChild(tendenciesSection);
+            contentDiv.appendChild(dialogueSection);
+
+
+            itemDiv.appendChild(headerDiv);
+            itemDiv.appendChild(contentDiv);
+
+            // Add click listener to header to toggle content
+            headerDiv.addEventListener('click', () => {
+                const isActive = headerDiv.classList.toggle('active');
+                contentDiv.classList.toggle('active', isActive);
+                headerDiv.setAttribute('aria-expanded', isActive); // Update ARIA attribute
+            });
+
+             // Add keyboard listeners for accessibility
+            headerDiv.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault(); // Prevent default spacebar behavior (scrolling)
+                    const isActive = headerDiv.classList.toggle('active');
+                    contentDiv.classList.toggle('active', isActive);
+                    headerDiv.setAttribute('aria-expanded', isActive); // Update ARIA attribute
+                }
+            });
+
+
+            return itemDiv;
+        }
+
+        // Helper function to get type text
+        function getTypeText(type) {
+            if (type === 'Responsive') return "DOUBLE RESPONSIVE PAIRING";
+            if (type === 'Disruptive') return "DOUBLE DISRUPTIVE PAIRING";
+            if (type === 'Mixed') return "MIXED PAIRING";
+            return type; // Fallback
+        }
+
+         // Helper function to get type tooltip
+        function getTypeTooltip(type) {
+            if (type === 'Responsive') return "Combines two Responsive Geniuses (W, D, E).";
+            if (type === 'Disruptive') return "Combines two Disruptive Geniuses (I, G, T).";
+            if (type === 'Mixed') return "Combines one Responsive (W, D, E) and one Disruptive (I, G, T) Genius.";
+            return '';
+        }
+
+        // Helper function to get type CSS class
+        function getTypeClass(type) {
+            if (type === 'Responsive') return 'type-resp';
+            if (type === 'Disruptive') return 'type-disrupt';
+            if (type === 'Mixed') return 'type-mixed';
+            return ''; // Default or unknown type
+        }
+
+
+        // Populate accordion and set up event listeners when the page loads
+        window.onload = () => {
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionContainer.innerHTML = ''; // Clear loading message
+
+            // Sort data by rank
+            pairingsData.sort((a, b) => a.rank - b.rank);
+
+            // Create and append accordion items
+            pairingsData.forEach(pairing => {
+                const item = createAccordionItem(pairing);
+                accordionContainer.appendChild(item);
+            });
+
+            // Theme toggle functionality
+            document.getElementById('theme-toggle').addEventListener('change', function(e) {
+                if (e.target.checked) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Set initial theme toggle state
+            document.getElementById('theme-toggle').checked = document.documentElement.classList.contains('dark');
+
+            // Removed the Values toggle functionality
+            // document.getElementById('values-toggle').addEventListener('change', function(e) {
+            //     const sections = document.querySelectorAll('.value-alignment-section');
+            //     if (e.target.checked) {
+            //         sections.forEach(section => section.classList.remove('hidden'));
+            //     } else {
+            //         sections.forEach(section => section.classList.add('hidden'));
+            //     }
+            // });
+
+            // Removed the initial values toggle state logic
+            // const initialValuesToggleState = document.getElementById('values-toggle').checked;
+            // document.querySelectorAll('.value-alignment-section').forEach(section => {
+            //     if (initialValuesToggleState) {
+            //         section.classList.remove('hidden');
+            //     } else {
+            //         section.classList.add('hidden');
+            //     }
+            // });
+
+        };
+
+    </script>
+
+</body>
+</html>
