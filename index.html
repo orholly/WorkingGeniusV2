@@ -213,21 +213,17 @@
         }
 
         /* Sort/Theme Button Styles */
-        /* *** MODIFICATION: Removed fixed width/height, adjusted padding *** */
         .toggle-button {
-            padding: 0.25rem 0.75rem; /* Adjusted horizontal padding */
+            padding: 0.25rem 0.75rem;
             border-radius: 9999px; /* pill shape */
             font-size: 0.75rem; /* text-xs */
             font-weight: 500;
             display: inline-flex;
             align-items: center;
-            /* justify-content: center; /* Removed center */
             gap: 0.3rem;
             cursor: pointer;
             border: 1px solid transparent;
             transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-            /* width: 2rem; */ /* Removed fixed width */
-            /* height: 2rem; */ /* Removed fixed height */
         }
         /* Inactive state */
         .toggle-button {
@@ -297,21 +293,35 @@
         }
     </script>
 </head>
- <body class="bg-brand-gray-light dark:bg-brand-gray-dark text-brand-gray-dark dark:text-brand-gray-light flex flex-col items-center justify-start min-h-screen pt-20 pb-4 sm:pt-24 sm:pb-6 lg:pb-8 transition-colors duration-300">
+ <body class="bg-brand-gray-light dark:bg-brand-gray-dark text-brand-gray-dark dark:text-brand-gray-light flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 lg:p-8 pt-8 sm:pt-12 transition-colors duration-300">
 
-    <div class="fixed top-4 left-4 z-50">
+    <div class="mb-4 md:mb-6 flex justify-center">
+        <img id="org-logo"
+             src="https://placehold.co/150x50/f6f7f8/1e1e1e?text=VICTORY+CHURCH" alt="Victory Church Logo"
+             width="150"
+             height="50"
+             onerror="this.onerror=null; this.src='https://placehold.co/150x50/ffffff/000000?text=Logo';"
+             class="h-10 sm:h-12">
+    </div>
+
+    <header class="w-full max-w-6xl mx-auto mb-4 md:mb-6 text-center px-4"> <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
+            Working Genius Pairings
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
+        </p>
+    </header>
+
+    <div class="w-full max-w-6xl mx-auto px-4 mb-6 md:mb-8 flex justify-between items-center">
         <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-1">
-             <button id="sort-alpha-button" class="toggle-button" aria-pressed="true" title="Sort Alphabetically by Letters">
+            <button id="sort-alpha-button" class="toggle-button" aria-pressed="true" title="Sort Alphabetically by Letters">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="10" y1="15" y2="3"/><path d="M7 3H13"/><path d="M12 3v12"/><path d="M7 15h7"/><path d="M17 15l4 4-4 4"/><path d="M21 19H7"/></svg>
                  <span class="hidden sm:inline">Alpha</span> </button>
             <button id="sort-rank-button" class="toggle-button" aria-pressed="false" title="Sort by Rank">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="21" y1="6" y2="6"/><line x1="10" x2="21" y1="12" y2="12"/><line x1="10" x2="21" y1="18" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
                  <span class="hidden sm:inline">Rank</span> </button>
              </div>
-    </div>
 
-    <div class="fixed top-4 right-4 z-50">
-         <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-1">
+        <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-1">
              <button id="theme-light-button" class="toggle-button" aria-pressed="false" title="Switch to Light Theme">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                  <span class="hidden sm:inline">Light</span>
@@ -322,13 +332,6 @@
              </button>
          </div>
     </div>
-
-    <header class="w-full max-w-6xl mx-auto mb-6 md:mb-10 text-center px-4"> <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
-            Working Genius Pairings
-        </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
-        </p>
-    </header>
 
     <main class="w-full max-w-6xl mx-auto px-2"> <div id="pairings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
             <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
@@ -647,11 +650,22 @@
          // Theme Toggle Button Logic
          const themeLightButton = document.getElementById('theme-light-button');
          const themeDarkButton = document.getElementById('theme-dark-button');
+         const logoImage = document.getElementById('org-logo'); // Get logo element
 
          function setTheme(theme) {
             document.documentElement.className = theme;
             localStorage.setItem('theme', theme);
             updateThemeButtons(theme);
+            // *** MODIFICATION: Update logo src based on theme ***
+            if (logoImage) {
+                if (theme === 'dark') {
+                    // Use the white logo file reference for dark mode
+                    logoImage.src = 'LogoHorizontal_W.png'; // Actual file reference
+                } else {
+                    // Use the black logo file reference for light mode
+                    logoImage.src = 'LogoHorizontal_B.png'; // Actual file reference
+                }
+            }
          }
 
          function updateThemeButtons(theme) {
@@ -706,7 +720,7 @@
 
             // Theme Toggle Logic (Using Buttons)
             const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            setTheme(currentTheme); // Apply theme and set initial button state
+            setTheme(currentTheme); // Apply theme and set initial button/logo state
 
             if (themeLightButton) {
                 themeLightButton.addEventListener('click', () => setTheme('light'));
