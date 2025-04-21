@@ -57,8 +57,8 @@
 
         /* Grid Card Hover Effect */
         .pairing-card {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-            /* Removed min-height */
+            /* Added border transition */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
         }
         .pairing-card:hover {
             transform: translateY(-4px);
@@ -66,6 +66,8 @@
         }
         html.dark .pairing-card:hover {
              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+             /* Optional: Slightly lighter border on hover */
+             /* border-color: #475569; /* slate-600 */
         }
 
 
@@ -136,7 +138,7 @@
         /* Overview section specific label styling */
         .overview-label {
             font-size: 0.75rem;
-            font-weight: 500;
+            /* font-weight: 500; /* Removed font-medium */
             color: #6b7280;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -188,7 +190,7 @@
             Working Genius Pairings
         </h1>
         <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400">
-            Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
+            Explore the dynamics of different Working Genius combinations. Click a card for details.
         </p>
     </header>
 
@@ -231,13 +233,13 @@
                      </h3>
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700 dark:text-slate-300">
                          <div class="overview-card">
-                             <strong class="overview-label">Core Strength</strong>
-                             <p id="modal-core-strength" class="leading-relaxed"></p>
+                             <strong class="overview-label font-semibold">Core Strength</strong>
+                             <p id="modal-core-strength" class="leading-relaxed italic"></p>
                          </div>
                          <div class="overview-card">
-                             <strong class="overview-label">Pairing Type</strong>
+                             <strong class="overview-label font-semibold">Pairing Type</strong>
                              <p><span id="modal-pairing-type-badge" class="type-badge">Type</span></p>
-                             <p id="modal-pairing-type-tooltip" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tooltip</p>
+                             <p id="modal-pairing-type-tooltip" class="leading-relaxed italic mt-1">Tooltip</p>
                          </div>
                      </div>
                  </div>
@@ -376,14 +378,13 @@
         // --- Grid Item Creation ---
         function createGridItem(data, index) {
             const itemDiv = document.createElement('div');
-            itemDiv.className = 'pairing-card bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
+            itemDiv.className = 'pairing-card bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
             itemDiv.setAttribute('data-index', index);
 
             const nameParts = data.name.match(/^(\W+)\s*(.*)$/) || [null, '', data.name];
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
-            // *** MODIFICATION: Updated font sizes ***
             itemDiv.innerHTML = `
                 <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
                 <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2 whitespace-nowrap">
@@ -392,7 +393,6 @@
                 </h3>
                 <p class="text-sm text-slate-500 dark:text-slate-400">${data.letters}</p>
             `;
-            // *** MODIFICATION END ***
 
             itemDiv.addEventListener('click', () => openModal(index));
             itemDiv.addEventListener('keydown', (event) => {
@@ -438,7 +438,7 @@
             modalCoreStrength.textContent = data.coreStrength;
             modalPairingTypeBadge.textContent = getTypeText(data.type);
             modalPairingTypeBadge.className = `type-badge ${getTypeClass(data.type)}`;
-            modalPairingTypeTooltip.textContent = getTypeTooltip(data.type);
+            modalPairingTypeTooltip.textContent = getTypeTooltip(data.type); // Populate tooltip text
             modalValueBadges.innerHTML = (data.valueAlignments || []).sort().map(value =>
                 `<span class="value-badge ${value.toLowerCase()}">${getValueIcon(value)}${value}</span>`
             ).join('');
