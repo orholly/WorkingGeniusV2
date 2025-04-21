@@ -408,7 +408,8 @@
             color: #374151; /* Gray-700 */
             padding: 0 1.5rem;
             overflow: hidden;
-            max-height: 0;
+            /* Increased max-height to prevent content cutoff */
+            max-height: 4000px; /* Increased from 2000px */
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
         }
 
@@ -419,7 +420,7 @@
 
 
         .accordion-content.active {
-            max-height: 2000px; /* Large enough to accommodate content */
+            max-height: 4000px; /* Keep consistent with base max-height */
             padding: 1.5rem;
         }
 
@@ -437,6 +438,23 @@
              padding: 1rem; /* Slightly less padding inside accordion sections */
          }
 
+         /* Container for CHECK Value heading and badges */
+         .value-alignment-header {
+             display: flex;
+             flex-direction: column; /* Stack heading and badges on mobile */
+             align-items: flex-start;
+             margin-bottom: 1rem; /* Space below the header block */
+         }
+
+         @media (min-width: 768px) { /* md breakpoint */
+             .value-alignment-header {
+                 flex-direction: row; /* Row layout on desktop */
+                 align-items: center;
+                 margin-bottom: 0.75rem; /* Slightly less space on desktop */
+             }
+         }
+
+
          .value-alignment-badges {
             margin-left: 0; /* Adjust margin for column layout */
             flex-shrink: 0;
@@ -453,14 +471,14 @@
          .value-alignment-badges .value-badge {
             font-size: 0.9rem; /* Smaller badge font in header */
             padding: 0.2rem 0.5rem;
-            min-width: auto;
+            min-width: auto; /* Allow badges to size based on content */
          }
 
          /* Adjust value badges in content for mobile */
          .accordion-content .value-badge {
              font-size: 1rem; /* Slightly smaller font size on mobile */
              padding: 0.3rem 0.7rem; /* Adjusted padding on mobile */
-             min-width: 80px; /* Slightly smaller min width on mobile */
+             min-width: auto; /* Allow badges to size based on content */
          }
 
          @media (min-width: 768px) { /* md breakpoint */
@@ -549,7 +567,7 @@
             { name: "📣 The Evangelizing Innovator", letters: "IG / GI", coreStrength: "Being excitable and convincing promoters of new ideas with infectious enthusiasm.", rank: 12, frequency: 5.07, type: "Disruptive", interaction: ["Invention generates the exciting, new ideas that Galvanizing loves to get people fired up about.", "Galvanizing takes Invention's original ideas and spreads the word, inspiring others to get involved and make them happen."], challenges: "Being hasty to start selling ideas before fully considering their prudence and potentially being perceived as slightly over-the-top in their approach.", tendencies: "Aggressively pushing forward with underdeveloped ideas or becoming overly invested in the initial excitement without considering long-term viability.", dialogue: { productive: "I've got a breakthrough idea, and I know you'll be as excited about it as I am!", challenged: "Why isn't everyone else seeing the potential of this amazing innovation?", growth: "Am I genuinely passionate about this idea, or just enjoying the thrill of persuading others?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire others to act on them." },
 
             // Rank 13
-            { name: "🌈 The Creative Dreamer", letters: "WI / IW", coreStrength: "Being passionate idealists with an endless stream of big questions and ideas, comfortable with abstract thinking.", rank: 13, frequency: 4.98, type: "Mixed", interaction: ["Wonder explores possibilities and identifies needs, creating the perfect launching pad for Invention's ideas.", "Invention takes Wonder's big questions and 'what ifs' and turns them into specific, new ideas and potential solutions."], challenges: "Not valuing practicality, focus, or implementation as much as idealism and ingenuity, sometimes leading to stress for those seeking realism and action.", tendencies: "Generating endless ideas without considering their feasibility or becoming dismissive of practical constraints.", dialogue: { productive: "I have so many questions and ideas about how things could be different!", challenged: "Why does everyone want to stick to the same old solutions when there are so many better possibilities?", growth: "Am I being imaginative and forward-thinking, or just living in a world of hypotheticals?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "Their future-oriented thinking and generation of possibilities drive innovation." },
+            { name: "🌈 The Creative Dreamer", letters: "WI / IW", coreStrength: "Being passionate idealists with an endless stream of big questions and ideas, comfortable with abstract thinking.", rank: 13, frequency: 4.98, type: "Mixed", interaction: ["Wonder explores possibilities and identifies needs, creating the perfect launching pad for Invention's ideas.", "Invention takes Wonder's big questions and 'what ifs' and turns them into specific, new ideas and potential solutions."], challenges: "Not valuing practicality, focus, or implementation as much as idealism and ingenuity, sometimes leading to stress for those seeking realism and action.", tendencies: "Generating endless ideas without considering their feasibility or becoming dismissive of practical constraints.", dialogue: { productive: "I have so many questions and ideas about how things could be different!", challenged: "Why does everyone want to stick to the same old solutions when there are so many better possibilities?", growth: "Am I being imaginative and forward-thinking, or just living in a world of hypotheticals?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." },
 
             // Rank 14
             { name: "🧘 The Contemplative Counselor", letters: "WD / DW", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["Discernment helps Wonder sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "Wonder gives Discernment new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That's a fascinating question; let's consider the implications from a few different angles.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
@@ -617,12 +635,12 @@
 
             const valueAlignmentContent = `
                 <section class="bg-white dark:bg-black p-4 rounded-lg shadow-lg transition-colors duration-300">
-                    <div class="flex items-center mb-3">
-                        <h2 class="text-xl lg:text-2xl font-bold text-teal-600 dark:text-teal-400 flex items-center transition-colors duration-300">
+                    <div class="value-alignment-header flex flex-col md:flex-row items-start md:items-center mb-3">
+                        <h2 class="text-xl lg:text-2xl font-bold text-teal-600 dark:text-teal-400 flex items-center transition-colors duration-300 mb-2 md:mb-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2 text-teal-600 dark:text-teal-400 transition-colors duration-300" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
                             CHECK Value Alignment
                         </h2>
-                        <div class="value-alignment-badges ml-4 flex flex-wrap">
+                        <div class="value-alignment-badges ml-0 md:ml-4 flex flex-wrap mt-2 md:mt-0">
                             ${(data.valueAlignments || []).sort().map(value => `<span class="value-badge text-sm font-medium ${value.toLowerCase()}">${value}</span>`).join('')}
                         </div>
                     </div>
