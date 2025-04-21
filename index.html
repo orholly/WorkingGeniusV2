@@ -18,12 +18,12 @@
 
         /* Custom scrollbar for webkit browsers */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; } /* gray-100 */
-        html.dark ::-webkit-scrollbar-track { background: #1f2937; } /* gray-800 */
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; } /* slate-400 */
-        html.dark ::-webkit-scrollbar-thumb { background: #475569; } /* slate-600 */
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; } /* slate-500 */
-        html.dark ::-webkit-scrollbar-thumb:hover { background: #334155; } /* slate-700 */
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; } /* Use default light gray */
+        html.dark ::-webkit-scrollbar-track { background: #2f1749; } /* Use brand-purple */
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; } /* Default slate */
+        html.dark ::-webkit-scrollbar-thumb { background: #038da2; } /* Use brand-teal-dark */
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; } /* Default slate */
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #2dacb2; } /* Use brand-teal-light */
 
         /* Modal Transition Styles */
         .modal-backdrop {
@@ -66,16 +66,15 @@
         }
         html.dark .pairing-card:hover {
              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-             /* Optional: Slightly lighter border on hover */
-             /* border-color: #475569; /* slate-600 */
+             border-color: #2dacb2; /* brand-teal-light on hover */
         }
 
 
         /* Theme Toggle Styles */
-        .toggle-checkbox:checked + .toggle-label { background-color: #3b82f6; } /* blue-500 */
-        .toggle-checkbox:checked { transform: translateX(100%); background-color: #ffffff; border-color: #3b82f6; } /* white / blue-500 */
-        html.dark .toggle-checkbox:checked + .toggle-label { background-color: #60a5fa; } /* blue-400 */
-        html.dark .toggle-checkbox:checked { border-color: #60a5fa; } /* blue-400 */
+        .toggle-checkbox:checked + .toggle-label { background-color: #038da2; } /* brand-teal-dark */
+        .toggle-checkbox:checked { transform: translateX(100%); background-color: #f6f7f8; border-color: #038da2; } /* brand-gray-light / brand-teal-dark */
+        html.dark .toggle-checkbox:checked + .toggle-label { background-color: #2dacb2; } /* brand-teal-light */
+        html.dark .toggle-checkbox:checked { border-color: #2dacb2; } /* brand-teal-light */
         .toggle-label { transition: background-color 0.2s ease; }
         .toggle-checkbox { transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
 
@@ -112,36 +111,36 @@
         html.dark .value-badge.connected { background-color: #1e3a8a; color: #bfdbfe; border-color: #1d4ed8; }
         html.dark .value-badge.kind { background-color: #701a75; color: #f5d0fe; border-color: #c026d3; }
 
-        /* Grayed-out badge style (applied via JS) */
+        /* Grayed-out badge style (applied via JS) - Using Brand Grays */
         .value-badge-gray {
-            background-color: #f3f4f6; /* gray-100 */
+            background-color: #f3f4f6; /* Lighter standard gray for light mode */
             color: #9ca3af; /* gray-400 */
             border-color: #e5e7eb; /* gray-200 */
         }
         html.dark .value-badge-gray {
-            background-color: #374151; /* gray-700 */
-            color: #6b7280; /* gray-500 */
-            border-color: #4b5563; /* gray-600 */
+            background-color: #2f1749; /* brand-purple */
+            color: #f6f7f8a0; /* brand-gray-light with opacity */
+            border-color: #038da2; /* brand-teal-dark */
+            opacity: 0.6; /* Add opacity to distinguish from active */
         }
          /* Ensure icon color matches text color for gray badges */
         .value-badge-gray svg {
             stroke: #9ca3af; /* gray-400 */
         }
         html.dark .value-badge-gray svg {
-             stroke: #6b7280; /* gray-500 */
+             stroke: #f6f7f8a0; /* brand-gray-light with opacity */
         }
 
 
         /* Genius Name Highlighting */
-        /* *** MODIFICATION: Removed padding and margin *** */
         .interaction-text strong, .modal-interaction-text strong {
             font-weight: 600;
-            /* padding: 0.1em 0.3em; */ /* Removed */
-            /* margin: -0.1em -0.3em; */ /* Removed */
             border-radius: 0.25em;
             transition: background-color 0.2s ease, color 0.2s ease;
+            /* Add slight padding for better visual */
+            padding: 0.05em 0.2em;
+            margin: -0.05em -0.2em;
         }
-        /* *** MODIFICATION END *** */
         .interaction-text strong.wonder, .modal-interaction-text strong.wonder { color: #0f766e; background-color: #ccfbf1;} html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #99f6e4; background-color: #115e59;}
         .interaction-text strong.invention, .modal-interaction-text strong.invention { color: #6d28d9; background-color: #ede9fe;} html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #c4b5fd; background-color: #4c1d95;}
         .interaction-text strong.discernment, .modal-interaction-text strong.discernment { color: #1d4ed8; background-color: #dbeafe;} html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #93c5fd; background-color: #1e3a8a;}
@@ -166,10 +165,11 @@
         .focus-ring:focus-visible {
             outline: 2px solid transparent;
             outline-offset: 2px;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+            /* Using brand color for focus ring */
+            box-shadow: 0 0 0 3px #2dacb280; /* brand-teal-light with opacity */
         }
         html.dark .focus-ring:focus-visible {
-             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.6);
+             box-shadow: 0 0 0 3px #2dacb2b0; /* brand-teal-light with more opacity */
         }
 
         /* Styling for the section containers inside the modal */
@@ -177,24 +177,25 @@
             border-radius: 0.5rem;
             padding: 1.25rem;
             background-color: #ffffff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #e5e7eb; /* gray-200 */
         }
         html.dark .modal-section-container {
-             background-color: #1f2937; /* slate-800 */
-             border-color: #374151; /* slate-700 */
+             background-color: #2f1749; /* brand-purple */
+             border-color: #038da2; /* brand-teal-dark */
         }
 
         /* Overview section specific label styling */
         .overview-label {
             font-size: 0.875rem; /* text-sm */
-            color: #6b7280;
+            /* Use default text color, rely on font-semibold below */
+            /* color: #6b7280; */
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.25rem;
         }
-        html.dark .overview-label {
+        /* html.dark .overview-label {
             color: #9ca3af;
-        }
+        } */
 
         /* Styling for the inner cards within the Overview section */
         .overview-card {
@@ -204,8 +205,8 @@
             padding: 0.75rem; /* p-3 */
         }
         html.dark .overview-card {
-             background-color: #374151; /* slate-700 */
-             border-color: #4b5563; /* slate-600 */
+             background-color: #1e1e1e; /* brand-gray-dark */
+             border-color: #2f1749; /* brand-purple */
         }
 
         /* Utility to extract emoji/icon from name */
@@ -227,29 +228,44 @@
         // Tailwind config
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], }, } }
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-teal-dark': '#038da2',
+                        'brand-lime': '#d1de39',
+                        'brand-purple': '#2f1749',
+                        'brand-teal-light': '#2dacb2',
+                        'brand-coral': '#f04b4d',
+                        'brand-gold': '#f1ba1e',
+                        'brand-gray-dark': '#1e1e1e',
+                        'brand-gray-light': '#f6f7f8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
         }
     </script>
 </head>
-<body class="bg-slate-100 dark:bg-gray-900 flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 lg:p-8 transition-colors duration-300">
+ <body class="bg-brand-gray-light dark:bg-brand-gray-dark text-brand-gray-dark dark:text-brand-gray-light flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 lg:p-8 transition-colors duration-300">
 
     <header class="w-full max-w-6xl mx-auto mb-6 md:mb-10 text-center">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
+         <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
             Working Genius Pairings
         </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400">
-            Explore the dynamics of different Working Genius combinations. Click a card for details.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK Values! Click a card for details.
         </p>
     </header>
 
     <div class="fixed top-4 right-4 z-50">
-        <div class="bg-white dark:bg-slate-800 rounded-full shadow-md p-1 flex items-center space-x-2">
-             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+         <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-2">
+             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             <div class="relative inline-block w-10 align-middle">
                 <input type="checkbox" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-gray-300 appearance-none cursor-pointer dark:bg-slate-500 dark:border-slate-600"/>
                 <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer dark:bg-slate-700"></label>
             </div>
-             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-purple dark:text-brand-teal-light"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </div>
     </div>
 
@@ -262,24 +278,23 @@
     <div id="pairing-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-70 dark:bg-opacity-80" aria-hidden="true"></div>
 
-        <div class="modal-content relative bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto flex flex-col">
-            <div class="flex items-start justify-between p-4 sticky top-0 bg-white dark:bg-gray-900 z-10">
+        <div class="modal-content relative bg-brand-gray-light dark:bg-brand-gray-dark rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto flex flex-col">
+            <div class="flex items-start justify-between p-4 sticky top-0 bg-brand-gray-light dark:bg-brand-gray-dark z-10">
                 <div>
-                     <h2 id="modal-title" class="text-2xl font-semibold text-slate-900 dark:text-white">Pairing Name</h2>
-                     <p id="modal-subtitle" class="text-base text-slate-500 dark:text-slate-400">Rank X/15 (Y.Y%)</p>
-                </div>
-                <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-500 bg-transparent hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
+                     <h2 id="modal-title" class="text-2xl font-semibold text-brand-gray-dark dark:text-brand-gray-light">Pairing Name</h2>
+                     <p id="modal-subtitle" class="text-base text-slate-500 dark:text-brand-gray-light/80">Rank X/15 (Y.Y%)</p> </div>
+                <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-400 bg-transparent hover:bg-slate-200 dark:hover:bg-brand-purple rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
 
-            <div class="p-4 md:p-6 space-y-4 flex-grow">
+            <div class="p-4 md:p-6 space-y-4 flex-grow text-brand-gray-dark dark:text-brand-gray-light">
                 <div class="modal-section-container">
-                     <h3 class="modal-section-header text-blue-600 dark:text-blue-400">
+                      <h3 class="modal-section-header text-blue-600 dark:text-blue-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                          <span>Overview</span>
                      </h3>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-slate-700 dark:text-slate-300">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-base">
                          <div class="overview-card">
                              <strong class="overview-label font-semibold">Core Strength</strong>
                              <p id="modal-core-strength" class="leading-relaxed italic"></p>
@@ -293,54 +308,54 @@
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-teal-600 dark:text-teal-400">
+                      <h3 class="modal-section-header text-teal-600 dark:text-teal-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
                          <span>CHECK Value Alignment</span>
                      </h3>
                      <div id="modal-value-badges" class="mb-3 flex flex-wrap">
                          </div>
-                     <p id="modal-value-rationale" class="text-base text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                     <p id="modal-value-rationale" class="text-base leading-relaxed"></p>
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-indigo-600 dark:text-indigo-400">
+                      <h3 class="modal-section-header text-indigo-600 dark:text-indigo-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                          <span>Inspirational Quote</span>
                      </h3>
-                      <blockquote id="modal-quote" class="border-l-4 border-indigo-500 dark:border-indigo-500 pl-4 italic text-slate-700 dark:text-slate-300 text-base"></blockquote>
+                      <blockquote id="modal-quote" class="border-l-4 border-indigo-300 dark:border-indigo-600 pl-4 italic text-base"></blockquote>
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-sky-600 dark:text-sky-400">
+                      <h3 class="modal-section-header text-sky-600 dark:text-sky-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                          <span>Genius Interaction</span>
                      </h3>
-                      <div id="modal-interaction" class="modal-interaction-text text-base text-slate-700 dark:text-slate-300 space-y-3 leading-relaxed">
+                      <div id="modal-interaction" class="modal-interaction-text text-base space-y-3 leading-relaxed">
                          </div>
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-amber-600 dark:text-amber-400">
+                      <h3 class="modal-section-header text-amber-600 dark:text-amber-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                          <span>Common Challenges</span>
                      </h3>
-                     <p id="modal-challenges" class="text-base text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                     <p id="modal-challenges" class="text-base leading-relaxed"></p>
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-rose-600 dark:text-rose-400">
+                      <h3 class="modal-section-header text-rose-600 dark:text-rose-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
                          <span>Unhealthy Tendencies</span>
                      </h3>
-                     <p id="modal-tendencies" class="text-base text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                     <p id="modal-tendencies" class="text-base leading-relaxed"></p>
                  </div>
 
                  <div class="modal-section-container">
-                     <h3 class="modal-section-header text-violet-600 dark:text-violet-400">
+                      <h3 class="modal-section-header text-violet-600 dark:text-violet-400">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                          <span>Inner Dialogue</span>
                      </h3>
-                      <div class="space-y-3 text-base text-slate-700 dark:text-slate-300">
+                      <div class="space-y-3 text-base">
                          <div class="modal-dialogue-item">
                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-600 dark:text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                              <div><strong class="text-green-700 dark:text-green-400">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
@@ -435,21 +450,20 @@
         // --- Grid Item Creation ---
         function createGridItem(data, index) {
             const itemDiv = document.createElement('div');
-            itemDiv.className = 'pairing-card bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
+            itemDiv.className = 'pairing-card bg-white dark:bg-brand-purple border border-slate-200 dark:border-brand-teal-dark rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
             itemDiv.setAttribute('data-index', index);
 
             const nameParts = data.name.match(/^(\W+)\s*(.*)$/) || [null, '', data.name];
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
-            // Allow title wrapping by removing whitespace-nowrap
             itemDiv.innerHTML = `
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
-                <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2">
+                <p class="text-sm text-slate-500 dark:text-brand-gray-light/80 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
+                <h3 class="text-lg font-semibold text-brand-gray-dark dark:text-brand-gray-light mb-1 flex items-center gap-2">
                     <span class="pairing-icon">${icon}</span>
                     <span class="pairing-name-text">${nameText}</span>
                 </h3>
-                <p class="text-sm text-slate-500 dark:text-slate-400">${data.letters}</p>
+                <p class="text-sm text-slate-500 dark:text-brand-gray-light/80">${data.letters}</p>
             `;
 
             itemDiv.addEventListener('click', () => openModal(index));
