@@ -295,19 +295,10 @@
 </head>
  <body class="bg-brand-gray-light dark:bg-brand-gray-dark text-brand-gray-dark dark:text-brand-gray-light flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 lg:p-8 pt-8 sm:pt-12 transition-colors duration-300">
 
-    <div class="mb-4 md:mb-6 flex justify-center">
-        <img id="org-logo"
-             src="https://placehold.co/150x50/f6f7f8/1e1e1e?text=VICTORY+CHURCH" alt="Victory Church Logo"
-             width="150"
-             height="50"
-             onerror="this.onerror=null; this.src='https://placehold.co/150x50/ffffff/000000?text=Logo';"
-             class="h-10 sm:h-12">
-    </div>
-
     <header class="w-full max-w-6xl mx-auto mb-4 md:mb-6 text-center px-4"> <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
             Working Genius Pairings
         </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values!<br>Click a card for details.
         </p>
     </header>
 
@@ -650,22 +641,13 @@
          // Theme Toggle Button Logic
          const themeLightButton = document.getElementById('theme-light-button');
          const themeDarkButton = document.getElementById('theme-dark-button');
-         const logoImage = document.getElementById('org-logo'); // Get logo element
+         // *** REMOVED: Logo element reference ***
 
          function setTheme(theme) {
             document.documentElement.className = theme;
             localStorage.setItem('theme', theme);
             updateThemeButtons(theme);
-            // *** MODIFICATION: Update logo src based on theme ***
-            if (logoImage) {
-                if (theme === 'dark') {
-                    // Use the white logo file reference for dark mode
-                    logoImage.src = 'LogoHorizontal_W.png'; // Actual file reference
-                } else {
-                    // Use the black logo file reference for light mode
-                    logoImage.src = 'LogoHorizontal_B.png'; // Actual file reference
-                }
-            }
+            // *** REMOVED: Logo update logic ***
          }
 
          function updateThemeButtons(theme) {
