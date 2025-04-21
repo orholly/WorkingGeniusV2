@@ -80,6 +80,7 @@
 
         /* Badge Styles */
         .type-badge { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.25rem; }
+        /* --- TODO: Optionally map brand colors to type badges --- */
         .type-resp { color: #1e40af; background-color: #dbeafe; border: 1px solid #bfdbfe; }
         html.dark .type-resp { color: #93c5fd; background-color: #1e3a8a; border: 1px solid #1d4ed8; }
         .type-disrupt { color: #991b1b; background-color: #fee2e2; border: 1px solid #fecaca; }
@@ -99,17 +100,17 @@
          }
 
         /* Specific badge colors (active state) */
-        .value-badge.courageous { background-color: #FEE2E2; color: #991B1B; border-color: #FECACA; }
-        .value-badge.humble { background-color: #FEF9C3; color: #854D0E; border-color: #FEF08A; }
-        .value-badge.empowering { background-color: #DCFCE7; color: #166534; border-color: #BBF7D0; }
-        .value-badge.connected { background-color: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
-        .value-badge.kind { background-color: #FAE8FF; color: #86198F; border-color: #F5D0FE; }
+        .value-badge.courageous { background-color: #f04b4d; color: #f6f7f8; border-color: #f04b4d; } /* brand-coral */
+        .value-badge.humble { background-color: #d1de39; color: #1e1e1e; border-color: #d1de39; } /* brand-lime */
+        .value-badge.empowering { background-color: #038da2; color: #f6f7f8; border-color: #038da2; } /* brand-teal-dark */
+        .value-badge.connected { background-color: #2dacb2; color: #1e1e1e; border-color: #2dacb2; } /* brand-teal-light */
+        .value-badge.kind { background-color: #f1ba1e; color: #1e1e1e; border-color: #f1ba1e; } /* brand-gold */
 
-        html.dark .value-badge.courageous { background-color: #7f1d1d; color: #fecaca; border-color: #b91c1c; }
-        html.dark .value-badge.humble { background-color: #713f12; color: #fef08a; border-color: #a16207; }
-        html.dark .value-badge.empowering { background-color: #14532d; color: #bbf7d0; border-color: #16a34a; }
-        html.dark .value-badge.connected { background-color: #1e3a8a; color: #bfdbfe; border-color: #1d4ed8; }
-        html.dark .value-badge.kind { background-color: #701a75; color: #f5d0fe; border-color: #c026d3; }
+        html.dark .value-badge.courageous { background-color: #f04b4d; color: #f6f7f8; border-color: #f04b4d; }
+        html.dark .value-badge.humble { background-color: #d1de39; color: #1e1e1e; border-color: #d1de39; }
+        html.dark .value-badge.empowering { background-color: #038da2; color: #f6f7f8; border-color: #038da2; }
+        html.dark .value-badge.connected { background-color: #2dacb2; color: #1e1e1e; border-color: #2dacb2; } /* Use dark text on light teal */
+        html.dark .value-badge.kind { background-color: #f1ba1e; color: #1e1e1e; border-color: #f1ba1e; }
 
         /* Grayed-out badge style (applied via JS) - Using Brand Grays */
         .value-badge-gray {
@@ -137,16 +138,23 @@
             font-weight: 600;
             border-radius: 0.25em;
             transition: background-color 0.2s ease, color 0.2s ease;
-            /* Add slight padding for better visual */
             padding: 0.05em 0.2em;
             margin: -0.05em -0.2em;
         }
-        .interaction-text strong.wonder, .modal-interaction-text strong.wonder { color: #0f766e; background-color: #ccfbf1;} html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #99f6e4; background-color: #115e59;}
-        .interaction-text strong.invention, .modal-interaction-text strong.invention { color: #6d28d9; background-color: #ede9fe;} html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #c4b5fd; background-color: #4c1d95;}
-        .interaction-text strong.discernment, .modal-interaction-text strong.discernment { color: #1d4ed8; background-color: #dbeafe;} html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #93c5fd; background-color: #1e3a8a;}
-        .interaction-text strong.galvanizing, .modal-interaction-text strong.galvanizing { color: #c2410c; background-color: #ffedd5;} html.dark .interaction-text strong.galvanizing, html.dark .modal-interaction-text strong.galvanizing { color: #fdba74; background-color: #7c2d12;}
-        .interaction-text strong.enablement, .modal-interaction-text strong.enablement { color: #15803d; background-color: #dcfce7;} html.dark .interaction-text strong.enablement, html.dark .modal-interaction-text strong.enablement { color: #86efac; background-color: #14532d;}
-        .interaction-text strong.tenacity, .modal-interaction-text strong.tenacity { color: #b91c1c; background-color: #fee2e2;} html.dark .interaction-text strong.tenacity, html.dark .modal-interaction-text strong.tenacity { color: #fca5a5; background-color: #7f1d1d;}
+        /* Light Mode Highlighting */
+        .interaction-text strong.wonder, .modal-interaction-text strong.wonder { color: #f6f7f8; background-color: #038da2;}
+        .interaction-text strong.invention, .modal-interaction-text strong.invention { color: #f6f7f8; background-color: #2f1749;}
+        .interaction-text strong.discernment, .modal-interaction-text strong.discernment { color: #1e1e1e; background-color: #2dacb2;}
+        .interaction-text strong.galvanizing, .modal-interaction-text strong.galvanizing { color: #f6f7f8; background-color: #f04b4d;}
+        .interaction-text strong.enablement, .modal-interaction-text strong.enablement { color: #1e1e1e; background-color: #d1de39;}
+        .interaction-text strong.tenacity, .modal-interaction-text strong.tenacity { color: #1e1e1e; background-color: #f1ba1e;}
+        /* Dark Mode Highlighting */
+        html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #f6f7f8; background-color: #038da2;}
+        html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #f6f7f8; background-color: #2f1749;}
+        html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #1e1e1e; background-color: #2dacb2;}
+        html.dark .interaction-text strong.galvanizing, html.dark .modal-interaction-text strong.galvanizing { color: #f6f7f8; background-color: #f04b4d;}
+        html.dark .interaction-text strong.enablement, html.dark .modal-interaction-text strong.enablement { color: #1e1e1e; background-color: #d1de39;}
+        html.dark .interaction-text strong.tenacity, html.dark .modal-interaction-text strong.tenacity { color: #1e1e1e; background-color: #f1ba1e;}
 
         /* Modal Section Headers */
         .modal-section-header {
@@ -254,7 +262,7 @@
          <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
             Working Genius Pairings
         </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK Values! Click a card for details.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
         </p>
     </header>
 
@@ -269,7 +277,7 @@
         </div>
     </div>
 
-    <main class="w-full max-w-5xl mx-auto px-2">
+    <main class="w-full max-w-6xl mx-auto px-2">
         <div id="pairings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
             <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
         </div>
@@ -290,7 +298,7 @@
 
             <div class="p-4 md:p-6 space-y-4 flex-grow text-brand-gray-dark dark:text-brand-gray-light">
                 <div class="modal-section-container">
-                      <h3 class="modal-section-header text-blue-600 dark:text-blue-400">
+                     <h3 class="modal-section-header text-brand-teal-dark dark:text-brand-teal-light">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                          <span>Overview</span>
                      </h3>
@@ -308,7 +316,7 @@
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-teal-600 dark:text-teal-400">
+                      <h3 class="modal-section-header text-brand-teal-light dark:text-brand-teal-light">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
                          <span>CHECK Value Alignment</span>
                      </h3>
@@ -318,15 +326,15 @@
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-indigo-600 dark:text-indigo-400">
+                      <h3 class="modal-section-header text-brand-gold dark:text-brand-gold">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                          <span>Inspirational Quote</span>
                      </h3>
-                      <blockquote id="modal-quote" class="border-l-4 border-indigo-300 dark:border-indigo-600 pl-4 italic text-base"></blockquote>
+                      <blockquote id="modal-quote" class="border-l-4 border-brand-gold dark:border-brand-gold pl-4 italic text-base"></blockquote>
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-sky-600 dark:text-sky-400">
+                      <h3 class="modal-section-header text-brand-teal-dark dark:text-brand-teal-light">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                          <span>Genius Interaction</span>
                      </h3>
@@ -335,7 +343,7 @@
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-amber-600 dark:text-amber-400">
+                      <h3 class="modal-section-header text-brand-coral dark:text-brand-coral">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                          <span>Common Challenges</span>
                      </h3>
@@ -343,7 +351,7 @@
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-rose-600 dark:text-rose-400">
+                      <h3 class="modal-section-header text-brand-coral dark:text-brand-coral">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
                          <span>Unhealthy Tendencies</span>
                      </h3>
@@ -351,22 +359,22 @@
                  </div>
 
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-violet-600 dark:text-violet-400">
+                      <h3 class="modal-section-header text-brand-purple dark:text-brand-teal-light">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                          <span>Inner Dialogue</span>
                      </h3>
                       <div class="space-y-3 text-base">
                          <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-600 dark:text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                             <div><strong class="text-green-700 dark:text-green-400">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                             <div><strong class="text-brand-lime">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
                          </div>
                          <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600 dark:text-yellow-500"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
-                             <div><strong class="text-yellow-700 dark:text-yellow-400">Challenged:</strong> <span id="modal-dialogue-challenged"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                             <div><strong class="text-brand-gold">Challenged:</strong> <span id="modal-dialogue-challenged"></span></div>
                          </div>
                          <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-500"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                             <div><strong class="text-blue-700 dark:text-blue-400">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-teal-light"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                             <div><strong class="text-brand-teal-light">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
                          </div>
                      </div>
                  </div>
@@ -457,9 +465,10 @@
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
+            // Use responsive font size for title
             itemDiv.innerHTML = `
                 <p class="text-sm text-slate-500 dark:text-brand-gray-light/80 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
-                <h3 class="text-lg font-semibold text-brand-gray-dark dark:text-brand-gray-light mb-1 flex items-center gap-2">
+                <h3 class="text-base md:text-lg font-semibold text-brand-gray-dark dark:text-brand-gray-light mb-1 flex items-center gap-2">
                     <span class="pairing-icon">${icon}</span>
                     <span class="pairing-name-text">${nameText}</span>
                 </h3>
