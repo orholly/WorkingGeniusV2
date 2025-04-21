@@ -87,7 +87,22 @@
         html.dark .type-disrupt { color: #fca5a5; background-color: #7f1d1d; border: 1px solid #b91c1c; }
         .type-mixed { color: #9d174d; background-color: #fce7f3; border: 1px solid #fbcfe8; }
         html.dark .type-mixed { color: #f9a8d4; background-color: #831843; border: 1px solid #be185d; }
-        .value-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; cursor: default; border: 1px solid transparent; }
+        .value-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 0.3rem 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem;
+            border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, opacity 0.3s ease-in-out; /* Added opacity transition */
+            cursor: default;
+         }
+        /* Dimming style for inactive badges */
+        .value-badge-dimmed {
+            opacity: 0.5;
+        }
+        html.dark .value-badge-dimmed {
+             opacity: 0.4;
+        }
+
         html.dark .value-badge.courageous { background-color: #7f1d1d; color: #fecaca; border-color: #b91c1c; }
         html.dark .value-badge.humble { background-color: #713f12; color: #fef08a; border-color: #a16207; }
         html.dark .value-badge.empowering { background-color: #14532d; color: #bbf7d0; border-color: #16a34a; }
@@ -206,7 +221,7 @@
     </div>
 
     <main class="w-full max-w-5xl mx-auto px-2">
-        <div id="pairings-grid" class="grid grid-cols-3 gap-4 md:gap-5">
+        <div id="pairings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
             <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
         </div>
     </main>
@@ -373,7 +388,16 @@
         function getTypeClass(type) { if (type === 'Responsive') return 'type-resp'; if (type === 'Disruptive') return 'type-disrupt'; if (type === 'Mixed') return 'type-mixed'; return ''; }
         function getTypeText(type) { if (type === 'Responsive') return "Double Responsive"; if (type === 'Disruptive') return "Double Disruptive"; if (type === 'Mixed') return "Mixed Pairing"; return type; }
         function getTypeTooltip(type) { if (type === 'Responsive') return "Combines two Responsive Geniuses (W, D, E)."; if (type === 'Disruptive') return "Combines two Disruptive Geniuses (I, G, T)."; if (type === 'Mixed') return "Combines one Responsive (W, D, E) and one Disruptive (I, G, T) Genius."; return ''; }
-        function getValueIcon(value) { const icons = { courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`, humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6"/></svg>`, empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11l4.08 9.17a2 2 0 0 1-3.17 2.33l-4.45-2.81a2 2 0 0 0-2.43-.04l-4.45 2.81a2 2 0 0 1-3.17-2.33L7 11"/><path d="M12 2v9"/></svg>`, connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`, kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>` }; return icons[value.toLowerCase()] || ''; }
+        function getValueIcon(value) {
+             const icons = {
+                courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>`,
+                empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`, // Lightning Bolt
+                connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+                kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`
+             };
+             return icons[value.toLowerCase()] || '';
+        }
 
         // --- Grid Item Creation ---
         function createGridItem(data, index) {
@@ -385,9 +409,10 @@
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
+            // *** MODIFICATION: Removed whitespace-nowrap from h3 ***
             itemDiv.innerHTML = `
                 <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
-                <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2 whitespace-nowrap">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2">
                     <span class="pairing-icon">${icon}</span>
                     <span class="pairing-name-text">${nameText}</span>
                 </h3>
@@ -429,6 +454,8 @@
         const modalContent = modal.querySelector('.modal-content');
         let previouslyFocusedElement = null;
 
+        const ALL_VALUES_ORDERED = ['Courageous', 'Humble', 'Empowering', 'Connected', 'Kind'];
+
         function openModal(index) {
             const data = pairingsData[index];
             if (!data) return;
@@ -438,10 +465,19 @@
             modalCoreStrength.textContent = data.coreStrength;
             modalPairingTypeBadge.textContent = getTypeText(data.type);
             modalPairingTypeBadge.className = `type-badge ${getTypeClass(data.type)}`;
-            modalPairingTypeTooltip.textContent = getTypeTooltip(data.type); // Populate tooltip text
-            modalValueBadges.innerHTML = (data.valueAlignments || []).sort().map(value =>
-                `<span class="value-badge ${value.toLowerCase()}">${getValueIcon(value)}${value}</span>`
-            ).join('');
+            modalPairingTypeTooltip.textContent = getTypeTooltip(data.type);
+
+            const currentValues = data.valueAlignments || [];
+            modalValueBadges.innerHTML = ALL_VALUES_ORDERED.map(value => {
+                const isPresent = currentValues.includes(value);
+                const dimClass = isPresent ? '' : 'value-badge-dimmed'; // Apply dimming class if not present
+                const valueLower = value.toLowerCase();
+                return `<span class="value-badge ${valueLower} ${dimClass}">
+                           ${getValueIcon(value)}
+                           ${value}
+                        </span>`;
+            }).join('');
+
             modalValueRationale.innerHTML = data.valueRationale
                 ? data.valueRationale
                 : `<span class="italic">No strong primary value alignment identified based on Genius alone.</span>`;
