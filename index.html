@@ -160,7 +160,8 @@
 
         /* Utility to extract emoji/icon from name */
         .pairing-icon {
-            font-size: 1em; /* Match title font size */
+            /* Adjusted size to match new title size */
+            font-size: 1.125em; /* text-lg */
             line-height: 1;
         }
         .pairing-name-text {
@@ -187,7 +188,7 @@
             Working Genius Pairings
         </h1>
         <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400">
-            Explore the dynamics of different Working Genius combinations. Click a card for details.
+            Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
         </p>
     </header>
 
@@ -202,7 +203,9 @@
         </div>
     </div>
 
-    <main class="w-full max-w-5xl mx-auto px-2"> <div id="pairings-grid" class="grid grid-cols-3 gap-4 md:gap-5"> <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
+    <main class="w-full max-w-5xl mx-auto px-2">
+        <div id="pairings-grid" class="grid grid-cols-3 gap-4 md:gap-5">
+            <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
         </div>
     </main>
 
@@ -373,23 +376,21 @@
         // --- Grid Item Creation ---
         function createGridItem(data, index) {
             const itemDiv = document.createElement('div');
-            // Added dark:bg-slate-800 for consistency with image
             itemDiv.className = 'pairing-card bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
             itemDiv.setAttribute('data-index', index);
 
-            // Extract icon/emoji from the start of the name
             const nameParts = data.name.match(/^(\W+)\s*(.*)$/) || [null, '', data.name];
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
-            // *** MODIFICATION START: Reordered and restyled content ***
+            // *** MODIFICATION: Updated font sizes ***
             itemDiv.innerHTML = `
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank} (${data.frequency.toFixed(1)}%)</p>
-                <h3 class="text-base font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2 whitespace-nowrap">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-1 flex items-center gap-2 whitespace-nowrap">
                     <span class="pairing-icon">${icon}</span>
                     <span class="pairing-name-text">${nameText}</span>
                 </h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">${data.letters}</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">${data.letters}</p>
             `;
             // *** MODIFICATION END ***
 
@@ -403,7 +404,7 @@
             itemDiv.setAttribute('tabindex', '0');
             itemDiv.setAttribute('role', 'button');
             itemDiv.setAttribute('aria-haspopup', 'dialog');
-            itemDiv.setAttribute('aria-label', `View details for ${nameText}`); // Use name without icon for label
+            itemDiv.setAttribute('aria-label', `View details for ${nameText}`);
             return itemDiv;
         }
 
@@ -432,7 +433,7 @@
             const data = pairingsData[index];
             if (!data) return;
             previouslyFocusedElement = document.activeElement;
-            modalTitle.textContent = data.name; // Keep full name with icon in modal title
+            modalTitle.textContent = data.name;
             modalSubtitle.textContent = `Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%) - ${data.letters}`;
             modalCoreStrength.textContent = data.coreStrength;
             modalPairingTypeBadge.textContent = getTypeText(data.type);
