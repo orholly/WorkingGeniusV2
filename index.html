@@ -78,25 +78,20 @@
             color: rgb(209 213 219 / var(--tw-text-opacity));
         }
 
-        /* Pairing Title */
-        .pairing-name {
+        /* Pairing Title (in Header) */
+        .accordion-header h2 {
             font-size: 1.5rem;
             line-height: 1.2;
-            /* Adjusted margin/padding for responsive header */
-            margin-right: 0;
-            padding-right: 0;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
-            width: 100%; /* Ensure title takes full width in column layout */
+            margin: 0; /* Reset margin */
+            flex-grow: 1; /* Allow title to take available space */
         }
 
         @media (min-width: 768px) { /* md breakpoint */
-            .pairing-name {
+            .accordion-header h2 {
                  font-size: 1.75rem;
-                 margin-right: 1rem;
-                 padding-right: 1rem;
-                 width: auto; /* Allow flex-grow in row layout */
             }
         }
 
@@ -337,18 +332,10 @@
             padding: 1.5rem;
             cursor: pointer;
             display: flex;
-            flex-direction: column; /* Stack elements on mobile */
-            align-items: flex-start; /* Align items to the start in column layout */
+            align-items: center; /* Keep items centered in the header */
             justify-content: space-between;
             border-bottom: 2px solid #2563eb; /* Blue-600 */
             transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        @media (min-width: 768px) { /* md breakpoint */
-             .accordion-header {
-                flex-direction: row; /* Row layout on desktop */
-                align-items: center; /* Center items in row layout */
-             }
         }
 
 
@@ -368,35 +355,13 @@
         }
 
 
-        .accordion-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: bold;
-            flex-grow: 1;
-            word-break: break-word;
-            margin-bottom: 0.5rem; /* Add space below title in column layout */
-        }
-
-        @media (min-width: 768px) { /* md breakpoint */
-            .accordion-header h2 {
-                margin-bottom: 0; /* Remove space below title in row layout */
-            }
-        }
-
-
         .accordion-header .arrow-icon {
             width: 1.5rem;
             height: 1.5rem;
             transition: transform 0.3s ease;
-             margin-top: 0.5rem; /* Add space above arrow in column layout */
+            margin-left: 1rem; /* Space to the left of arrow */
+            flex-shrink: 0; /* Prevent arrow from shrinking */
         }
-
-         @media (min-width: 768px) { /* md breakpoint */
-            .accordion-header .arrow-icon {
-                margin-top: 0; /* Remove space above arrow in row layout */
-                margin-left: 1rem; /* Add space to the left of arrow in row layout */
-            }
-         }
 
 
         .accordion-header.active .arrow-icon {
@@ -406,10 +371,9 @@
         .accordion-content {
             background-color: #ffffff;
             color: #374151; /* Gray-700 */
-            padding: 0 1.5rem;
+            padding: 0; /* Start with 0 padding */
             overflow: hidden;
-            /* Increased max-height to prevent content cutoff */
-            max-height: 4000px; /* Increased from 2000px */
+            max-height: 0; /* Start with 0 height */
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
         }
 
@@ -420,8 +384,8 @@
 
 
         .accordion-content.active {
-            max-height: 4000px; /* Keep consistent with base max-height */
-            padding: 1.5rem;
+            max-height: 4000px; /* Large enough to accommodate content */
+            padding: 1.5rem; /* Apply padding when active */
         }
 
          .accordion-content .content-section {
@@ -488,6 +452,54 @@
                 min-width: 100px; /* Original min width on desktop */
             }
          }
+
+         /* New Section for Pairing Overview */
+         .pairing-overview-section {
+             margin-bottom: 1.5rem; /* Space below this section */
+         }
+          .pairing-overview-section h3 {
+             font-size: 1.25rem; /* Smaller heading for this section */
+             font-weight: 600;
+             margin-bottom: 0.75rem;
+             color: #1d4ed8; /* Blue-700 */
+          }
+          html.dark .pairing-overview-section h3 {
+             color: #93c5fd; /* Blue-300 */
+          }
+          .pairing-overview-section .details-grid {
+             display: grid;
+             grid-template-columns: 1fr; /* Stack on mobile */
+             gap: 0.75rem; /* Space between items */
+          }
+          @media (min-width: 640px) { /* sm breakpoint */
+             .pairing-overview-section .details-grid {
+                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+             }
+          }
+          .pairing-overview-section .detail-item {
+             background-color: #e5e7eb; /* Gray-200 */
+             padding: 0.75rem;
+             border-radius: 0.375rem;
+             font-size: 0.9rem;
+             color: #374151; /* Gray-700 */
+          }
+           html.dark .pairing-overview-section .detail-item {
+             background-color: #374151; /* Gray-700 */
+             color: #d1d5db; /* Gray-300 */
+          }
+          .pairing-overview-section .detail-item strong {
+             font-weight: 600;
+             color: #1f2937; /* Gray-800 */
+             display: block; /* Stack label above value */
+             margin-bottom: 0.25rem;
+          }
+           html.dark .pairing-overview-section .detail-item strong {
+              color: #f3f4f6; /* Gray-100 */
+           }
+           .pairing-overview-section .detail-item .type-badge {
+              font-size: 0.85rem; /* Slightly larger type badge in overview */
+              padding: 0.2rem 0.5rem;
+           }
 
 
     </style>
@@ -605,31 +617,24 @@
             itemDiv.className = 'accordion-item bg-white dark:bg-gray-800 transition-colors duration-300';
 
             const headerDiv = document.createElement('div');
-            // Added responsive flex classes: flex-col on mobile, md:flex-row on medium+
-            headerDiv.className = 'accordion-header flex flex-col md:flex-row items-start md:items-center';
+            // Header now only contains the main name and arrow
+            headerDiv.className = 'accordion-header flex items-center justify-between';
             headerDiv.setAttribute('role', 'button');
             headerDiv.setAttribute('aria-expanded', 'false'); // ARIA attribute for accessibility
             headerDiv.setAttribute('tabindex', '0'); // Make header focusable
 
             const headerContent = `
-                <div class="flex-grow w-full md:w-auto mr-0 md:mr-4 mb-2 md:mb-0">
-                    <h2 class="pairing-name text-white">${data.rank}. ${data.name} (${data.letters})</h2>
-                    <p class="text-blue-200 text-sm lg:text-base italic mt-1">${data.coreStrength}</p>
-                </div>
-                <div class="flex-shrink-0 bg-blue-900 bg-opacity-75 p-2 rounded-md text-sm text-blue-100 text-center self-end md:self-auto">
-                    <span class="font-semibold block">Rank ${data.rank}/15 (${data.frequency.toFixed(2)}%)</span>
-                    <span class="mt-1 type-badge inline-block ${getTypeClass(data.type)}" title="${getTypeTooltip(data.type)}">${getTypeText(data.type)}</span>
-                </div>
-                 <svg class="arrow-icon ml-0 md:ml-4 mt-2 md:mt-0 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <h2 class="pairing-name text-white">${data.rank}. ${data.name} (${data.letters})</h2>
+                <svg class="arrow-icon text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             `;
             headerDiv.innerHTML = headerContent;
 
             const contentDiv = document.createElement('div');
-            contentDiv.className = 'accordion-content';
+            contentDiv.className = 'accordion-content'; // Default state has max-height: 0 and padding: 0
             contentDiv.setAttribute('role', 'region'); // ARIA attribute for accessibility
 
 
-            // CHECK Value Alignment Section (now always visible when the accordion is open)
+            // CHECK Value Alignment Section
             const valueAlignmentSection = document.createElement('div');
             valueAlignmentSection.className = `value-alignment-section w-full mb-6`;
 
@@ -650,6 +655,28 @@
                 </section>
             `;
              valueAlignmentSection.innerHTML = valueAlignmentContent;
+
+            /* --- New Pairing Overview Section --- */
+            const pairingOverviewSection = document.createElement('div');
+            pairingOverviewSection.className = 'content-section bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4 transition-colors duration-300 pairing-overview-section';
+            pairingOverviewSection.innerHTML = `
+                 <h3 class="text-indigo-600 dark:text-indigo-400">Overview</h3>
+                 <div class="details-grid">
+                     <div class="detail-item">
+                         <strong>Core Strength</strong>
+                         <p>${data.coreStrength}</p>
+                     </div>
+                     <div class="detail-item">
+                         <strong>Rank & Frequency</strong>
+                         <p>Rank ${data.rank}/15 (${data.frequency.toFixed(2)}%)</p>
+                     </div>
+                     <div class="detail-item">
+                         <strong>Pairing Type</strong>
+                         <p class="mt-1 type-badge inline-block ${getTypeClass(data.type)}" title="${getTypeTooltip(data.type)}">${getTypeText(data.type)}</p>
+                     </div>
+                 </div>
+            `;
+            /* --- End New Pairing Overview Section --- */
 
 
             // Inspiration Section
@@ -735,8 +762,9 @@
                 </div>
             `;
 
-            // Append sections to contentDiv
+            // Append sections to contentDiv in the desired order
             contentDiv.appendChild(valueAlignmentSection);
+            contentDiv.appendChild(pairingOverviewSection); /* Added the new section */
             contentDiv.appendChild(inspirationSection);
             contentDiv.appendChild(interactionSection);
             contentDiv.appendChild(challengesSection);
