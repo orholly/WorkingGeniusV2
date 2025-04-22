@@ -19,7 +19,7 @@
         /* Custom scrollbar for webkit browsers */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; } /* Use default light gray */
-        html.dark ::-webkit-scrollbar-track { background: #2f1749; } /* Use brand-purple */
+        html.dark ::-webkit-scrollbar-track { background: #1e1e1e; } /* Use brand-gray-dark */
         ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; } /* Default slate */
         html.dark ::-webkit-scrollbar-thumb { background: #038da2; } /* Use brand-teal-dark */
         ::-webkit-scrollbar-thumb:hover { background: #64748b; } /* Default slate */
@@ -71,7 +71,6 @@
 
         /* Badge Styles */
         .type-badge { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.25rem; }
-        /* --- TODO: Optionally map brand colors to type badges --- */
         .type-resp { color: #1e40af; background-color: #dbeafe; border: 1px solid #bfdbfe; }
         html.dark .type-resp { color: #93c5fd; background-color: #1e3a8a; border: 1px solid #1d4ed8; }
         .type-disrupt { color: #991b1b; background-color: #fee2e2; border: 1px solid #fecaca; }
@@ -88,7 +87,7 @@
             border: 1px solid; /* Make border always visible */
             transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             cursor: default;
-         }
+       }
 
         /* Specific badge colors (active state) */
         .value-badge.courageous { background-color: #f04b4d; color: #f6f7f8; border-color: #f04b4d; } /* brand-coral */
@@ -110,17 +109,17 @@
             border-color: #e5e7eb; /* gray-200 */
         }
         html.dark .value-badge-gray {
-            background-color: #2f1749; /* brand-purple */
-            color: #f6f7f8a0; /* brand-gray-light with opacity */
-            border-color: #038da2; /* brand-teal-dark */
-            opacity: 0.6; /* Add opacity to distinguish from active */
+            background-color: #374151; /* gray-700 */
+            color: #9ca3af; /* gray-400 (adjust if needed for contrast) */
+            border-color: #4b5563; /* gray-600 */
+            opacity: 0.7; /* Adjust opacity if needed */
         }
          /* Ensure icon color matches text color for gray badges */
         .value-badge-gray svg {
             stroke: #9ca3af; /* gray-400 */
         }
         html.dark .value-badge-gray svg {
-             stroke: #f6f7f8a0; /* brand-gray-light with opacity */
+             stroke: #9ca3af; /* gray-400 */
         }
 
 
@@ -141,7 +140,7 @@
         .interaction-text strong.tenacity, .modal-interaction-text strong.tenacity { color: #1e1e1e; background-color: #f1ba1e;}
         /* Dark Mode Highlighting */
         html.dark .interaction-text strong.wonder, html.dark .modal-interaction-text strong.wonder { color: #f6f7f8; background-color: #038da2;}
-        html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #f6f7f8; background-color: #2f1749;}
+        html.dark .interaction-text strong.invention, html.dark .modal-interaction-text strong.invention { color: #f6f7f8; background-color: #4b5563;} /* gray-600 */
         html.dark .interaction-text strong.discernment, html.dark .modal-interaction-text strong.discernment { color: #1e1e1e; background-color: #2dacb2;}
         html.dark .interaction-text strong.galvanizing, html.dark .modal-interaction-text strong.galvanizing { color: #f6f7f8; background-color: #f04b4d;}
         html.dark .interaction-text strong.enablement, html.dark .modal-interaction-text strong.enablement { color: #1e1e1e; background-color: #d1de39;}
@@ -179,7 +178,7 @@
             border: 1px solid #e5e7eb; /* gray-200 */
         }
         html.dark .modal-section-container {
-             background-color: #2f1749; /* brand-purple */
+             background-color: #1f2937; /* gray-800 */
              border-color: #038da2; /* brand-teal-dark */
         }
 
@@ -200,7 +199,7 @@
         }
         html.dark .overview-card {
              background-color: #1e1e1e; /* brand-gray-dark */
-             border-color: #2f1749; /* brand-purple */
+             border-color: #038da2; /* brand-teal-dark */
         }
 
         /* Utility to extract emoji/icon from name */
@@ -262,15 +261,15 @@
              height: 0.875em;
              stroke-width: 2.5; /* Match other icons */
              flex-shrink: 0; /* Prevent icon shrinking */
-         }
+        }
 
     </style>
     <script>
-        // Set theme ASAP to avoid FOUC
+        // Set theme ASAP to avoid FOUC (Flash of Unstyled Content)
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.className = savedTheme;
 
-        // Tailwind config
+        // Tailwind config (to extend theme with custom brand colors)
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -278,12 +277,16 @@
                     colors: {
                         'brand-teal-dark': '#038da2',
                         'brand-lime': '#d1de39',
-                        'brand-purple': '#2f1749',
+                        'brand-purple': '#2f1749', // Keep purple definition if needed elsewhere, but avoid for backgrounds
                         'brand-teal-light': '#2dacb2',
                         'brand-coral': '#f04b4d',
                         'brand-gold': '#f1ba1e',
                         'brand-gray-dark': '#1e1e1e',
                         'brand-gray-light': '#f6f7f8',
+                        // Add Tailwind grays used in custom CSS if needed for consistency
+                        'gray-800': '#1f2937',
+                        'gray-700': '#374151',
+                        'gray-600': '#4b5563',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -298,12 +301,12 @@
     <header class="w-full max-w-6xl mx-auto mb-4 md:mb-6 text-center px-4"> <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-gray-dark dark:text-brand-gray-light mb-2">
             Working Genius Pairings
         </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values! Click a card for details.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400"> Explore the dynamics of different Working Genius combinations along with Victory CHECK values!<br> Click a card for details.
         </p>
     </header>
 
     <div class="w-full max-w-6xl mx-auto px-4 mb-6 md:mb-8 flex justify-between items-center">
-        <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-1">
+        <div class="bg-white dark:bg-gray-800 rounded-full shadow-md p-1 flex items-center space-x-1">
             <button id="sort-alpha-button" class="toggle-button" aria-pressed="true" title="Sort Alphabetically by Letters">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="10" y1="15" y2="3"/><path d="M7 3H13"/><path d="M12 3v12"/><path d="M7 15h7"/><path d="M17 15l4 4-4 4"/><path d="M21 19H7"/></svg>
                  <span class="hidden sm:inline">Alpha</span> </button>
@@ -312,7 +315,7 @@
                  <span class="hidden sm:inline">Rank</span> </button>
              </div>
 
-        <div class="bg-white dark:bg-brand-purple rounded-full shadow-md p-1 flex items-center space-x-1">
+        <div class="bg-white dark:bg-gray-800 rounded-full shadow-md p-1 flex items-center space-x-1">
              <button id="theme-light-button" class="toggle-button" aria-pressed="false" title="Switch to Light Theme">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                  <span class="hidden sm:inline">Light</span>
@@ -324,7 +327,8 @@
          </div>
     </div>
 
-    <main class="w-full max-w-6xl mx-auto px-2"> <div id="pairings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+    <main class="w-full max-w-6xl mx-auto px-2">
+        <div id="pairings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
             <p class="text-center text-slate-500 dark:text-slate-400 text-lg py-10 col-span-full">Loading pairings...</p>
         </div>
     </main>
@@ -336,8 +340,8 @@
                 <div>
                      <h2 id="modal-title" class="text-2xl font-semibold text-brand-gray-dark dark:text-brand-gray-light">Pairing Name</h2>
                      <p id="modal-subtitle" class="text-base text-slate-500 dark:text-brand-gray-light/80">Rank X/15 (Y.Y%)</p> </div>
-                <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-400 bg-transparent hover:bg-slate-200 dark:hover:bg-brand-purple rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
-                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-400 bg-transparent hover:bg-slate-200 dark:hover:bg-gray-700 rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
             <div class="p-4 md:p-6 space-y-4 flex-grow text-brand-gray-dark dark:text-brand-gray-light">
@@ -395,29 +399,28 @@
                      <p id="modal-tendencies" class="text-base leading-relaxed"></p>
                  </div>
                  <div class="modal-section-container">
-                      <h3 class="modal-section-header text-brand-purple dark:text-brand-teal-light">
+                      <h3 class="modal-section-header text-brand-purple dark:text-brand-lime">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                          <span>Inner Dialogue</span>
                      </h3>
                       <div class="space-y-3 text-base">
-                         <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                             <div><strong class="text-brand-lime">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
-                         </div>
-                         <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
-                             <div><strong class="text-brand-gold">Challenged:</strong> <span id="modal-dialogue-challenged"></span></div>
-                         </div>
-                         <div class="modal-dialogue-item">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-teal-light"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                             <div><strong class="text-brand-teal-light">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
-                         </div>
+                          <div class="modal-dialogue-item">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                              <div><strong class="text-brand-lime">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
+                          </div>
+                          <div class="modal-dialogue-item">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                              <div><strong class="text-brand-gold">Frustrated:</strong> <span id="modal-dialogue-challenged"></span></div>
+                          </div>
+                          <div class="modal-dialogue-item">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-teal-light"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                              <div><strong class="text-brand-teal-light">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
+                          </div>
                      </div>
                  </div>
             </div>
         </div>
     </div>
-
 
     <footer class="w-full max-w-6xl mx-auto mt-8 md:mt-12 text-center text-sm text-slate-500 dark:text-slate-400 pb-4">
         Working Genius concepts &copy; The Table Group. Viewer created for illustrative purposes.
@@ -426,6 +429,7 @@
 
     <script>
         // --- Data (Standardized Letters) ---
+        // This array holds all the data for each Working Genius pairing.
         const pairingsData = [
              { name: "✅ The Loyal Finisher", letters: "ET / TE", coreStrength: "Being dependable, low-maintenance contributors who hold themselves accountable for delivering on promises.", rank: 1, frequency: 15.95, type: "Mixed", interaction: ["<strong class='tenacity'>Tenacity</strong> makes sure <strong class='enablement'>Enablement</strong>'s desire to help leads to completed actions and reliable follow-through.", "<strong class='enablement'>Enablement</strong> provides the practical support and assistance that helps <strong class='tenacity'>Tenacity</strong> push through and complete tasks effectively."], challenges: "Having a hard time saying 'no' to requests, leading to over-commitment, burnout, and lack of appreciation.", tendencies: "Taking on too many tasks without prioritizing or becoming resentful due to feeling overloaded and unacknowledged.", dialogue: { productive: "I'll make sure this gets done and will help out wherever needed.", challenged: "Why am I always the one who has to pick up the slack and finish everything?", growth: "Am I being helpful and reliable, or just spreading myself too thin?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their reliability and responsiveness to needs show dependability and relational focus." },
              { name: "🎉 The Enthusiastic Encourager", letters: "EG / GE", coreStrength: "Being positive, exuberant, and optimistic cheerleaders for others.", rank: 2, frequency: 9.29, type: "Mixed", interaction: ["<strong class='galvanizing'>Galvanizing</strong> identifies opportunities for <strong class='enablement'>Enablement</strong> to step in and help, giving their support a clear target.", "<strong class='enablement'>Enablement</strong> provides the hands-on help and encouragement that makes <strong class='galvanizing'>Galvanizing</strong>'s enthusiastic calls to action successful."], challenges: "Being too quick to affirm others or provide unwarranted praise, potentially leading to being dismissed as naïve or insincere.", tendencies: "Avoiding necessary critical feedback or over-promising support they cannot deliver in their enthusiasm.", dialogue: { productive: "That's fantastic! I'm excited to support you in achieving this!", challenged: "Why isn't everyone else as positive and encouraging as I am?", growth: "Am I genuinely lifting others up, or just avoiding difficult truths?" }, valueAlignments: ["Empowering", "Kind"], valueRationale: "They enthusiastically encourage and support the growth of others." },
@@ -443,54 +447,62 @@
              { name: "🧘 The Contemplative Counselor", letters: "DW / WD", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["<strong class='discernment'>Discernment</strong> helps <strong class='wonder'>Wonder</strong> sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "<strong class='wonder'>Wonder</strong> gives <strong class='discernment'>Discernment</strong> new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That’s a meaningful question—let’s explore it from a few different perspectives.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
              { name: "🌍 The Philosophical Motivator", letters: "GW / WG", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["<strong class='wonder'>Wonder</strong> comes up with the inspiring possibilities and big questions that <strong class='galvanizing'>Galvanizing</strong> can rally people around.", "<strong class='galvanizing'>Galvanizing</strong> turns <strong class='wonder'>Wonder</strong>'s deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't everyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
          ];
-        const inspirationQuotes = { /* ... Full inspirationQuotes object - Keys updated to match standardized letters ... */
-            "ET / TE": `"Success is not in what you accomplish, but in the lasting impact of your results."`,
-            "EG / GE": `"Encouragement transforms potential into action."`,
-            "DE / ED": `"Insight is the bridge between vision and action."`,
-            "EW / WE": `"Seeing the bigger picture inspires us to make a real difference."`,
-            "DT / TD": `"A focused mind turns vision into achievement."`,
-            "GT / TG": `"Bold actions inspire progress, even in the face of adversity."`,
-            "EI / IE": `"Creativity flourishes when feedback meets responsive design."`,
-            "DG / GD": `"Action guided by intuition sparks great change."`,
-            "IT / TI": `"A well-planned strategy turns ideas into reality."`,
-            "DI / ID": `"Innovation is nurtured by thoughtful experimentation."`,
-            "TW / WT": `"Thoughtful action is the cornerstone of progress."`,
-            "GI / IG": `"Innovation thrives on passion—and a shared vision."`,
-            "IW / WI": `"Imagination is the seed; action is the fruit."`,
-            "DW / WD": `"Wisdom is understanding the power of perspective."`,
-            "GW / WG": `"Inspiration is the first step toward transformation."`
+        // This object maps pairing letters to inspirational quotes.
+        const inspirationQuotes = {
+             "ET / TE": `"Success is not in what you accomplish, but in the lasting impact of your results."`,
+             "EG / GE": `"Encouragement transforms potential into action."`,
+             "DE / ED": `"Insight is the bridge between vision and action."`,
+             "EW / WE": `"Seeing the bigger picture inspires us to make a real difference."`,
+             "DT / TD": `"A focused mind turns vision into achievement."`,
+             "GT / TG": `"Bold actions inspire progress, even in the face of adversity."`,
+             "EI / IE": `"Creativity flourishes when feedback meets responsive design."`,
+             "DG / GD": `"Action guided by intuition sparks great change."`,
+             "IT / TI": `"A well-planned strategy turns ideas into reality."`,
+             "DI / ID": `"Innovation is nurtured by thoughtful experimentation."`,
+             "TW / WT": `"Thoughtful action is the cornerstone of progress."`,
+             "GI / IG": `"Innovation thrives on passion—and a shared vision."`,
+             "IW / WI": `"Imagination is the seed; action is the fruit."`,
+             "DW / WD": `"Wisdom is understanding the power of perspective."`,
+             "GW / WG": `"Inspiration is the first step toward transformation."`
          };
 
         // --- State Variables ---
         let currentSort = 'alpha'; // Default sort is now 'alpha'
-        let pairingsWithId = []; // To hold data with assigned IDs
+        let pairingsWithId = []; // To hold data with assigned unique IDs
 
         // --- Helper Functions ---
+
+        // Returns the appropriate CSS class for the pairing type badge.
         function getTypeClass(type) { if (type === 'Responsive') return 'type-resp'; if (type === 'Disruptive') return 'type-disrupt'; if (type === 'Mixed') return 'type-mixed'; return ''; }
+        // Returns the display text for the pairing type.
         function getTypeText(type) { if (type === 'Responsive') return "Double Responsive"; if (type === 'Disruptive') return "Double Disruptive"; if (type === 'Mixed') return "Mixed Pairing"; return type; }
+        // Returns the tooltip text explaining the pairing type.
         function getTypeTooltip(type) { if (type === 'Responsive') return "Combines two Responsive Geniuses (W, D, E)."; if (type === 'Disruptive') return "Combines two Disruptive Geniuses (I, G, T)."; if (type === 'Mixed') return "Combines one Responsive (W, D, E) and one Disruptive (I, G, T) Genius."; return ''; }
+        // Returns the SVG icon HTML for a given CHECK value.
         function getValueIcon(value) {
              const icons = {
-                courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
-                humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>`,
-                empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`, // Lightning Bolt
-                connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-                kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`
+                 courageous: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`, // Shield
+                 humble: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>`, // Down Arrow Circle
+                 empowering: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`, // Lightning Bolt
+                 connected: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`, // Link
+                 kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>` // Heart
              };
              return icons[value.toLowerCase()] || '';
         }
 
         // --- Grid Item Creation ---
-        function createGridItem(data) { // Accepts data object
+        // Creates an HTML element for a single pairing card.
+        function createGridItem(data) { // Accepts a pairing data object
             const itemDiv = document.createElement('div');
-            itemDiv.className = 'pairing-card bg-white dark:bg-brand-purple border border-slate-200 dark:border-brand-teal-dark rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
-            itemDiv.setAttribute('data-pairing-id', data.id); // Store unique ID
+            itemDiv.className = 'pairing-card bg-white dark:bg-gray-800 border border-slate-200 dark:border-brand-teal-dark rounded-lg shadow-md p-4 cursor-pointer flex flex-col transition-colors duration-300';
+            itemDiv.setAttribute('data-pairing-id', data.id); // Store the unique ID for modal lookup
 
+            // Extract icon (emoji) and text from the name string
             const nameParts = data.name.match(/^(\W+)\s*(.*)$/) || [null, '', data.name];
             const icon = nameParts[1].trim();
             const nameText = nameParts[2].trim();
 
-            // Use responsive font size for title, allow wrapping
+            // Set the inner HTML of the card
             itemDiv.innerHTML = `
                 <p class="text-sm text-slate-500 dark:text-brand-gray-light/80 mb-1">Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%)</p>
                 <h3 class="text-base md:text-lg font-semibold text-brand-gray-dark dark:text-brand-gray-light mb-1 flex items-center gap-2">
@@ -500,13 +512,16 @@
                 <p class="text-sm text-slate-500 dark:text-brand-gray-light/80">${data.letters}</p>
             `;
 
+            // Add event listener to open the modal on click
             itemDiv.addEventListener('click', () => openModal(data.id)); // Pass ID to openModal
+            // Add event listener for keyboard activation (Enter or Space)
             itemDiv.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
+                    event.preventDefault(); // Prevent default spacebar scroll
                     openModal(data.id); // Pass ID to openModal
                 }
             });
+            // Make the card focusable and announce its role
             itemDiv.setAttribute('tabindex', '0');
             itemDiv.setAttribute('role', 'button');
             itemDiv.setAttribute('aria-haspopup', 'dialog');
@@ -515,6 +530,7 @@
         }
 
         // --- Modal Functions ---
+        // Get references to modal elements
         const modal = document.getElementById('pairing-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalSubtitle = document.getElementById('modal-subtitle');
@@ -530,107 +546,130 @@
         const modalChallenges = document.getElementById('modal-challenges');
         const modalTendencies = document.getElementById('modal-tendencies');
         const modalDialogueProductive = document.getElementById('modal-dialogue-productive');
-        const modalDialogueChallenged = document.getElementById('modal-dialogue-challenged');
+        const modalDialogueChallenged = document.getElementById('modal-dialogue-challenged'); // Note: ID remains the same
         const modalDialogueGrowth = document.getElementById('modal-dialogue-growth');
-        const modalContent = modal.querySelector('.modal-content');
-        let previouslyFocusedElement = null;
+        const modalContent = modal.querySelector('.modal-content'); // For scrolling
+        let previouslyFocusedElement = null; // To store focus before modal opens
 
+        // Define the order for CHECK value badges
         const ALL_VALUES_ORDERED = ['Courageous', 'Humble', 'Empowering', 'Connected', 'Kind'];
 
+        // Opens the modal and populates it with data for the given pairing ID.
         function openModal(pairingId) {
+            // Find the pairing data object using the ID
             const data = pairingsWithId.find(p => p.id === pairingId);
             if (!data) {
                 console.error("Could not find pairing data for ID:", pairingId);
-                return;
+                return; // Exit if data not found
             }
 
+            // Store the currently focused element to return focus later
             previouslyFocusedElement = document.activeElement;
+
+            // Populate modal header
             modalTitle.textContent = data.name;
             modalSubtitle.textContent = `Rank ${data.rank}/15 (${data.frequency.toFixed(1)}%) - ${data.letters}`;
+
+            // Populate Overview section
             modalCoreStrength.textContent = data.coreStrength;
             modalPairingTypeBadge.textContent = getTypeText(data.type);
-            modalPairingTypeBadge.className = `type-badge ${getTypeClass(data.type)}`;
+            modalPairingTypeBadge.className = `type-badge ${getTypeClass(data.type)}`; // Set class for color
             modalPairingTypeTooltip.textContent = getTypeTooltip(data.type);
 
+            // Populate CHECK Value Alignment section
             const currentValues = data.valueAlignments || [];
             modalValueBadges.innerHTML = ALL_VALUES_ORDERED.map(value => {
                 const isPresent = currentValues.includes(value);
                 const valueLower = value.toLowerCase();
+                // Apply active color or grayed-out style
                 const badgeClasses = isPresent
                     ? `value-badge ${valueLower}`
                     : `value-badge value-badge-gray`;
                 return `<span class="${badgeClasses}">
-                           ${getValueIcon(value)}
-                           ${value}
-                        </span>`;
-            }).join('');
-
+                             ${getValueIcon(value)}
+                             ${value}
+                         </span>`;
+            }).join(''); // Join the array of HTML strings
             modalValueRationale.innerHTML = data.valueRationale
                 ? data.valueRationale
-                : `<span class="italic">No strong primary value alignment identified based on Genius alone.</span>`;
-            // Use the standardized letters key for quotes
+                : `<span class="italic">No strong primary value alignment identified based on Genius alone.</span>`; // Fallback text
+
+            // Populate Inspirational Quote section (using standardized letters as key)
             modalQuote.textContent = inspirationQuotes[data.letters] || 'No quote available.';
+
+            // Populate Genius Interaction section (handling array of interaction points)
             modalInteraction.innerHTML = data.interaction.map(point => `<p>${point}</p>`).join('');
+
+            // Populate Challenges, Tendencies, and Dialogue sections
             modalChallenges.textContent = data.challenges;
             modalTendencies.textContent = data.tendencies;
             modalDialogueProductive.textContent = data.dialogue.productive;
+            // The JavaScript still uses the 'challenged' property from the data object
             modalDialogueChallenged.textContent = data.dialogue.challenged;
             modalDialogueGrowth.textContent = data.dialogue.growth;
+
+            // Show the modal with transitions
             modal.classList.remove('modal-hidden');
             modal.classList.add('modal-visible');
-            document.body.style.overflow = 'hidden';
-            modalContent.scrollTop = 0;
-            modalCloseButton.focus();
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            modalContent.scrollTop = 0; // Scroll modal to top
+            modalCloseButton.focus(); // Set focus to the close button for accessibility
         }
 
+        // Closes the modal.
         function closeModal() {
             modal.classList.add('modal-hidden');
             modal.classList.remove('modal-visible');
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; // Restore background scrolling
+             // Return focus to the element that opened the modal
              if (previouslyFocusedElement) {
-                previouslyFocusedElement.focus();
-                previouslyFocusedElement = null;
-            }
+                 previouslyFocusedElement.focus();
+                 previouslyFocusedElement = null; // Clear the stored element
+             }
         }
 
         // --- Sorting and Rendering Functions ---
+        // Get references to grid container and sort buttons
         const gridContainer = document.getElementById('pairings-grid');
         const sortRankButton = document.getElementById('sort-rank-button');
         const sortAlphaButton = document.getElementById('sort-alpha-button');
 
-        // Function to sort data (returns a new sorted array)
+        // Sorts the pairings data based on the selected criteria ('rank' or 'alpha').
         function sortData(sortBy) {
-            const dataToSort = [...pairingsWithId]; // Use data with IDs
+            const dataToSort = [...pairingsWithId]; // Create a copy to avoid modifying original
             if (sortBy === 'rank') {
-                dataToSort.sort((a, b) => a.rank - b.rank);
+                dataToSort.sort((a, b) => a.rank - b.rank); // Numeric sort by rank
             } else if (sortBy === 'alpha') {
+                // Sort alphabetically by the 'letters' property
                 dataToSort.sort((a, b) => {
-                    return a.letters.localeCompare(b.letters);
+                    return a.letters.localeCompare(b.letters); // String comparison
                 });
             }
-            currentSort = sortBy;
-            return dataToSort;
+            currentSort = sortBy; // Update the current sort state
+            return dataToSort; // Return the newly sorted array
         }
 
-        // Function to render the grid
+        // Renders the grid with the provided data.
         function renderGrid(dataToRender) {
-            if (!gridContainer) return;
-            gridContainer.innerHTML = ''; // Clear existing grid
+            if (!gridContainer) return; // Exit if grid container not found
+            gridContainer.innerHTML = ''; // Clear any existing grid items
+            // Create and append a grid item for each pairing in the data
             dataToRender.forEach(pairing => {
                 const item = createGridItem(pairing);
                 gridContainer.appendChild(item);
             });
         }
 
-        // Function to update sort button active states
+        // Updates the visual state (active/inactive) of the sort buttons.
         function updateSortButtons() {
-             if (!sortRankButton || !sortAlphaButton) return;
+             if (!sortRankButton || !sortAlphaButton) return; // Exit if buttons not found
+             // Set active class and aria-pressed based on currentSort state
              if (currentSort === 'rank') {
-                 sortRankButton.classList.add('toggle-button-active'); // Use new class name
+                 sortRankButton.classList.add('toggle-button-active');
                  sortRankButton.setAttribute('aria-pressed', 'true');
                  sortAlphaButton.classList.remove('toggle-button-active');
                  sortAlphaButton.setAttribute('aria-pressed', 'false');
-             } else {
+             } else { // 'alpha' sort is active
                  sortAlphaButton.classList.add('toggle-button-active');
                  sortAlphaButton.setAttribute('aria-pressed', 'true');
                  sortRankButton.classList.remove('toggle-button-active');
@@ -638,51 +677,55 @@
              }
         }
 
-         // Theme Toggle Button Logic
+         // --- Theme Toggle Button Logic ---
+         // Get references to theme buttons
          const themeLightButton = document.getElementById('theme-light-button');
          const themeDarkButton = document.getElementById('theme-dark-button');
-         // *** REMOVED: Logo element reference ***
 
+         // Sets the theme (light/dark) on the HTML element and stores it.
          function setTheme(theme) {
-            document.documentElement.className = theme;
-            localStorage.setItem('theme', theme);
-            updateThemeButtons(theme);
-            // *** REMOVED: Logo update logic ***
+             document.documentElement.className = theme; // Apply class to <html>
+             localStorage.setItem('theme', theme); // Save preference
+             updateThemeButtons(theme); // Update button states
          }
 
+         // Updates the visual state (active/inactive) of the theme buttons.
          function updateThemeButtons(theme) {
-            if (!themeLightButton || !themeDarkButton) return;
-            if (theme === 'light') {
-                themeLightButton.classList.add('toggle-button-active'); // Use new class name
-                themeLightButton.setAttribute('aria-pressed', 'true');
-                themeDarkButton.classList.remove('toggle-button-active');
-                themeDarkButton.setAttribute('aria-pressed', 'false');
-            } else {
-                themeDarkButton.classList.add('toggle-button-active');
-                themeDarkButton.setAttribute('aria-pressed', 'true');
-                themeLightButton.classList.remove('toggle-button-active');
-                themeLightButton.setAttribute('aria-pressed', 'false');
-            }
+             if (!themeLightButton || !themeDarkButton) return; // Exit if buttons not found
+             // Set active class and aria-pressed based on the current theme
+             if (theme === 'light') {
+                 themeLightButton.classList.add('toggle-button-active');
+                 themeLightButton.setAttribute('aria-pressed', 'true');
+                 themeDarkButton.classList.remove('toggle-button-active');
+                 themeDarkButton.setAttribute('aria-pressed', 'false');
+             } else { // dark theme is active
+                 themeDarkButton.classList.add('toggle-button-active');
+                 themeDarkButton.setAttribute('aria-pressed', 'true');
+                 themeLightButton.classList.remove('toggle-button-active');
+                 themeLightButton.setAttribute('aria-pressed', 'false');
+             }
          }
 
 
         // --- Initialization ---
+        // Runs when the page content is fully loaded.
         window.addEventListener('load', () => {
-            // Assign unique IDs to the data
+            // Assign unique IDs to the data for easier lookup
             pairingsWithId = pairingsData.map(p => ({
-                ...p,
-                // Create a simple ID from letters, removing spaces and slashes
+                ...p, // Spread existing pairing data
+                // Create a simple ID from letters, removing spaces and slashes (e.g., "ET/TE" -> "ETTE")
                 id: p.letters.replace(/[\s/]/g, '')
             }));
 
-            // Initial sort and render
+            // Perform initial sort and render the grid
             const initiallySortedData = sortData(currentSort); // Sorts based on default 'alpha'
             renderGrid(initiallySortedData);
-            updateSortButtons(); // Set initial button state
+            updateSortButtons(); // Set initial active state for sort buttons
 
             // Add Sort Button Event Listeners
             if (sortRankButton) {
                 sortRankButton.addEventListener('click', () => {
+                    // Only re-sort and re-render if the sort order actually changes
                     if (currentSort !== 'rank') {
                         const sortedData = sortData('rank');
                         renderGrid(sortedData);
@@ -692,18 +735,21 @@
             }
             if (sortAlphaButton) {
                 sortAlphaButton.addEventListener('click', () => {
+                     // Only re-sort and re-render if the sort order actually changes
                      if (currentSort !== 'alpha') {
-                        const sortedData = sortData('alpha');
-                        renderGrid(sortedData);
-                        updateSortButtons();
-                    }
+                         const sortedData = sortData('alpha');
+                         renderGrid(sortedData);
+                         updateSortButtons();
+                     }
                 });
             }
 
-            // Theme Toggle Logic (Using Buttons)
+            // --- Theme Toggle Logic ---
+            // Determine the initial theme (check localStorage, then system preference)
             const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            setTheme(currentTheme); // Apply theme and set initial button/logo state
+            setTheme(currentTheme); // Apply the determined theme and set initial button state
 
+            // Add Theme Button Event Listeners
             if (themeLightButton) {
                 themeLightButton.addEventListener('click', () => setTheme('light'));
             }
@@ -711,32 +757,42 @@
                 themeDarkButton.addEventListener('click', () => setTheme('dark'));
             }
 
-             // Modal Listeners (remain the same)
+             // --- Modal Event Listeners ---
+             // Close modal when the close button is clicked
              if(modalCloseButton) modalCloseButton.addEventListener('click', closeModal);
+             // Close modal when the backdrop overlay is clicked
              if(modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+             // Add keyboard listeners to the modal itself
              if(modal) {
-                modal.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape') {
-                        closeModal();
-                    }
-                    if (event.key === 'Tab') {
-                         const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-                         if (!focusableElements.length) return;
-                         const firstElement = focusableElements[0];
-                         const lastElement = focusableElements[focusableElements.length - 1];
-                         if (event.shiftKey) {
-                             if (document.activeElement === firstElement) {
-                                 lastElement.focus();
-                                 event.preventDefault();
-                             }
-                         } else {
-                             if (document.activeElement === lastElement) {
-                                 firstElement.focus();
-                                 event.preventDefault();
-                             }
-                         }
-                    }
-                });
+                 modal.addEventListener('keydown', (event) => {
+                     // Close modal on Escape key press
+                     if (event.key === 'Escape') {
+                         closeModal();
+                     }
+                     // Handle focus trapping within the modal on Tab key press
+                     if (event.key === 'Tab') {
+                          // Find all focusable elements within the modal
+                          const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                          if (!focusableElements.length) return; // Exit if no focusable elements
+
+                          const firstElement = focusableElements[0];
+                          const lastElement = focusableElements[focusableElements.length - 1];
+
+                          if (event.shiftKey) { // Shift + Tab (moving backwards)
+                              // If focus is on the first element, wrap around to the last
+                              if (document.activeElement === firstElement) {
+                                  lastElement.focus();
+                                  event.preventDefault(); // Prevent default tab behavior
+                              }
+                          } else { // Tab (moving forwards)
+                              // If focus is on the last element, wrap around to the first
+                              if (document.activeElement === lastElement) {
+                                  firstElement.focus();
+                                  event.preventDefault(); // Prevent default tab behavior
+                              }
+                          }
+                     }
+                 });
              }
         });
     </script>
