@@ -33,8 +33,8 @@
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
         .modal-hidden {
-             pointer-events: none; /* Prevent interaction when hidden */
-             opacity: 0;
+            pointer-events: none; /* Prevent interaction when hidden */
+            opacity: 0;
         }
         .modal-hidden .modal-backdrop {
             opacity: 0;
@@ -64,8 +64,8 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
         html.dark .pairing-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-             border-color: #2dacb2; /* brand-teal-light on hover */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+            border-color: #2dacb2; /* brand-teal-light on hover */
         }
 
 
@@ -157,6 +157,13 @@
         .modal-dialogue-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; }
         .modal-dialogue-item svg { flex-shrink: 0; margin-top: 0.2em; }
         .modal-dialogue-item strong { font-weight: 600; display: block; margin-bottom: 0.1rem; }
+
+        /* Craves/Crushes Styling */
+        .modal-craves-crushes-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.3rem 0; }
+        .modal-craves-crushes-item svg { flex-shrink: 0; margin-top: 0.25em; }
+        .modal-craves-crushes-item strong { font-weight: 600; display: inline-block; margin-right: 0.4rem; }
+        .modal-craves-crushes-item .genius-label { font-weight: 600; margin-left: 0.2rem; font-size: 0.9em; opacity: 0.8; }
+
 
         /* Utility for focus rings */
         .focus-ring:focus { outline: 2px solid transparent; outline-offset: 2px; }
@@ -313,17 +320,17 @@
             <button id="sort-rank-button" class="toggle-button" aria-pressed="false" title="Sort by Rank">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="21" y1="6" y2="6"/><line x1="10" x2="21" y1="12" y2="12"/><line x1="10" x2="21" y1="18" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
                  <span class="hidden sm:inline">Rank</span> </button>
-             </div>
+           </div>
 
         <div class="bg-white dark:bg-gray-800 rounded-full shadow-md p-1 flex items-center space-x-1">
-             <button id="theme-light-button" class="toggle-button" aria-pressed="false" title="Switch to Light Theme">
+           <button id="theme-light-button" class="toggle-button" aria-pressed="false" title="Switch to Light Theme">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                  <span class="hidden sm:inline">Light</span>
-             </button>
-             <button id="theme-dark-button" class="toggle-button" aria-pressed="false" title="Switch to Dark Theme">
+           </button>
+           <button id="theme-dark-button" class="toggle-button" aria-pressed="false" title="Switch to Dark Theme">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="text-brand-purple dark:text-brand-teal-light"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                  <span class="hidden sm:inline">Dark</span>
-             </button>
+           </button>
          </div>
     </div>
 
@@ -341,7 +348,7 @@
                      <h2 id="modal-title" class="text-2xl font-semibold text-brand-gray-dark dark:text-brand-gray-light">Pairing Name</h2>
                      <p id="modal-subtitle" class="text-base text-slate-500 dark:text-brand-gray-light/80">Rank X/15 (Y.Y%)</p> </div>
                 <button id="modal-close-button" type="button" class="text-slate-400 dark:text-slate-400 bg-transparent hover:bg-slate-200 dark:hover:bg-gray-700 rounded-full text-sm p-1.5 ml-auto inline-flex items-center focus-ring" aria-label="Close modal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
             <div class="p-4 md:p-6 space-y-4 flex-grow text-brand-gray-dark dark:text-brand-gray-light">
@@ -385,6 +392,13 @@
                       <div id="modal-interaction" class="modal-interaction-text text-base space-y-3 leading-relaxed"></div>
                  </div>
                  <div class="modal-section-container">
+                    <h3 class="modal-section-header text-brand-purple dark:text-brand-teal-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> <span>Craves & Crushes</span>
+                    </h3>
+                    <div id="modal-craves-crushes" class="text-base space-y-2">
+                        </div>
+                 </div>
+                 <div class="modal-section-container">
                       <h3 class="modal-section-header text-brand-coral dark:text-brand-coral">
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                          <span>Common Challenges</span>
@@ -405,16 +419,16 @@
                      </h3>
                       <div class="space-y-3 text-base">
                           <div class="modal-dialogue-item">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                              <div><strong class="text-brand-lime">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                             <div><strong class="text-brand-lime">Productive:</strong> <span id="modal-dialogue-productive"></span></div>
                           </div>
                           <div class="modal-dialogue-item">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
-                              <div><strong class="text-brand-gold">Frustrated:</strong> <span id="modal-dialogue-challenged"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+                             <div><strong class="text-brand-gold">Frustrated:</strong> <span id="modal-dialogue-challenged"></span></div>
                           </div>
                           <div class="modal-dialogue-item">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-teal-light"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                              <div><strong class="text-brand-teal-light">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-teal-light"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                             <div><strong class="text-brand-teal-light">Growth Check:</strong> <span id="modal-dialogue-growth"></span></div>
                           </div>
                      </div>
                  </div>
@@ -429,23 +443,263 @@
 
     <script>
         // --- Data (Standardized Letters) ---
-        // This array holds all the data for each Working Genius pairing.
+        // Updated cravesAndCrushes structure to include genius association
         const pairingsData = [
-             { name: "✅ The Loyal Finisher", letters: "ET / TE", coreStrength: "Being dependable, low-maintenance contributors who hold themselves accountable for delivering on promises.", rank: 1, frequency: 15.95, type: "Mixed", interaction: ["<strong class='tenacity'>Tenacity</strong> makes sure <strong class='enablement'>Enablement</strong>'s desire to help leads to completed actions and reliable follow-through.", "<strong class='enablement'>Enablement</strong> provides the practical support and assistance that helps <strong class='tenacity'>Tenacity</strong> push through and complete tasks effectively."], challenges: "Having a hard time saying 'no' to requests, leading to over-commitment, burnout, and lack of appreciation.", tendencies: "Taking on too many tasks without prioritizing or becoming resentful due to feeling overloaded and unacknowledged.", dialogue: { productive: "I'll make sure this gets done and will help out wherever needed.", challenged: "Why am I always the one who has to pick up the slack and finish everything?", growth: "Am I being helpful and reliable, or just spreading myself too thin?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their reliability and responsiveness to needs show dependability and relational focus." },
-             { name: "🎉 The Enthusiastic Encourager", letters: "EG / GE", coreStrength: "Being positive, exuberant, and optimistic cheerleaders for others.", rank: 2, frequency: 9.29, type: "Mixed", interaction: ["<strong class='galvanizing'>Galvanizing</strong> identifies opportunities for <strong class='enablement'>Enablement</strong> to step in and help, giving their support a clear target.", "<strong class='enablement'>Enablement</strong> provides the hands-on help and encouragement that makes <strong class='galvanizing'>Galvanizing</strong>'s enthusiastic calls to action successful."], challenges: "Being too quick to affirm others or provide unwarranted praise, potentially leading to being dismissed as naïve or insincere.", tendencies: "Avoiding necessary critical feedback or over-promising support they cannot deliver in their enthusiasm.", dialogue: { productive: "That's fantastic! I'm excited to support you in achieving this!", challenged: "Why isn't everyone else as positive and encouraging as I am?", growth: "Am I genuinely lifting others up, or just avoiding difficult truths?" }, valueAlignments: ["Empowering", "Kind"], valueRationale: "They enthusiastically encourage and support the growth of others." },
-             { name: "🤝 The Insightful Collaborator", letters: "DE / ED", coreStrength: "Offering exceptional, timely, and shrewd support in a selfless manner.", rank: 3, frequency: 8.87, type: "Responsive", interaction: ["<strong class='enablement'>Enablement</strong> turns <strong class='discernment'>Discernment</strong>'s gut feelings and insights into real, practical help for others through supportive action.", "<strong class='discernment'>Discernment</strong> guides <strong class='enablement'>Enablement</strong> by intuitively sensing what help is needed and when, making their support truly effective."], challenges: "Hesitating to push people to heed their advice and being deferential when they sense resistance, often leading to feeling underappreciated.", tendencies: "Over-accommodating others' needs at the expense of their own judgment or becoming passive in offering their valuable insights.", dialogue: { productive: "I have a sense of how I can best support you with this; what do you need?", challenged: "Why doesn't anyone realize how much I'm doing and the good advice I have?", growth: "Am I genuinely helping, or just enabling others to avoid responsibility?" }, valueAlignments: ["Humble", "Empowering"], valueRationale: "They provide empathetic and selfless support to others." },
-             { name: "🌟 The Idealistic Supporter", letters: "EW / WE", coreStrength: "Being valuable, low-maintenance team members with deep care for the bigger picture.", rank: 4, frequency: 7.55, type: "Responsive", interaction: ["<strong class='wonder'>Wonder</strong> keeps <strong class='enablement'>Enablement</strong> focused on the bigger picture and the 'why' behind their efforts, making their support more meaningful.", "<strong class='enablement'>Enablement</strong> puts <strong class='wonder'>Wonder</strong>'s idealistic thoughts into action by finding practical ways to support the causes and ideas they care about."], challenges: "Being overly deferential and hesitating to initiate change, preferring to let others make the first move, and disliking being overlooked.", tendencies: "Silently contributing without voicing their own ideas or feeling resentful when their efforts are taken for granted.", dialogue: { productive: "I wonder how I can best support this important cause.", challenged: "Why doesn't anyone notice how much I'm contributing?", growth: "Am I being helpful, or just avoiding taking a stand?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their selfless support for meaningful causes and idealism highlight modesty and relational care." },
-             { name: "🛠️ The Judicious Accomplisher", letters: "DT / TD", coreStrength: "Prudent, focused, and diligent completion of high-priority tasks.", rank: 5, frequency: 7.07, type: "Mixed", interaction: ["<strong class='tenacity'>Tenacity</strong> ensures <strong class='discernment'>Discernment</strong>'s thoughtful judgments result in finished tasks, done with focus and high quality.", "<strong class='discernment'>Discernment</strong> helps <strong class='tenacity'>Tenacity</strong> focus on the right tasks – the ones that truly matter – avoiding wasted effort."], challenges: "Feeling unnecessary angst about potential failure and frustration when working with others who don't share their high standards for closure.", tendencies: "Being overly critical of others' work or becoming fixated on efficiency at the expense of collaboration or flexibility.", dialogue: { productive: "We need to prioritize this and ensure it's done to a high standard.", challenged: "Why don't others have the same sense of urgency and commitment to quality?", growth: "Am I being appropriately focused on results, or too rigid in my expectations?" }, valueAlignments: ["Courageous", "Humble"], valueRationale: "Their drive to complete high-standard tasks reflects boldness and diligence." },
-             { name: "🚀 The Assertive Driver", letters: "GT / TG", coreStrength: "Being highly driven individuals with high conviction and standards who get things done.", rank: 6, frequency: 6.00, type: "Disruptive", interaction: ["<strong class='tenacity'>Tenacity</strong> provides the focused drive and follow-through needed to make sure <strong class='galvanizing'>Galvanizing</strong>'s initiatives actually get completed successfully.", "<strong class='galvanizing'>Galvanizing</strong> inspires and motivates people to join <strong class='tenacity'>Tenacity</strong>'s focused efforts, helping overcome obstacles and build momentum."], challenges: "Sometimes being seen as pushy and being impatient with too much planning and brainstorming, preferring to get right to work.", tendencies: "Being overly directive and dismissive of others' input or prioritizing speed and completion over thoroughness and collaboration.", dialogue: { productive: "We need to move quickly and get this across the finish line!", challenged: "Why is everyone so hesitant and unwilling to take decisive action?", growth: "Am I being effectively assertive in driving results, or just being impatient and controlling?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire action in others." },
-             { name: "🎨 The Adaptable Designer", letters: "EI / IE", coreStrength: "Being creative, flexible, open to feedback, and easy to work with in developing solutions for others.", rank: 7, frequency: 5.93, type: "Mixed", interaction: ["<strong class='invention'>Invention</strong> creates new solutions specifically tailored to what <strong class='enablement'>Enablement</strong> knows others need or want.", "<strong class='enablement'>Enablement</strong> gives <strong class='invention'>Invention</strong> real-world feedback on what people actually need, making sure the creative ideas are truly useful."], challenges: "Being too quick to accommodate and avoid advocating for their own ideas, potentially leaving them feeling undervalued.", tendencies: "Suppressing their own creative insights to please others or over-committing to implement others' ideas without fully considering their own.", dialogue: { productive: "Let's brainstorm some new ways to support what you need.", challenged: "Why does everyone else's vision always take priority over my creative ideas?", growth: "Am I being adaptable and helpful, or just letting others' needs overshadow my own?" }, valueAlignments: ["Empowering", "Connected"], valueRationale: "They create flexible solutions while collaborating and serving the needs of others." },
-             { name: "🔥 The Intuitive Activator", letters: "DG / GD", coreStrength: "Making rapid, surprisingly accurate assessments and inspiring action.", rank: 8, frequency: 5.70, type: "Mixed", interaction: ["<strong class='galvanizing'>Galvanizing</strong> turns <strong class='discernment'>Discernment</strong>'s quick judgments and insights into action by rallying people behind them.", "<strong class='discernment'>Discernment</strong> gives <strong class='galvanizing'>Galvanizing</strong> a gut feeling for which ideas are truly worth pushing, focusing their energy effectively."], challenges: "Sometimes being cavalier in their declarations and appearing impatient or dismissive when made to consider critical details for implementation.", tendencies: "Pushing forward with gut feelings without sufficient consideration or dismissing others' concerns as slowing progress.", dialogue: { productive: "I have a strong feeling about this direction; let's get moving on it!", challenged: "Why is everyone so hesitant when the path forward is clear?", growth: "Am I being decisive and action-oriented, or just rushing to judgment?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They make bold decisions and inspire action in others." },
-             { name: "🏗️ The Methodical Architect", letters: "IT / TI", coreStrength: "Being precise, reliable, and planful solvers of problems with a unique blend of innovative thinking and practical implementation.", rank: 9, frequency: 5.38, type: "Disruptive", interaction: ["<strong class='tenacity'>Tenacity</strong> brings the focus and discipline needed to turn <strong class='invention'>Invention</strong>'s creative concepts into real, workable solutions.", "<strong class='invention'>Invention</strong> provides <strong class='tenacity'>Tenacity</strong> with fresh, innovative approaches, preventing them from getting stuck in routine and encouraging creative problem-solving."], challenges: "Sometimes missing the nuance of a situation or overlooking human needs in their dogged pursuit of a workable solution.", tendencies: "Becoming overly focused on the details of the plan and losing sight of the bigger picture or the impact on people.", dialogue: { productive: "I've designed an innovative yet practical solution that we can implement systematically.", challenged: "Everyone's too caught up in emotions and politics to see how elegant this solution is.", growth: "Am I balancing creative problem-solving with practical implementation needs?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They combine methodical execution with practical problem-solving." },
-             { name: "🧠 The Discriminating Ideator", letters: "DI / ID", coreStrength: "Creative problem-solving with a strong sense of what will actually work.", rank: 10, frequency: 5.20, type: "Mixed", interaction: ["<strong class='discernment'>Discernment</strong> helps <strong class='invention'>Invention</strong> quickly spot which of their new ideas are most likely to work, acting like a reality check.", "<strong class='invention'>Invention</strong> keeps <strong class='discernment'>Discernment</strong> supplied with fresh, original ideas to evaluate, ensuring they don't get stuck on old ways."], challenges: "Appearing impatient and over-confident when their ideas face pushback, and losing interest after the initial inventive phase.", tendencies: "Dismissing others' ideas prematurely or becoming disengaged once the problem-solving sparks fade.", dialogue: { productive: "Here's a new way to approach this; I have a strong feeling it will work well.", challenged: "Why can't people see that my idea is the best solution?", growth: "Am I being genuinely confident in my ideas, or just dismissive of alternatives?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They confidently generate new ideas and practical solutions." },
-             { name: "📝 The Careful Implementer", letters: "TW / WT", coreStrength: "Being thorough, practical, and careful contributors with a blend of steady reliability and quiet depth.", rank: 11, frequency: 5.11, type: "Mixed", interaction: ["<strong class='wonder'>Wonder</strong> pushes <strong class='tenacity'>Tenacity</strong> to understand the 'why' behind tasks, leading to more thoughtful and thorough work.", "<strong class='tenacity'>Tenacity</strong> gives <strong class='wonder'>Wonder</strong>'s curiosity a practical focus, ensuring their questions lead to carefully completed tasks and real improvements."], challenges: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", tendencies: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", dialogue: { productive: "To do this well, I need to understand why it's important and the best way to approach it.", challenged: "Why am I being asked to do this without a clear explanation or purpose?", growth: "Am I being thoughtfully diligent, or just overanalyzing and procrastinating?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their thoughtful and practical implementation stems from understanding purpose and showing diligence." },
-             { name: "📣 The Evangelizing Innovator", letters: "GI / IG", coreStrength: "Being excitable and convincing promoters of new ideas with infectious enthusiasm.", rank: 12, frequency: 5.07, type: "Disruptive", interaction: ["<strong class='invention'>Invention</strong> generates the exciting, new ideas that <strong class='galvanizing'>Galvanizing</strong> loves to get people fired up about.", "<strong class='galvanizing'>Galvanizing</strong> takes <strong class='invention'>Invention</strong>'s original ideas and spreads the word, inspiring others to get involved and make them happen."], challenges: "Being hasty to start selling ideas before fully considering their prudence and potentially being perceived as slightly over-the-top in their approach.", tendencies: "Aggressively pushing forward with underdeveloped ideas or becoming overly invested in the initial excitement without considering long-term viability.", dialogue: { productive: "I've got a breakthrough idea, and I know you'll be as excited about it as I am!", challenged: "Why isn't everyone else seeing the potential of this amazing innovation?", growth: "Am I truly committed to this idea, or just excited about getting others on board?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire others to act on them." },
-             { name: "🌈 The Creative Dreamer", letters: "IW / WI", coreStrength: "Being passionate idealists with an endless stream of big questions and ideas, comfortable with abstract thinking.", rank: 13, frequency: 4.98, type: "Mixed", interaction: ["<strong class='wonder'>Wonder</strong> explores possibilities and identifies needs, creating the perfect launching pad for <strong class='invention'>Invention</strong>'s ideas.", "<strong class='invention'>Invention</strong> takes <strong class='wonder'>Wonder</strong>'s big questions and 'what ifs' and turns them into specific, new ideas and potential solutions."], challenges: "Not valuing practicality, focus, or implementation as much as idealism and ingenuity, sometimes leading to stress for those seeking realism and action.", tendencies: "Generating endless ideas without considering their feasibility or becoming dismissive of practical constraints.", dialogue: { productive: "I have so many questions and ideas about how things could be different!", challenged: "Why is everyone so stuck in the old ways when there are better paths forward?", growth: "Am I exploring possibilities with purpose, or avoiding reality with ideas?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." },
-             { name: "🧘 The Contemplative Counselor", letters: "DW / WD", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive", interaction: ["<strong class='discernment'>Discernment</strong> helps <strong class='wonder'>Wonder</strong> sort through their many questions and possibilities, focusing their deep thinking on what's most insightful.", "<strong class='wonder'>Wonder</strong> gives <strong class='discernment'>Discernment</strong> new questions and angles to consider, keeping their judgment fresh and open-minded."], challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That’s a meaningful question—let’s explore it from a few different perspectives.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
-             { name: "🌍 The Philosophical Motivator", letters: "GW / WG", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed", interaction: ["<strong class='wonder'>Wonder</strong> comes up with the inspiring possibilities and big questions that <strong class='galvanizing'>Galvanizing</strong> can rally people around.", "<strong class='galvanizing'>Galvanizing</strong> turns <strong class='wonder'>Wonder</strong>'s deep thoughts and questions into action by getting people excited and involved in exploring them."], challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't everyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
+             // 1. ET / TE
+             { name: "✅ The Loyal Finisher", letters: "ET / TE", coreStrength: "Being dependable, low-maintenance contributors who hold themselves accountable for delivering on promises.", rank: 1, frequency: 15.95, type: "Mixed",
+               interaction: [
+                    "<strong class='tenacity'>Tenacity</strong> makes sure <strong class='enablement'>Enablement</strong>'s desire to help leads to completed actions and reliable follow-through.",
+                    "<strong class='enablement'>Enablement</strong> provides the practical support that helps <strong class='tenacity'>Tenacity</strong> push through and finish well."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "E", text: "Appreciation: Want acknowledgement for their inherent value (not necessarily recognition)." },
+                        { genius: "T", text: "Clarity: Want deadlines and parameters." }
+                    ],
+                    crushes: [
+                        { genius: "E", text: "Being overlooked: Dislike when efforts are taken for granted or ignored." },
+                        { genius: "T", text: "Ambiguity: Dislike unclear standards, directions, or changing expectations." }
+                    ]
+               },
+               challenges: "Having a hard time saying 'no' to requests, leading to over-commitment, burnout, and lack of appreciation.", tendencies: "Taking on too many tasks without prioritizing or becoming resentful due to feeling overloaded and unacknowledged.", dialogue: { productive: "I'll make sure this gets done and will help out wherever needed.", challenged: "Why am I always the one who has to pick up the slack and finish everything?", growth: "Am I being helpful and reliable, or just spreading myself too thin?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their reliability and responsiveness to needs show dependability and relational focus." },
+             // 2. EG / GE
+             { name: "🎉 The Enthusiastic Encourager", letters: "EG / GE", coreStrength: "Being positive, exuberant, and optimistic cheerleaders for others.", rank: 2, frequency: 9.29, type: "Mixed",
+               interaction: [
+                    "<strong class='galvanizing'>Galvanizing</strong> identifies clear opportunities for <strong class='enablement'>Enablement</strong> to step in and support, giving their help a purpose.",
+                    "<strong class='enablement'>Enablement</strong> brings hands-on encouragement that makes <strong class='galvanizing'>Galvanizing</strong>’s calls to action truly effective."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "G", text: "Reaction: Want engagement and confirmation that their advocated cause is real/worthwhile." },
+                        { genius: "E", text: "Appreciation: Want acknowledgement for their inherent value (not necessarily recognition)." }
+                    ],
+                    crushes: [
+                        { genius: "G", text: "Apathy: Hate when no one responds or enthusiasm is met with silence." },
+                        { genius: "E", text: "Being overlooked: Dislike when efforts are taken for granted or ignored." }
+                    ]
+               },
+               challenges: "Being too quick to affirm others or provide unwarranted praise, potentially leading to being dismissed as naïve or insincere.", tendencies: "Avoiding necessary critical feedback or over-promising support they cannot deliver in their enthusiasm.", dialogue: { productive: "That's fantastic! I'm excited to support you in achieving this!", challenged: "Why isn't everyone else as positive and encouraging as I am?", growth: "Am I genuinely lifting others up, or just avoiding difficult truths?" }, valueAlignments: ["Empowering", "Kind"], valueRationale: "They enthusiastically encourage and support the growth of others." },
+             // 3. DE / ED
+             { name: "🤝 The Insightful Collaborator", letters: "DE / ED", coreStrength: "Offering exceptional, timely, and shrewd support in a selfless manner.", rank: 3, frequency: 8.87, type: "Responsive",
+               interaction: [
+                    "<strong class='enablement'>Enablement</strong> turns <strong class='discernment'>Discernment</strong>'s gut-level insights into supportive, practical help for others.",
+                    "<strong class='discernment'>Discernment</strong> guides <strong class='enablement'>Enablement</strong> by sensing what people need and when, making their help truly timely."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "D", text: "Trust: Want you to trust their judgment, instincts, and assessment." },
+                        { genius: "E", text: "Appreciation: Want acknowledgement for their inherent value (not necessarily recognition)." }
+                    ],
+                    crushes: [
+                        { genius: "D", text: "\"Prove it\": Dislike having to argue for people to believe their gut feeling." },
+                        { genius: "E", text: "Being overlooked: Dislike when efforts are taken for granted or ignored." }
+                    ]
+               },
+               challenges: "Hesitating to push people to heed their advice and being deferential when they sense resistance, often leading to feeling underappreciated.", tendencies: "Over-accommodating others' needs at the expense of their own judgment or becoming passive in offering their valuable insights.", dialogue: { productive: "I have a sense of how I can best support you with this; what do you need?", challenged: "Why doesn't anyone realize how much I'm doing and the good advice I have?", growth: "Am I genuinely helping, or just enabling others to avoid responsibility?" }, valueAlignments: ["Humble", "Empowering"], valueRationale: "They provide empathetic and selfless support to others." },
+             // 4. EW / WE
+             { name: "🌟 The Idealistic Supporter", letters: "EW / WE", coreStrength: "Being valuable, low-maintenance team members with deep care for the bigger picture.", rank: 4, frequency: 7.55, type: "Responsive",
+               interaction: [
+                    "<strong class='wonder'>Wonder</strong> grounds <strong class='enablement'>Enablement</strong>'s efforts in purpose and vision, making their support feel meaningful.",
+                    "<strong class='enablement'>Enablement</strong> brings <strong class='wonder'>Wonder</strong>’s thoughtful questions to life by helping causes and people they care about."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "W", text: "Consideration: Want people to genuinely consider their questions." },
+                        { genius: "E", text: "Appreciation: Want acknowledgement for their inherent value (not necessarily recognition)." }
+                    ],
+                    crushes: [
+                        { genius: "W", text: "Being dismissed: Dislike hearing \"Who cares!?\" or \"We don't have time for that.\"" },
+                        { genius: "E", text: "Being overlooked: Dislike when efforts are taken for granted or ignored." }
+                    ]
+               },
+               challenges: "Being overly deferential and hesitating to initiate change, preferring to let others make the first move, and disliking being overlooked.", tendencies: "Silently contributing without voicing their own ideas or feeling resentful when their efforts are taken for granted.", dialogue: { productive: "I wonder how I can best support this important cause.", challenged: "Why doesn't anyone notice how much I'm contributing?", growth: "Am I being helpful, or just avoiding taking a stand?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their selfless support for meaningful causes and idealism highlight modesty and relational care." },
+             // 5. DT / TD
+             { name: "🛠️ The Judicious Accomplisher", letters: "DT / TD", coreStrength: "Prudent, focused, and diligent completion of high-priority tasks.", rank: 5, frequency: 7.07, type: "Mixed",
+               interaction: [
+                    "<strong class='tenacity'>Tenacity</strong> ensures <strong class='discernment'>Discernment</strong>'s wise judgments result in action and completion.",
+                    "<strong class='discernment'>Discernment</strong> helps <strong class='tenacity'>Tenacity</strong> focus on what matters most, avoiding wasted effort."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "D", text: "Trust: Want you to trust their judgment, instincts, and assessment." },
+                        { genius: "T", text: "Clarity: Want deadlines and parameters." }
+                    ],
+                    crushes: [
+                        { genius: "D", text: "\"Prove it\": Dislike having to argue for people to believe their gut feeling." },
+                        { genius: "T", text: "Ambiguity: Dislike unclear standards, directions, or changing expectations." }
+                    ]
+               },
+               challenges: "Feeling unnecessary angst about potential failure and frustration when working with others who don't share their high standards for closure.", tendencies: "Being overly critical of others' work or becoming fixated on efficiency at the expense of collaboration or flexibility.", dialogue: { productive: "We need to prioritize this and ensure it's done to a high standard.", challenged: "Why don't others have the same sense of urgency and commitment to quality?", growth: "Am I being appropriately focused on results, or too rigid in my expectations?" }, valueAlignments: ["Courageous", "Humble"], valueRationale: "Their drive to complete high-standard tasks reflects boldness and diligence." },
+             // 6. GT / TG
+             { name: "🚀 The Assertive Driver", letters: "GT / TG", coreStrength: "Being highly driven individuals with high conviction and standards who get things done.", rank: 6, frequency: 6.00, type: "Disruptive",
+               interaction: [
+                    "<strong class='tenacity'>Tenacity</strong> delivers the follow-through needed to bring <strong class='galvanizing'>Galvanizing</strong>'s momentum to completion.",
+                    "<strong class='galvanizing'>Galvanizing</strong> energizes <strong class='tenacity'>Tenacity</strong>'s drive, helping rally others to support what needs to get done."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "G", text: "Reaction: Want engagement and confirmation that their advocated cause is real/worthwhile." },
+                        { genius: "T", text: "Clarity: Want deadlines and parameters." }
+                    ],
+                    crushes: [
+                        { genius: "G", text: "Apathy: Hate when no one responds or enthusiasm is met with silence." },
+                        { genius: "T", text: "Ambiguity: Dislike unclear standards, directions, or changing expectations." }
+                    ]
+               },
+               challenges: "Sometimes being seen as pushy and being impatient with too much planning and brainstorming, preferring to get right to work.", tendencies: "Being overly directive and dismissive of others' input or prioritizing speed and completion over thoroughness and collaboration.", dialogue: { productive: "We need to move quickly and get this across the finish line!", challenged: "Why is everyone so hesitant and unwilling to take decisive action?", growth: "Am I being effectively assertive in driving results, or just being impatient and controlling?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire action in others." },
+             // 7. EI / IE
+             { name: "🎨 The Adaptable Designer", letters: "EI / IE", coreStrength: "Being creative, flexible, open to feedback, and easy to work with in developing solutions for others.", rank: 7, frequency: 5.93, type: "Mixed",
+               interaction: [
+                    "<strong class='invention'>Invention</strong> offers creative solutions shaped by what <strong class='enablement'>Enablement</strong> knows others actually need.",
+                    "<strong class='enablement'>Enablement</strong> helps <strong class='invention'>Invention</strong> refine their ideas with practical, real-world insight."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "I", text: "Freedom: Want the freedom to create and invent without constraints." },
+                        { genius: "E", text: "Appreciation: Want acknowledgement for their inherent value (not necessarily recognition)." }
+                    ],
+                    crushes: [
+                        { genius: "I", text: "Constraint: Dislike restrictive parameters or being forced 'inside the box'." },
+                        { genius: "E", text: "Being overlooked: Dislike when efforts are taken for granted or ignored." }
+                    ]
+               },
+               challenges: "Being too quick to accommodate and avoid advocating for their own ideas, potentially leaving them feeling undervalued.", tendencies: "Suppressing their own creative insights to please others or over-committing to implement others' ideas without fully considering their own.", dialogue: { productive: "Let's brainstorm some new ways to support what you need.", challenged: "Why does everyone else's vision always take priority over my creative ideas?", growth: "Am I being adaptable and helpful, or just letting others' needs overshadow my own?" }, valueAlignments: ["Empowering", "Connected"], valueRationale: "They create flexible solutions while collaborating and serving the needs of others." },
+             // 8. DG / GD
+             { name: "🔥 The Intuitive Activator", letters: "DG / GD", coreStrength: "Making rapid, surprisingly accurate assessments and inspiring action.", rank: 8, frequency: 5.70, type: "Mixed",
+               interaction: [
+                    "<strong class='galvanizing'>Galvanizing</strong> transforms <strong class='discernment'>Discernment</strong>'s intuitive judgments into action by rallying people behind them.",
+                    "<strong class='discernment'>Discernment</strong> helps <strong class='galvanizing'>Galvanizing</strong> focus on which efforts are truly worth pushing forward."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "D", text: "Trust: Want you to trust their judgment, instincts, and assessment." },
+                        { genius: "G", text: "Reaction: Want engagement and confirmation that their advocated cause is real/worthwhile." }
+                    ],
+                    crushes: [
+                        { genius: "D", text: "\"Prove it\": Dislike having to argue for people to believe their gut feeling." },
+                        { genius: "G", text: "Apathy: Hate when no one responds or enthusiasm is met with silence." }
+                    ]
+               },
+               challenges: "Sometimes being cavalier in their declarations and appearing impatient or dismissive when made to consider critical details for implementation.", tendencies: "Pushing forward with gut feelings without sufficient consideration or dismissing others' concerns as slowing progress.", dialogue: { productive: "I have a strong feeling about this direction; let's get moving on it!", challenged: "Why is everyone so hesitant when the path forward is clear?", growth: "Am I being decisive and action-oriented, or just rushing to judgment?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They make bold decisions and inspire action in others." },
+             // 9. IT / TI
+             { name: "🏗️ The Methodical Architect", letters: "IT / TI", coreStrength: "Being precise, reliable, and planful solvers of problems with a unique blend of innovative thinking and practical implementation.", rank: 9, frequency: 5.38, type: "Disruptive",
+               interaction: [
+                    "<strong class='tenacity'>Tenacity</strong> brings the structure and focus needed to implement <strong class='invention'>Invention</strong>’s creative concepts.",
+                    "<strong class='invention'>Invention</strong> injects fresh thinking into <strong class='tenacity'>Tenacity</strong>'s efforts, preventing them from getting stuck in routine."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "I", text: "Freedom: Want the freedom to create and invent without constraints." },
+                        { genius: "T", text: "Clarity: Want deadlines and parameters." }
+                    ],
+                    crushes: [
+                        { genius: "I", text: "Constraint: Dislike restrictive parameters or being forced 'inside the box'." },
+                        { genius: "T", text: "Ambiguity: Dislike unclear standards, directions, or changing expectations." }
+                    ]
+               },
+               challenges: "Sometimes missing the nuance of a situation or overlooking human needs in their dogged pursuit of a workable solution.", tendencies: "Becoming overly focused on the details of the plan and losing sight of the bigger picture or the impact on people.", dialogue: { productive: "I've designed an innovative yet practical solution that we can implement systematically.", challenged: "Everyone's too caught up in emotions and politics to see how elegant this solution is.", growth: "Am I balancing creative problem-solving with practical implementation needs?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They combine methodical execution with practical problem-solving." },
+             // 10. DI / ID
+             { name: "🧠 The Discriminating Ideator", letters: "DI / ID", coreStrength: "Creative problem-solving with a strong sense of what will actually work.", rank: 10, frequency: 5.20, type: "Mixed",
+               interaction: [
+                    "<strong class='discernment'>Discernment</strong> helps <strong class='invention'>Invention</strong> identify which ideas are most likely to succeed, acting as a reality check.",
+                    "<strong class='invention'>Invention</strong> keeps <strong class='discernment'>Discernment</strong> engaged with original ideas to evaluate and improve."
+               ],
+               cravesAndCrushes: {
+                   craves: [
+                        { genius: "I", text: "Freedom: Want the freedom to create and invent without constraints." }, // Changed from D to I based on PDF page 6
+                        { genius: "D", text: "Trust: Want you to trust their judgment, instincts, and assessment." } // Changed from I to D based on PDF page 6
+                    ],
+                    crushes: [
+                        { genius: "I", text: "Constraint: Dislike restrictive parameters or being forced 'inside the box'." }, // Changed from D to I
+                        { genius: "D", text: "\"Prove it\": Dislike having to argue for people to believe their gut feeling." } // Changed from I to D
+                    ]
+               },
+               challenges: "Appearing impatient and over-confident when their ideas face pushback, and losing interest after the initial inventive phase.", tendencies: "Dismissing others' ideas prematurely or becoming disengaged once the problem-solving sparks fade.", dialogue: { productive: "Here's a new way to approach this; I have a strong feeling it will work well.", challenged: "Why can't people see that my idea is the best solution?", growth: "Am I being genuinely confident in my ideas, or just dismissive of alternatives?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They confidently generate new ideas and practical solutions." },
+             // 11. TW / WT
+             { name: "📝 The Careful Implementer", letters: "TW / WT", coreStrength: "Being thorough, practical, and careful contributors with a blend of steady reliability and quiet depth.", rank: 11, frequency: 5.11, type: "Mixed",
+               interaction: [
+                    "<strong class='wonder'>Wonder</strong> encourages <strong class='tenacity'>Tenacity</strong> to understand the 'why' behind tasks, bringing thoughtfulness to their work.",
+                    "<strong class='tenacity'>Tenacity</strong> channels <strong class='wonder'>Wonder</strong>'s questions into focused, meaningful execution."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "W", text: "Consideration: Want people to genuinely consider their questions." },
+                        { genius: "T", text: "Clarity: Want deadlines and parameters." }
+                    ],
+                    crushes: [
+                        { genius: "W", text: "Being dismissed: Dislike hearing \"Who cares!?\" or \"We don't have time for that.\"" },
+                        { genius: "T", text: "Ambiguity: Dislike unclear standards, directions, or changing expectations." }
+                    ]
+               },
+               challenges: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", tendencies: "Getting bogged down in questioning and delaying action, or pushing forward with tasks without fully understanding their purpose.", dialogue: { productive: "To do this well, I need to understand why it's important and the best way to approach it.", challenged: "Why am I being asked to do this without a clear explanation or purpose?", growth: "Am I being thoughtfully diligent, or just overanalyzing and procrastinating?" }, valueAlignments: ["Humble", "Connected"], valueRationale: "Their thoughtful and practical implementation stems from understanding purpose and showing diligence." },
+             // 12. GI / IG
+             { name: "📣 The Evangelizing Innovator", letters: "GI / IG", coreStrength: "Being excitable and convincing promoters of new ideas with infectious enthusiasm.", rank: 12, frequency: 5.07, type: "Disruptive",
+               interaction: [
+                    "<strong class='invention'>Invention</strong> sparks bold new ideas that <strong class='galvanizing'>Galvanizing</strong> passionately promotes and spreads.",
+                    "<strong class='galvanizing'>Galvanizing</strong> brings energy and visibility to <strong class='invention'>Invention</strong>’s breakthroughs, inspiring others to act."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "I", text: "Freedom: Want the freedom to create and invent without constraints." },
+                        { genius: "G", text: "Reaction: Want engagement and confirmation that their advocated cause is real/worthwhile." }
+                    ],
+                    crushes: [
+                        { genius: "I", text: "Constraint: Dislike restrictive parameters or being forced 'inside the box'." },
+                        { genius: "G", text: "Apathy: Hate when no one responds or enthusiasm is met with silence." }
+                    ]
+               },
+               challenges: "Being hasty to start selling ideas before fully considering their prudence and potentially being perceived as slightly over-the-top in their approach.", tendencies: "Aggressively pushing forward with underdeveloped ideas or becoming overly invested in the initial excitement without considering long-term viability.", dialogue: { productive: "I've got a breakthrough idea, and I know you'll be as excited about it as I am!", challenged: "Why isn't everyone else seeing the potential of this amazing innovation?", growth: "Am I truly committed to this idea, or just excited about getting others on board?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They boldly champion new ideas and inspire others to act on them." },
+             // 13. IW / WI
+             { name: "🌈 The Creative Dreamer", letters: "IW / WI", coreStrength: "Being passionate idealists with an endless stream of big questions and ideas, comfortable with abstract thinking.", rank: 13, frequency: 4.98, type: "Mixed",
+               interaction: [
+                    "<strong class='wonder'>Wonder</strong> sparks big questions that inspire <strong class='invention'>Invention</strong> to create imaginative possibilities.",
+                    "<strong class='invention'>Invention</strong> brings <strong class='wonder'>Wonder</strong>’s idealistic thinking into sharper focus with tangible, creative ideas."
+               ],
+               cravesAndCrushes: {
+                   craves: [
+                        { genius: "W", text: "Consideration: Want people to genuinely consider their questions." },
+                        { genius: "I", text: "Freedom: Want the freedom to create and invent without constraints." }
+                    ],
+                    crushes: [
+                        { genius: "W", text: "Being dismissed: Dislike hearing \"Who cares!?\" or \"We don't have time for that.\"" },
+                        { genius: "I", text: "Constraint: Dislike restrictive parameters or being forced 'inside the box'." }
+                    ]
+               },
+               challenges: "Not valuing practicality, focus, or implementation as much as idealism and ingenuity, sometimes leading to stress for those seeking realism and action.", tendencies: "Generating endless ideas without considering their feasibility or becoming dismissive of practical constraints.", dialogue: { productive: "I have so many questions and ideas about how things could be different!", challenged: "Why is everyone so stuck in the old ways when there are better paths forward?", growth: "Am I exploring possibilities with purpose, or avoiding reality with ideas?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." },
+             // 14. DW / WD
+             { name: "🧘 The Contemplative Counselor", letters: "DW / WD", coreStrength: "Offering insightful and nuanced advice using impactful words.", rank: 14, frequency: 4.88, type: "Responsive",
+               interaction: [
+                    "<strong class='discernment'>Discernment</strong> helps <strong class='wonder'>Wonder</strong> focus their deep questions into meaningful insights.",
+                    "<strong class='wonder'>Wonder</strong> expands <strong class='discernment'>Discernment</strong>’s lens by offering new angles and reflections to consider."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "W", text: "Consideration: Want people to genuinely consider their questions." },
+                        { genius: "D", text: "Trust: Want you to trust their judgment, instincts, and assessment." }
+                    ],
+                    crushes: [
+                        { genius: "W", text: "Being dismissed: Dislike hearing \"Who cares!?\" or \"We don't have time for that.\"" },
+                        { genius: "D", text: "\"Prove it\": Dislike having to argue for people to believe their gut feeling." }
+                    ]
+               },
+               challenges: "Hesitating to declare certainty or express confidence in their own judgments due to their proclivity for nuance.", tendencies: "Overthinking and delaying decisions or keeping valuable insights to themselves due to a lack of confidence.", dialogue: { productive: "That’s a meaningful question—let’s explore it from a few different perspectives.", challenged: "Why won't anyone take the time to really think about these important questions?", growth: "Am I being thoughtful in my analysis, or just afraid to commit to a conclusion?" }, valueAlignments: ["Connected", "Kind"], valueRationale: "Their thoughtful feedback and nuanced advice demonstrate care and understanding." },
+             // 15. GW / WG
+             { name: "🌍 The Philosophical Motivator", letters: "GW / WG", coreStrength: "Being excitable, curious, and enthusiastic proponents of ideas and people, balancing eagerness with caution.", rank: 15, frequency: 3.03, type: "Mixed",
+               interaction: [
+                    "<strong class='wonder'>Wonder</strong> imagines powerful possibilities that <strong class='galvanizing'>Galvanizing</strong> can inspire others to pursue.",
+                    "<strong class='galvanizing'>Galvanizing</strong> channels <strong class='wonder'>Wonder</strong>'s idealism into action by rallying people around visionary questions."
+               ],
+               cravesAndCrushes: {
+                    craves: [
+                        { genius: "W", text: "Consideration: Want people to genuinely consider their questions." },
+                        { genius: "G", text: "Reaction: Want engagement and confirmation that their advocated cause is real/worthwhile." }
+                    ],
+                    crushes: [
+                        { genius: "W", text: "Being dismissed: Dislike hearing \"Who cares!?\" or \"We don't have time for that.\"" },
+                        { genius: "G", text: "Apathy: Hate when no one responds or enthusiasm is met with silence." }
+                    ]
+               },
+               challenges: "The potential for impulsivity or unpredictability as they shift between passionate action and cautious reflection.", tendencies: "Jumping into initiatives without fully considering the implications or losing interest when initial enthusiasm wanes.", dialogue: { productive: "Imagine if we could do this! Let's get everyone excited about the possibilities.", challenged: "Why isn't everyone else as enthusiastic about these amazing opportunities as I am?", growth: "Am I being inspiring and visionary, or just easily distracted by new shiny objects?" }, valueAlignments: ["Courageous", "Empowering"], valueRationale: "They encourage others with a visionary approach, balancing enthusiasm and drive." }
          ];
         // This object maps pairing letters to inspirational quotes.
         const inspirationQuotes = {
@@ -488,7 +742,7 @@
                  kind: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>` // Heart
              };
              return icons[value.toLowerCase()] || '';
-        }
+         }
 
         // --- Grid Item Creation ---
         // Creates an HTML element for a single pairing card.
@@ -543,10 +797,11 @@
         const modalValueRationale = document.getElementById('modal-value-rationale');
         const modalQuote = document.getElementById('modal-quote');
         const modalInteraction = document.getElementById('modal-interaction');
+        const modalCravesCrushes = document.getElementById('modal-craves-crushes'); // Reference to the container
         const modalChallenges = document.getElementById('modal-challenges');
         const modalTendencies = document.getElementById('modal-tendencies');
         const modalDialogueProductive = document.getElementById('modal-dialogue-productive');
-        const modalDialogueChallenged = document.getElementById('modal-dialogue-challenged'); // Note: ID remains the same
+        const modalDialogueChallenged = document.getElementById('modal-dialogue-challenged');
         const modalDialogueGrowth = document.getElementById('modal-dialogue-growth');
         const modalContent = modal.querySelector('.modal-content'); // For scrolling
         let previouslyFocusedElement = null; // To store focus before modal opens
@@ -586,9 +841,9 @@
                     ? `value-badge ${valueLower}`
                     : `value-badge value-badge-gray`;
                 return `<span class="${badgeClasses}">
-                             ${getValueIcon(value)}
-                             ${value}
-                         </span>`;
+                           ${getValueIcon(value)}
+                           ${value}
+                        </span>`;
             }).join(''); // Join the array of HTML strings
             modalValueRationale.innerHTML = data.valueRationale
                 ? data.valueRationale
@@ -600,11 +855,50 @@
             // Populate Genius Interaction section (handling array of interaction points)
             modalInteraction.innerHTML = data.interaction.map(point => `<p>${point}</p>`).join('');
 
+            // Populate Craves & Crushes section (Updated for Option 2)
+            if (data.cravesAndCrushes && modalCravesCrushes) {
+                let cravesHtml = '<div class="mb-2">'; // Add margin bottom to separate Craves/Crushes
+                if (data.cravesAndCrushes.craves && data.cravesAndCrushes.craves.length > 0) {
+                    cravesHtml += data.cravesAndCrushes.craves.map(item => `
+                        <div class="modal-craves-crushes-item">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-lime dark:text-brand-lime"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                           <div>
+                               <strong class="text-brand-lime dark:text-brand-lime">Craves</strong>
+                               <span class="genius-label">(${item.genius})</span>: ${item.text}
+                           </div>
+                        </div>
+                    `).join('');
+                } else {
+                    cravesHtml += `<p class="italic">No specific craves listed.</p>`;
+                }
+                 cravesHtml += '</div>';
+
+                let crushesHtml = '<div>';
+                if (data.cravesAndCrushes.crushes && data.cravesAndCrushes.crushes.length > 0) {
+                    crushesHtml += data.cravesAndCrushes.crushes.map(item => `
+                        <div class="modal-craves-crushes-item">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-coral dark:text-brand-coral"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                           <div>
+                               <strong class="text-brand-coral dark:text-brand-coral">Crushed By</strong>
+                               <span class="genius-label">(${item.genius})</span>: ${item.text}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    crushesHtml += `<p class="italic">No specific crushes listed.</p>`;
+                }
+                 crushesHtml += '</div>';
+
+                modalCravesCrushes.innerHTML = cravesHtml + crushesHtml;
+            } else if (modalCravesCrushes) {
+                 modalCravesCrushes.innerHTML = '<p class="italic">Craves and Crushes information not available.</p>';
+            }
+
+
             // Populate Challenges, Tendencies, and Dialogue sections
             modalChallenges.textContent = data.challenges;
             modalTendencies.textContent = data.tendencies;
             modalDialogueProductive.textContent = data.dialogue.productive;
-            // The JavaScript still uses the 'challenged' property from the data object
             modalDialogueChallenged.textContent = data.dialogue.challenged;
             modalDialogueGrowth.textContent = data.dialogue.growth;
 
@@ -735,12 +1029,12 @@
             }
             if (sortAlphaButton) {
                 sortAlphaButton.addEventListener('click', () => {
-                     // Only re-sort and re-render if the sort order actually changes
-                     if (currentSort !== 'alpha') {
-                         const sortedData = sortData('alpha');
-                         renderGrid(sortedData);
-                         updateSortButtons();
-                     }
+                   // Only re-sort and re-render if the sort order actually changes
+                   if (currentSort !== 'alpha') {
+                       const sortedData = sortData('alpha');
+                       renderGrid(sortedData);
+                       updateSortButtons();
+                   }
                 });
             }
 
